@@ -126,8 +126,8 @@
                     </a>
                     <div class="relative group/user">
                         <a href="/profile"
-                            class="w-12 h-12 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-primary-900 font-bold hover:bg-primary-50 transition-all duration-300 no-underline shadow-sm hover:border-primary-900/30">
-                            {{ current_user.name[0]|upper }}
+                            class="w-12 h-12 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-primary-900 font-bold hover:bg-primary-50 transition-all duration-300 no-underline shadow-sm hover:border-primary-900/30 overflow-hidden">
+                            <img src="{{ url_for('static', filename='img/Circle.png') }}" alt="Profile" class="w-10 h-10 object-contain">
                         </a>
                         <!-- Quick Menu Tooltip Style -->
                         <div
