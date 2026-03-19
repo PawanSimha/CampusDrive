@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusConnect: {% block title %}Empowering Academic Collaboration{% endblock %}</title>
+    <title>Campus-Drive: {% block title %}Empowering Academic Collaboration{% endblock %}</title>
     <meta name="description"
-        content="CampusConnect — The ultimate academic collaboration platform. Share and discover elite resources. Built with precision for excellence.">
+        content="Campus-Drive — The ultimate academic collaboration platform. Share and discover elite resources. Built with precision for excellence.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
@@ -97,7 +97,8 @@
             <a href="/" class="flex items-center gap-3 group no-underline">
                 <div
                     class="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center group-hover:bg-brand-bright transition-all duration-300 shadow-lg shadow-blue-900/10">
-                    <span class="material-symbols-rounded text-white text-2xl">school</span>
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Campus-Drive Logo"
+                        class="w-8 h-8 object-contain">
                 </div>
                 <div class="flex flex-col gap-0 leading-none">
                     <span class="font-roboto font-bold text-3xl text-brand-blue tracking-normal"><span
@@ -213,10 +214,11 @@
                     <a href="/" class="flex items-center gap-5 no-underline group">
                         <div
                             class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform border border-white/10">
-                            <span class="material-symbols-rounded text-white text-3xl">school</span>
+                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Campus-Drive Logo"
+                                class="w-10 h-10 object-contain">
                         </div>
                         <div class="flex flex-col gap-0 leading-none">
-                            <span class="font-roboto font-bold text-4xl text-white tracking-normal">CampusConnect</span>
+                            <span class="font-roboto font-bold text-4xl text-white tracking-normal">Campus-Drive</span>
                             <span
                                 class="text-[10px] uppercase tracking-[.2em] font-bold text-brand-orange font-openSans">Academic
                                 Synergy</span>
@@ -303,7 +305,7 @@
 
             <div
                 class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-10 font-openSans">
-                <p class="text-white/40 text-[9px] uppercase tracking-widest font-bold">© 2026 CampusConnect ecosystem
+                <p class="text-white/40 text-[9px] uppercase tracking-widest font-bold">© 2026 Campus-Drive ecosystem
                     — Intellectual Hub</p>
                 <div class="flex gap-12">
                     <a href="#"

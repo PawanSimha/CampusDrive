@@ -1,5 +1,5 @@
 """
-CampusConnect App — Entry Point
+Campus-Drive App — Entry Point
 
 Slim app factory with Flask extensions, MongoDB connection,
 and Blueprint registration. All routes live in routes/*.py.
