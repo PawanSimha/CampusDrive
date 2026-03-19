@@ -56,7 +56,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <span class="font-bold text-brand-blue text-sm">{{ member.name }}</span>
-                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">{{ member.college or 'Campus-Drive User' }}</span>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">{{ member.college or 'Campus Drive User' }}</span>
                             </div>
                         </div>
                         {% if member._id|string == group.created_by|string %}

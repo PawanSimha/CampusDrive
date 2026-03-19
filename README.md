@@ -1,4 +1,4 @@
-# Campus-Drive 🎓
+# Campus Drive 🎓
 
 The ultimate platform for collaborative resource sharing among college students. Upload notes, question papers, and solutions, and access a vast library of study materials from your peers.
 
@@ -25,7 +25,7 @@ The ultimate platform for collaborative resource sharing among college students.
 1.  **Clone the Repository**
     ```bash
     git clone <repository-url>
-    cd Campus-DriveApp
+    cd Campus DriveApp
     ```
 
 2.  **Install Dependencies**
