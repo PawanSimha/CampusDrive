@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}Circles++ | Multi-Circle Control{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 pt-10 pb-32">
+    <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+        <div class="space-y-4">
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-[.2em] font-openSans">Advanced
+                educator Tools</span>
+            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins">Circles<span
+                    class="text-brand-orange">++</span></h1>
+            <p class="text-slate-500 font-medium max-w-lg">Broadcast resources and announcements across multiple study
+                circles simultaneously. One action, universal reach.</p>
+        </div>
+    </div>
+
+    <form action="/circles_plus" method="POST" enctype="multipart/form-data" class="space-y-12">
+        <!-- Section 1: Target Selection -->
+        <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="w-12 h-12 bg-brand-blue text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/10">
+                    <span class="material-symbols-rounded text-2xl">account_tree</span>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-brand-blue tracking-tight font-poppins">Select Destination
+                        Circles</h3>
+                    <p class="text-slate-500 text-sm font-medium italic">Choose the circles that will receive this
+                        transmission.</p>
+                </div>
+            </div>
+
+            {% if user_circles %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for circle in user_circles %}
+                <label
+                    class="group relative flex items-center gap-4 p-5 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-brand-blue/20 transition-all cursor-pointer">
+                    <input type="checkbox" name="group_ids" value="{{ circle._id }}"
+                        class="w-5 h-5 accent-brand-blue rounded-lg">
+                    <div class="flex-1">
+                        <p class="text-sm font-bold text-brand-blue uppercase tracking-tight">{{ circle.name }}</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{{ circle.group_code
+                            }}</p>
+                    </div>
+                    <div
+                        class="w-8 h-8 rounded-full bg-slate-200/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-rounded text-slate-400 text-sm">check</span>
+                    </div>
+                </label>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="py-12 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+                <span class="material-symbols-rounded text-5xl text-slate-300 mb-4">group_off</span>
+                <p class="text-slate-500 font-medium italic text-sm">You haven't created any circles yet.</p>
+                <a href="/create_group"
+                    class="mt-4 inline-block text-brand-blue font-bold text-xs uppercase tracking-wider underline">Create
+                    your first circle</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Section 2: Action Type -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Action A: Broadcast Announcement -->
+            <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm space-y-8 flex flex-col">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 bg-brand-orange text-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-900/10">
+                        <span class="material-symbols-rounded text-2xl">campaign</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-blue tracking-tight font-poppins">Broadcast Note</h3>
+                </div>
+
+                <div class="space-y-4 flex-grow">
+                    <input type="text" name="announcement_title" placeholder="Announcement Title"
+                        class="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all">
+                    <textarea name="announcement_content" placeholder="Share updates or insights with your students..."
+                        class="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all min-h-[150px] resize-none"></textarea>
+                </div>
+
+                <button type="submit" name="action" value="announce"
+                    class="w-full bg-brand-orange text-white py-5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-brand-bright transition-all shadow-xl shadow-orange-900/10">
+                    Post to All Selected
+                </button>
+            </div>
+
+            <!-- Action B: Upload Shared Resource -->
+            <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm space-y-8 flex flex-col">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 bg-brand-blue text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/10">
+                        <span class="material-symbols-rounded text-2xl">cloud_upload</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-blue tracking-tight font-poppins">Shared Resource</h3>
+                </div>
+
+                <div class="space-y-4 flex-grow">
+                    <input type="text" name="resource_title" placeholder="Resource Title"
+                        class="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all">
+                    <input type="text" name="resource_subject" placeholder="Subject Name"
+                        class="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all">
+
+                    <div class="relative group">
+                        <input type="file" name="file" id="file" class="hidden">
+                        <label for="file"
+                            class="flex flex-col items-center justify-center w-full h-32 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:border-brand-blue/30 hover:bg-white transition-all">
+                            <span class="material-symbols-rounded text-3xl text-slate-400 mb-2">attach_file</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                                id="fileName">Drop or click to select file</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" name="action" value="upload"
+                    class="w-full bg-brand-blue text-white py-5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-brand-bright transition-all shadow-xl shadow-blue-900/10">
+                    Upload to All Selected
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('file').addEventListener('change', function (e) {
+        const fileName = e.target.files[0] ? e.target.files[0].name : "Drop or click to select file";
+        document.getElementById('fileName').textContent = fileName;
+        document.getElementById('fileName').classList.add('text-brand-blue');
+    });
+</script>
+{% endblock %}

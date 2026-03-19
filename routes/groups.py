@@ -30,6 +30,98 @@ def groups():
     return render_template("groups.html", groups=all_groups, user_groups=user_groups)
 
 
+@groups_bp.route("/circles_plus", methods=["GET", "POST"])
+@login_required
+def circles_plus():
+    from app import db
+
+    if current_user.role not in ["Teacher", "admin"]:
+        flash("Only teachers and admins can access Circles++")
+        return redirect(url_for("groups.groups"))
+
+    # Get circles created by the teacher
+    user_circles = list(db.groups.find({"created_by": ObjectId(current_user.id)}))
+
+    if request.method == "POST":
+        group_ids = request.form.getlist("group_ids")
+        action = request.form.get("action")
+
+        if not group_ids:
+            flash("Please select at least one circle.")
+            return redirect(url_for("groups.circles_plus"))
+
+        if action == "announce":
+            title = request.form.get("announcement_title")
+            content = request.form.get("announcement_content")
+
+            if not title or not content:
+                flash("Announcement title and content are required.")
+                return redirect(url_for("groups.circles_plus"))
+
+            for gid in group_ids:
+                db.group_announcements.insert_one({
+                    "group_id": ObjectId(gid),
+                    "user_id": ObjectId(current_user.id),
+                    "author_name": current_user.name,
+                    "author_role": current_user.role,
+                    "title": title,
+                    "content": content,
+                    "timestamp": datetime.utcnow()
+                })
+            
+            flash(f"📢 Broadcast successful! Announcement posted to {len(group_ids)} circles.")
+
+        elif action == "upload":
+            title = request.form.get("resource_title")
+            subject = request.form.get("resource_subject")
+            file = request.files.get("file")
+
+            if not title or not subject or not file or file.filename == "":
+                flash("Resource title, subject, and file are required.")
+                return redirect(url_for("groups.circles_plus"))
+
+            if allowed_file(file.filename):
+                original_name = secure_filename(file.filename)
+                unique_name = str(uuid.uuid4()) + "_" + original_name
+                filepath = os.path.join("static/uploads", unique_name)
+                file.save(filepath)
+
+                # Create the resource
+                result = db.resources.insert_one({
+                    "user_id": ObjectId(current_user.id),
+                    "title": title,
+                    "subject": subject,
+                    "semester": "Mixed",
+                    "resource_type": "Multi-Circle Reference",
+                    "year_batch": "General",
+                    "tags": ["CirclesPlus"],
+                    "description": f"Shared via Circles++ to {len(group_ids)} circles.",
+                    "file_path": filepath,
+                    "privacy": "private", # Private to the circles
+                    "college": current_user.college,
+                    "created_at": datetime.utcnow(),
+                    "avg_rating": 0,
+                    "download_count": 0
+                })
+
+                resource_id = result.inserted_id
+
+                # Add resource to all selected groups
+                for gid in group_ids:
+                    db.groups.update_one(
+                        {"_id": ObjectId(gid)},
+                        {"$push": {"resources": resource_id}}
+                    )
+                
+                flash(f"📂 Broadcast successful! Resource uploaded to {len(group_ids)} circles.")
+            else:
+                flash("Invalid file type.")
+
+        return redirect(url_for("groups.circles_plus"))
+
+    return render_template("circles_plus.html", user_circles=user_circles)
+
+
 @groups_bp.route("/create_group", methods=["GET", "POST"])
 @login_required
 def create_group():

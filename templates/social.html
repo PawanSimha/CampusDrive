@@ -6,85 +6,203 @@
     <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
         <div class="space-y-4">
             <span class="text-brand-orange font-bold uppercase text-[10px] tracking-[.2em] font-openSans">Knowledge Archive</span>
-            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins">The Vault.</h1>
-            <p class="text-slate-500 font-medium max-w-lg">Discover and download high-quality academic resources shared by the Campus Drive community.</p>
+            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins">
+                {% if current_user.role == 'Teacher' %}Public Area.{% else %}The Vault.{% endif %}
+            </h1>
+            <p class="text-slate-500 font-medium max-w-lg">
+                {% if current_user.role == 'Teacher' %}
+                Share notes, updates, and academic insights with the entire CampusDrive community.
+                {% else %}
+                Discover and download high-quality academic resources shared by the Campus Drive community.
+                {% endif %}
+            </p>
         </div>
+        {% if current_user.role != 'Teacher' %}
         <div class="flex gap-4">
             <a href="/upload" class="bg-brand-blue text-white px-8 py-4 rounded-xl font-bold text-xs uppercase tracking-wider shadow-xl shadow-blue-900/20 hover:scale-105 transition-all no-underline flex items-center gap-3 font-openSans">
                 <span class="material-symbols-rounded">add_circle</span> Upload Resource
             </a>
         </div>
+        {% endif %}
     </div>
 
-    <!-- Filters Bar (Classroom Style) -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-12 flex flex-wrap items-center gap-6">
-        <form action="/social" method="GET" class="flex flex-wrap items-center gap-6 w-full">
-            <div class="flex-1 min-w-[200px] relative">
-                <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-                <input type="text" name="q" value="{{ query or '' }}" placeholder="Search resources..." 
-                    class="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 pl-12 pr-4 text-sm font-medium focus:border-brand-blue/30 focus:bg-white transition-all outline-none">
-            </div>
-            <select name="subject" class="bg-slate-50 border border-slate-100 rounded-xl py-3 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:border-brand-blue/30 transition-all cursor-pointer font-openSans">
-                <option value="">All Subjects</option>
-                {% for sub in subjects %}
-                <option value="{{ sub }}" {% if sub == selected_subject %}selected{% endif %}>{{ sub }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit" class="bg-brand-orange text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-brand-bright transition-colors shadow-lg shadow-orange-900/10 font-openSans">Apply Filter</button>
-        </form>
-    </div>
-
-    <!-- Resources Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% if resources %}
-            {% for r in resources %}
-            <a href="/resource/{{ r._id }}" class="no-underline group">
-                <div class="card-classroom h-full flex flex-col hover:border-brand-blue/20">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-brand-blue/5 text-brand-blue rounded-2xl flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all">
-                            {% if r.resource_type == 'Notes' %}
-                            <span class="material-symbols-rounded text-3xl">description</span>
-                            {% elif r.resource_type == 'Previous Year' %}
-                            <span class="material-symbols-rounded text-3xl">history</span>
-                            {% else %}
-                            <span class="material-symbols-rounded text-3xl">book</span>
-                            {% endif %}
-                        </div>
-                        <span class="{% if r.privacy == 'public' %}bg-green-50 text-green-600{% else %}bg-brand-orange/10 text-brand-orange{% endif %} px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-openSans">
-                            {{ r.privacy }}
-                        </span>
+    <div class="grid lg:grid-cols-12 gap-12">
+        <!-- LEFT COLUMN: Announcements & Teacher's Desk -->
+        <div class="lg:col-span-7 space-y-12">
+            <!-- Teacher's Desk (Public Posting) -->
+            {% if current_user.role in ['Teacher', 'admin'] %}
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-10 h-10 bg-brand-orange text-white rounded-xl flex items-center justify-center">
+                        <span class="material-symbols-rounded">add</span>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-blue tracking-tight mb-3 group-hover:text-brand-bright transition-colors font-poppins">{{ r.title }}</h3>
-                    <p class="text-slate-500 text-sm font-medium line-clamp-2 mb-6 flex-grow">{{ r.description }}</p>
-                    
-                    <div class="pt-6 border-t border-slate-50 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-brand-orange text-white rounded-lg flex items-center justify-center font-bold text-[10px] font-openSans">
-                                {{ (r.get('uploader_name', 'U')|string)[0]|upper }}
-                            </div>
-                            <span class="text-xs font-bold text-brand-blue/60 uppercase tracking-tight font-openSans">{{ r.uploader_name or 'Community' }}</span>
-                        </div>
-                        <div class="flex items-center gap-1 text-brand-orange">
-                            <span class="material-symbols-rounded text-sm">star</span>
-                            <span class="text-xs font-bold font-openSans">{{ r.avg_rating or 0 }}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4 flex gap-2 overflow-hidden">
-                        <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider font-openSans">{{ r.subject }}</span>
-                        <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider font-openSans">{{ r.resource_type }}</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-blue tracking-tight font-poppins">Teacher's Desk</h3>
+                        <p class="text-slate-500 text-xs font-medium">Post public notes or updates for everyone.</p>
                     </div>
                 </div>
-            </a>
-            {% endfor %}
-        {% else %}
-            <div class="col-span-full py-40 text-center space-y-6">
-                <span class="material-symbols-rounded text-8xl text-slate-200">folder_off</span>
-                <h3 class="text-2xl font-bold text-brand-blue tracking-tight font-poppins">No resources found</h3>
-                <p class="text-slate-400 font-medium">Be the first to share something with the Campus Drive community.</p>
-                <a href="/upload" class="inline-block bg-brand-blue text-white px-10 py-4 rounded-xl font-bold text-xs uppercase tracking-wider no-underline font-openSans">Upload Now</a>
+                <form action="/public_announce" method="POST" class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <input type="text" name="title" placeholder="Announcement Title" 
+                            class="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-5 text-sm font-medium focus:border-brand-blue/30 outline-none transition-all" required>
+                        <input type="text" name="subject" placeholder="Subject" 
+                            class="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-5 text-sm font-medium focus:border-brand-blue/30 outline-none transition-all">
+                    </div>
+                    <textarea name="content" placeholder="Write your notes or comments here..." 
+                        class="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-5 text-sm font-medium focus:border-brand-blue/30 outline-none transition-all min-h-[120px] resize-none" required></textarea>
+                    <div class="flex justify-end">
+                        <button type="submit" class="bg-brand-blue text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-brand-bright transition-all shadow-lg shadow-blue-900/10 font-openSans">
+                            Post to Public
+                        </button>
+                    </div>
+                </form>
             </div>
-        {% endif %}
+            {% endif %}
+
+            <!-- Community Updates Feed -->
+            <div class="space-y-8">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="w-8 h-1 bg-brand-orange rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-brand-blue tracking-tight font-poppins uppercase">Community Updates</h2>
+                </div>
+
+                {% if public_announcements %}
+                    {% for pa in public_announcements %}
+                    <div class="bg-white p-8 rounded-3xl border-2 {% if pa.is_pinned %}border-brand-orange bg-brand-orange/5{% else %}border-slate-100{% endif %} shadow-sm relative overflow-hidden group hover:border-brand-orange/20 transition-all">
+                        {% if pa.is_pinned %}
+                        <div class="absolute top-0 right-0">
+                            <div class="bg-brand-orange text-white px-6 py-1.5 transform rotate-45 translate-x-[2.5rem] -translate-y-[0rem] text-[10px] font-bold uppercase tracking-widest shadow-lg">
+                                Pinned
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-widest font-openSans">
+                                    {{ pa.subject or 'General' }}
+                                </span>
+                                {% if pa.is_pinned %}
+                                <span class="material-symbols-rounded text-brand-orange text-sm">push_pin</span>
+                                {% endif %}
+                            </div>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase font-openSans">
+                                {{ pa.timestamp.strftime('%d %b %Y') }}
+                            </span>
+                        </div>
+
+                        <h4 class="text-xl font-bold text-brand-blue mb-3 font-poppins">{{ pa.title }}</h4>
+                        <p class="text-slate-600 font-medium leading-relaxed mb-6">{{ pa.content }}</p>
+
+                        <div class="flex items-center justify-between pt-6 border-t border-slate-50">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 bg-brand-blue text-white rounded-lg flex items-center justify-center font-bold text-[10px]">
+                                    {{ (pa.author_name|string)[0]|upper }}
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-brand-blue uppercase tracking-tight leading-none mb-1">{{ pa.author_name }}</p>
+                                    <p class="text-[9px] font-medium text-slate-400 uppercase tracking-widest leading-none">{{ pa.author_role }}</p>
+                                </div>
+                            </div>
+                            
+                            {% if current_user.role == 'admin' %}
+                            <a href="/pin_announcement/{{ pa._id }}" class="flex items-center gap-2 px-4 py-2 rounded-xl {% if pa.is_pinned %}bg-slate-100 text-slate-500{% else %}bg-brand-orange/10 text-brand-orange{% endif %} text-[9px] font-bold uppercase tracking-widest hover:scale-105 transition-all no-underline">
+                                <span class="material-symbols-rounded text-sm">{% if pa.is_pinned %}vertical_align_bottom{% else %}push_pin{% endif %}</span>
+                                {% if pa.is_pinned %}Unpin{% else %}Pin to Top{% endif %}
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="py-20 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+                        <span class="material-symbols-rounded text-5xl text-slate-200 mb-4">notifications_off</span>
+                        <p class="text-slate-400 font-bold uppercase tracking-widest text-xs">No public updates yet</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Assets & Search -->
+        <div class="lg:col-span-5 space-y-12">
+            <!-- Filters Bar -->
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-brand-blue uppercase tracking-tight mb-6 flex items-center gap-3">
+                    <span class="material-symbols-rounded text-brand-orange">filter_list</span>
+                    Asset Filter
+                </h3>
+                <form action="/social" method="GET" class="space-y-4">
+                    <div class="relative">
+                        <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                        <input type="text" name="q" value="{{ query or '' }}" placeholder="Search files..." 
+                            class="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 pl-12 pr-4 text-sm font-medium focus:border-brand-blue/30 outline-none transition-all">
+                    </div>
+                    <select name="subject" class="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:border-brand-blue/30 transition-all cursor-pointer font-openSans">
+                        <option value="">All Subjects</option>
+                        {% for sub in subjects %}
+                        <option value="{{ sub }}" {% if sub == selected_subject %}selected{% endif %}>{{ sub }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="w-full bg-brand-orange text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-brand-bright transition-all shadow-lg shadow-orange-900/10 font-openSans">Apply Filters</button>
+                    {% if query or selected_subject %}
+                    <a href="/social" class="block text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest hover:text-brand-blue transition-colors no-underline">Clear All</a>
+                    {% endif %}
+                </form>
+            </div>
+
+            <!-- Resources Grid -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="w-8 h-1 bg-brand-blue rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-brand-blue tracking-tight font-poppins uppercase">Asset Library</h2>
+                </div>
+
+                <div class="grid grid-cols-1 gap-6">
+                    {% if resources %}
+                        {% for r in resources %}
+                        <a href="/resource/{{ r._id }}" class="no-underline group">
+                            <div class="card-classroom h-full flex flex-col hover:border-brand-blue/20">
+                                <div class="flex justify-between items-start mb-6">
+                                    <div class="w-14 h-14 bg-brand-blue/5 text-brand-blue rounded-2xl flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all">
+                                        {% if r.resource_type == 'Notes' %}
+                                        <span class="material-symbols-rounded text-3xl">description</span>
+                                        {% elif r.resource_type == 'Previous Year' %}
+                                        <span class="material-symbols-rounded text-3xl">history</span>
+                                        {% else %}
+                                        <span class="material-symbols-rounded text-3xl">book</span>
+                                        {% endif %}
+                                    </div>
+                                    <span class="{% if r.privacy == 'public' %}bg-green-50 text-green-600{% else %}bg-brand-orange/10 text-brand-orange{% endif %} px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-openSans">
+                                        {{ r.privacy }}
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold text-brand-blue tracking-tight mb-2 group-hover:text-brand-bright transition-colors font-poppins">{{ r.title }}</h3>
+                                <p class="text-slate-500 text-xs font-medium line-clamp-2 mb-6">{{ r.description }}</p>
+                                
+                                <div class="pt-6 border-t border-slate-50 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-brand-orange text-white rounded-lg flex items-center justify-center font-bold text-[10px] font-openSans">
+                                            {{ (r.get('uploader_name', 'U')|string)[0]|upper }}
+                                        </div>
+                                        <span class="text-[10px] font-bold text-brand-blue/60 uppercase tracking-tight font-openSans">{{ r.uploader_name or 'Community' }}</span>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-brand-orange">
+                                        <span class="material-symbols-rounded text-sm">download</span>
+                                        <span class="text-xs font-bold font-openSans">{{ r.download_count or 0 }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    {% else %}
+                        <div class="py-20 text-center space-y-4 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+                            <span class="material-symbols-rounded text-5xl text-slate-200">folder_off</span>
+                            <p class="text-slate-400 font-bold uppercase tracking-widest text-xs">No assets found</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

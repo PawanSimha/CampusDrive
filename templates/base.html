@@ -90,64 +90,76 @@
 <body
     class="bg-brand-beige min-h-screen font-roboto text-slate-900 antialiased selection:bg-brand-blue selection:text-white">
     <!-- Desktop Header -->
-    <header class="fixed top-0 left-0 right-0 z-[100] px-6 py-6 pointer-events-none transition-all duration-500"
+    <header
+        class="fixed top-0 left-0 right-0 z-[100] bg-brand-blue backdrop-blur-md border-b border-white/10 transition-all duration-300"
         id="mainHeader">
-        <nav
-            class="max-w-7xl mx-auto h-20 bg-white shadow-xl shadow-blue-900/5 backdrop-blur-xl rounded-2xl px-8 flex items-center justify-between pointer-events-auto border border-white/20">
-            <a href="/" class="flex items-center gap-3 group no-underline">
-                <div
-                    class="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center group-hover:bg-brand-bright transition-all duration-300 shadow-lg shadow-blue-900/10">
-                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="CampusDrive Logo"
-                        class="w-8 h-8 object-contain">
-                </div>
-                <div class="flex flex-col gap-0 leading-none">
-                    <span class="font-roboto font-bold text-3xl text-brand-blue tracking-normal"><span
-                            class="text-brand-orange">C</span>ampus<span class="text-brand-orange">D</span>rive</span>
-                </div>
+        <nav class="max-w-[1440px] mx-auto h-24 px-8 flex items-center justify-between pointer-events-auto">
+            <a href="/" class="flex items-center group no-underline mr-12">
+                <img src="{{ url_for('static', filename='img/MainLogo.png') }}" alt="Main Logo"
+                    class="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
             </a>
 
             <!-- Desktop Nav Links -->
-            <div class="hidden lg:flex items-center gap-14">
+            <div class="hidden lg:flex items-center gap-4">
                 {% if current_user.is_authenticated %}
                 <div class="flex items-center gap-10">
+                    {% if current_user.role == 'Teacher' %}
                     <a href="/social"
-                        class="nav-link text-xs text-primary-900/60 uppercase font-black tracking-[0.2em] no-underline hover:text-primary-900 transition-colors">Resources</a>
+                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Social</a>
                     <a href="/groups"
-                        class="nav-link text-xs text-primary-900/60 uppercase font-black tracking-[0.2em] no-underline hover:text-primary-900 transition-colors">Circles</a>
+                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Circles</a>
+                    <a href="/circles_plus"
+                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Broadcast</a>
+                    {% else %}
+                    <a href="/social"
+                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Social</a>
+                    <a href="/groups"
+                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Circles</a>
                     <a href="/subjects"
-                        class="nav-link text-xs text-primary-900/60 uppercase font-black tracking-[0.2em] no-underline hover:text-primary-900 transition-colors">Vault</a>
+                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Vault</a>
+                    {% endif %}
                 </div>
-                <div class="w-px h-6 bg-slate-200 mx-2"></div>
+                <div class="w-px h-8 bg-white/20 mx-2"></div>
                 <div class="flex items-center gap-6">
+                    <a href="/contact"
+                        class="nav-link text-sm text-white uppercase font-bold tracking-[0.2em] no-underline transition-colors mr-1">Contact</a>
+                    {% if current_user.role == 'Teacher' %}
+                    <a href="/create_group"
+                        class="bg-brand-orange text-white px-5 py-3 rounded-2xl font-bold text-[10px] uppercase tracking-widest no-underline flex items-center gap-3 hover:bg-orange-600 transition-all shadow-lg shadow-orange-900/10 hover:scale-105 whitespace-nowrap">
+                        <span class="material-symbols-rounded text-lg">add</span>
+                        Create Table
+                    </a>
+                    {% else %}
                     <a href="/upload"
-                        class="bg-primary-900 text-white px-7 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest no-underline flex items-center gap-2 hover:bg-brand-bright transition-all shadow-lg shadow-blue-900/10 hover:scale-105">
-                        <span class="material-symbols-rounded text-sm">add_circle</span>
+                        class="bg-white text-brand-blue px-6 py-3 rounded-2xl font-bold text-[10px] uppercase tracking-widest no-underline flex items-center gap-3 hover:bg-slate-100 transition-all shadow-lg shadow-black/10 hover:scale-105 whitespace-nowrap">
+                        <span class="material-symbols-rounded text-lg">upload</span>
                         Upload
                     </a>
+                    {% endif %}
                     <div class="relative group/user">
                         <a href="/profile"
-                            class="w-12 h-12 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-primary-900 font-bold hover:bg-primary-50 transition-all duration-300 no-underline shadow-sm hover:border-primary-900/30 overflow-hidden">
-                            <img src="{{ url_for('static', filename='img/Circle.png') }}" alt="Profile"
-                                class="w-10 h-10 object-contain">
+                            class="w-11 h-11 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-brand-blue transition-all duration-300 no-underline shadow-sm hover:border-white/30 overflow-hidden">
+                            <img src="{{ url_for('static', filename='img/circle.png') }}" alt="Profile"
+                                class="w-full h-full object-cover">
                         </a>
                         <!-- Quick Menu Tooltip Style -->
                         <div
                             class="absolute top-full right-0 w-52 pt-4 opacity-0 translate-y-2 pointer-events-none group-hover/user:opacity-100 group-hover/user:translate-y-0 group-hover/user:pointer-events-auto transition-all duration-300 z-50">
                             <div class="bg-primary-900 p-3 rounded-2xl border border-white/10 shadow-2xl">
                                 <a href="/dashboard"
-                                    class="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-xl text-white/70 hover:text-white transition-colors text-[10px] uppercase font-black tracking-widest no-underline">
-                                    <span class="material-symbols-rounded text-sm">dashboard</span>
+                                    class="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-xl text-white transition-colors text-sm uppercase font-black tracking-widest no-underline">
+                                    <span class="material-symbols-rounded text-base">dashboard</span>
                                     Dashboard
                                 </a>
                                 <a href="/profile"
-                                    class="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-xl text-white/70 hover:text-white transition-colors text-[10px] uppercase font-black tracking-widest no-underline">
-                                    <span class="material-symbols-rounded text-sm">person</span>
+                                    class="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-xl text-white transition-colors text-sm uppercase font-black tracking-widest no-underline">
+                                    <span class="material-symbols-rounded text-base">person</span>
                                     Profile
                                 </a>
                                 <div class="h-px bg-white/10 my-2 mx-2"></div>
                                 <a href="/logout"
-                                    class="flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 rounded-xl text-red-400 hover:text-red-300 transition-colors text-[10px] uppercase font-black tracking-widest no-underline">
-                                    <span class="material-symbols-rounded text-sm">logout</span>
+                                    class="flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 rounded-xl text-red-400 hover:text-red-300 transition-colors text-sm uppercase font-black tracking-widest no-underline">
+                                    <span class="material-symbols-rounded text-base">logout</span>
                                     Sign Out
                                 </a>
                             </div>
@@ -157,12 +169,12 @@
                 {% else %}
                 <div class="flex items-center gap-12 font-openSans">
                     <a href="/contact"
-                        class="nav-link text-[10px] text-primary-900/50 uppercase font-bold tracking-wider no-underline hover:text-primary-900 transition-colors">Support</a>
+                        class="nav-link text-sm text-white uppercase font-bold tracking-wider no-underline transition-colors">Support</a>
                     <a href="/login"
-                        class="nav-link text-[10px] text-primary-900/50 uppercase font-bold tracking-wider no-underline hover:text-primary-900 transition-colors">Sign
+                        class="nav-link text-sm text-white uppercase font-bold tracking-wider no-underline transition-colors">Sign
                         In</a>
                     <a href="/register"
-                        class="bg-primary-900 text-white px-10 py-4 rounded-xl font-bold text-[10px] uppercase tracking-widest no-underline shadow-xl shadow-primary-900/20 hover:bg-brand-bright hover:scale-105 transition-all">
+                        class="bg-white text-brand-blue px-10 py-4 rounded-xl font-bold text-sm uppercase tracking-widest no-underline shadow-xl shadow-black/10 hover:bg-slate-100 hover:scale-105 transition-all">
                         Join Platform
                     </a>
                 </div>
@@ -170,7 +182,7 @@
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button class="lg:hidden w-10 h-10 flex items-center justify-center text-primary-900">
+            <button class="lg:hidden w-10 h-10 flex items-center justify-center text-white">
                 <span class="material-symbols-rounded">menu</span>
             </button>
         </nav>
@@ -179,7 +191,7 @@
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="fixed top-32 right-6 z-[110] flex flex-col gap-4 max-w-sm pointer-events-none">
+    <div class="fixed top-36 right-6 z-[110] flex flex-col gap-4 max-w-sm pointer-events-none">
         {% for message in messages %}
         <div
             class="bg-primary-900 text-white p-5 rounded-2xl shadow-2xl border-l-[6px] border-primary-500 animate-slide-up pointer-events-auto backdrop-blur-xl">
@@ -195,7 +207,7 @@
     {% endif %}
     {% endwith %}
 
-    <main class="pt-32 min-h-screen">
+    <main class="pt-36 min-h-screen">
         {% block content %}{% endblock %}
     </main>
 
@@ -213,15 +225,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
                 <!-- Brand Column -->
                 <div class="lg:col-span-4 space-y-8">
-                    <a href="/" class="flex items-center gap-4 no-underline group">
-                        <div
-                            class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform border border-white/10">
-                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="CampusDrive Logo"
-                                class="w-8 h-8 object-contain">
-                        </div>
-                        <div class="flex flex-col leading-none">
-                            <span class="font-roboto font-bold text-3xl text-white tracking-normal">CampusDrive</span>
-                        </div>
+                    <a href="/" class="flex items-center no-underline group">
+                        <img src="{{ url_for('static', filename='img/MainLogo.png') }}" alt="Main Logo"
+                            class="h-12 sm:h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
                     </a>
                     <p class="text-white/70 font-medium text-sm leading-relaxed max-w-sm">
                         The definitive digital ecosystem for modern students. Bridging the gap between curriculum and
@@ -248,9 +254,11 @@
                         <li><a href="/groups"
                                 class="text-white/70 hover:text-brand-orange hover:translate-x-1 inline-block transition-all text-sm no-underline">Study
                                 Circles</a></li>
+                        {% if current_user.role != 'Teacher' %}
                         <li><a href="/subjects"
                                 class="text-white/70 hover:text-brand-orange hover:translate-x-1 inline-block transition-all text-sm no-underline">Subject
                                 Vault</a></li>
+                        {% endif %}
                         <li><a href="/register"
                                 class="text-white/70 hover:text-brand-orange hover:translate-x-1 inline-block transition-all text-sm no-underline">Join
                                 Platform</a></li>
@@ -303,7 +311,7 @@
 
             <!-- Bottom Bar -->
             <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-white/50 text-sm m-0">© 2024 CampusDrive Ecosystem. All rights reserved.</p>
+                <p class="text-white/50 text-sm m-0">© 2024 All rights reserved.</p>
                 <div class="flex items-center gap-4">
                     <a href="#"
                         class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-brand-orange hover:text-white transition-all no-underline">
@@ -325,18 +333,7 @@
     {% block scripts %}{% endblock %}
 
     <script>
-        // Sticky Header Effect
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('py-3');
-                header.classList.remove('py-6');
-                // Removed bg-brand-beige/95 to keep it fully transparent
-            } else {
-                header.classList.add('py-6');
-                header.classList.remove('py-3');
-            }
-        });
+        // Traditional Header (Fixed, solid)
     </script>
 </body>
 

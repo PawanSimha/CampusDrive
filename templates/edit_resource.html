@@ -4,7 +4,8 @@
 {% block content %}
 <div class="max-w-3xl mx-auto px-6 pt-10 pb-32">
     <div class="text-center mb-16 space-y-4">
-        <div class="w-16 h-16 bg-brand-blue text-white rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-blue-900/20">
+        <div
+            class="w-16 h-16 bg-brand-blue text-white rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-blue-900/20">
             <span class="material-symbols-rounded text-3xl">edit_note</span>
         </div>
         <h1 class="text-4xl font-bold text-brand-blue tracking-tight font-poppins">Edit Archive.</h1>
@@ -15,41 +16,74 @@
         <form method="POST" class="space-y-8">
             <div class="space-y-2">
                 <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Archive Title</label>
-                <input type="text" name="title" value="{{ resource.title }}" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" required>
+                <input type="text" name="title" value="{{ resource.title }}"
+                    class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all"
+                    required>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="space-y-2">
-                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Academic Discipline</label>
-                    <input type="text" name="subject" value="{{ resource.subject }}" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" required>
+                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Academic
+                        Discipline</label>
+                    <input type="text" name="subject" value="{{ resource.subject }}"
+                        class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all"
+                        required>
                 </div>
                 <div class="space-y-2">
-                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Asset Category</label>
-                    <select name="resource_type" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:bg-white focus:border-brand-blue/20 transition-all cursor-pointer">
-                        <option value="Notes" {% if resource.resource_type == 'Notes' %}selected{% endif %}>Notes</option>
-                        <option value="Previous Year" {% if resource.resource_type == 'Previous Year' %}selected{% endif %}>Previous Year Papers</option>
-                        <option value="Assignment" {% if resource.resource_type == 'Assignment' %}selected{% endif %}>Assignment Solutions</option>
-                        <option value="Reference" {% if resource.resource_type == 'Reference' %}selected{% endif %}>Reference Material</option>
+                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Asset
+                        Category</label>
+                    <select name="resource_type"
+                        class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:bg-white focus:border-brand-blue/20 transition-all cursor-pointer">
+                        <option value="Notes" {% if resource.resource_type=='Notes' %}selected{% endif %}>Notes</option>
+                        <option value="Previous Year" {% if resource.resource_type=='Previous Year' %}selected{% endif
+                            %}>Previous Year Papers</option>
+                        <option value="Assignment" {% if resource.resource_type=='Assignment' %}selected{% endif %}>
+                            Assignment Solutions</option>
+                        <option value="Reference" {% if resource.resource_type=='Reference' %}selected{% endif %}>
+                            Reference Material</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Protocol /
+                        Access</label>
+                    <select name="privacy"
+                        class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:bg-white focus:border-brand-blue/20 transition-all cursor-pointer">
+                        <option value="public" {% if resource.privacy=='public' %}selected{% endif %}>🌐 Public Access
+                            (Universal)</option>
+                        <option value="private" {% if resource.privacy=='private' %}selected{% endif %}>🔒 Private
+                            (Restricted to My Circles)</option>
+                    </select>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Semester</label>
+                    <select name="semester"
+                        class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:bg-white focus:border-brand-blue/20 transition-all cursor-pointer">
+                        {% for i in range(1, 9) %}
+                        <option value="{{ i }}" {% if resource.semester|string==i|string %}selected{% endif %}>{{ i }}{%
+                            if i == 1 %}st{% elif i == 2 %}nd{% elif i == 3 %}rd{% else %}th{% endif %} sem</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
 
             <div class="space-y-2">
-                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Protocol / Access</label>
-                <select name="privacy" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:bg-white focus:border-brand-blue/20 transition-all cursor-pointer">
-                    <option value="public" {% if resource.privacy == 'public' %}selected{% endif %}>🌐 Public Access (Universal)</option>
-                    <option value="private" {% if resource.privacy == 'private' %}selected{% endif %}>🔒 Private (Restricted to My Circles)</option>
-                </select>
-            </div>
-            
-            <div class="space-y-2">
-                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Description / Metadata</label>
-                <textarea name="description" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all min-h-[120px] resize-none" required>{{ resource.description }}</textarea>
+                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Description /
+                    Metadata</label>
+                <textarea name="description"
+                    class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all min-h-[120px] resize-none"
+                    required>{{ resource.description }}</textarea>
             </div>
 
             <div class="pt-6 grid grid-cols-2 gap-6">
-                <a href="/dashboard" class="bg-slate-50 text-slate-400 py-6 rounded-2xl font-bold text-xs uppercase tracking-wider text-center no-underline hover:bg-slate-100 transition-all font-openSans">Cancel</a>
-                <button type="submit" class="bg-brand-orange text-white py-6 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-2xl shadow-orange-900/20 hover:scale-[1.02] transition-all font-openSans">Update Record</button>
+                <a href="/dashboard"
+                    class="bg-slate-50 text-slate-400 py-6 rounded-2xl font-bold text-xs uppercase tracking-wider text-center no-underline hover:bg-slate-100 transition-all font-openSans">Cancel</a>
+                <button type="submit"
+                    class="bg-brand-orange text-white py-6 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-2xl shadow-orange-900/20 hover:scale-[1.02] transition-all font-openSans">Update
+                    Record</button>
             </div>
         </form>
     </div>

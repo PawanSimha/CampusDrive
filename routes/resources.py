@@ -144,13 +144,90 @@ def social():
     all_subjects = db.resources.distinct("subject")
     all_branches = db.users.distinct("branch")
 
-    return render_template("social.html", resources=resources, subjects=all_subjects, branches=all_branches)
+    # Get public announcements from teachers, pinned first
+    public_announcements = list(db.public_announcements.find().sort([("is_pinned", -1), ("timestamp", -1)]))
+    
+    # Separate resources into public assets
+    # We can still use the resources list, but in the template we will position them on the right
+    return render_template("social.html", resources=resources, subjects=all_subjects, 
+                         selected_subject=subject, query=query,
+                         public_announcements=public_announcements)
+
+
+@resources_bp.route("/pin_announcement/<announcement_id>")
+@login_required
+def pin_announcement(announcement_id):
+    from app import db
+
+    if current_user.role != "admin":
+        flash("Only administrators can pin announcements.")
+        return redirect(url_for("resources.social"))
+
+    announcement = db.public_announcements.find_one({"_id": ObjectId(announcement_id)})
+    if not announcement:
+        flash("Announcement not found.")
+        return redirect(url_for("resources.social"))
+
+    # Toggle pin status
+    new_status = not announcement.get("is_pinned", False)
+    db.public_announcements.update_one(
+        {"_id": ObjectId(announcement_id)},
+        {"$set": {"is_pinned": new_status}}
+    )
+
+    action = "pinned" if new_status else "unpinned"
+    flash(f"Announcement {action} successfully.")
+    return redirect(url_for("resources.social"))
+
+
+@resources_bp.route("/public_announce", methods=["POST"])
+@login_required
+def public_announce():
+    from app import db
+
+    if current_user.role not in ["Teacher", "admin"]:
+        flash("Only teachers and admins can post public announcements")
+        return redirect(url_for("resources.social"))
+
+    title = request.form.get("title")
+    content = request.form.get("content")
+    subject = request.form.get("subject", "General")
+
+    if not title or not content:
+        flash("Announcement title and content are required")
+        return redirect(url_for("resources.social"))
+
+    db.public_announcements.insert_one({
+        "user_id": ObjectId(current_user.id),
+        "author_name": current_user.name,
+        "author_role": current_user.role,
+        "title": title,
+        "content": content,
+        "subject": subject,
+        "timestamp": datetime.utcnow()
+    })
+
+    # Log activity
+    db.activities.insert_one({
+        "user_id": ObjectId(current_user.id),
+        "user_name": current_user.name,
+        "action": "posted_public_announcement",
+        "details": {"title": title, "subject": subject},
+        "timestamp": datetime.utcnow()
+    })
+
+    flash("📢 Public announcement posted successfully!")
+    return redirect(url_for("resources.social"))
 
 
 @resources_bp.route("/subjects")
 @login_required
 def subjects():
     from app import db
+
+    if current_user.role == "Teacher":
+        flash("Vault access is restricted for faculty. Please use the Public or Circles sections.")
+        return redirect(url_for("resources.social"))
 
     subjects = db.resources.distinct("subject")
     return render_template("subjects.html", subjects=subjects)
