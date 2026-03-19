@@ -21,8 +21,3 @@ Thumbs.db
 static/uploads/*
 !static/uploads/.gitkeep
 brain/
-*.png
-*.jpg
-*.jpeg
-*.mp4
-*.webp
