@@ -1,0 +1,10 @@
+flask
+pymongo
+python-dotenv
+flask-login
+flask-bcrypt
+dnspython
+requests
+werkzeug
+email_validator
+certifi

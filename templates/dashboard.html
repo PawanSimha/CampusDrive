@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 pt-10 pb-32">
+    <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+        <div class="space-y-4">
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-[.2em] font-openSans">Activity Command Center</span>
+            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins">Dashboard.</h1>
+            <p class="text-slate-500 font-medium max-w-lg">Monitor your study groups, library contributions, and academic progress in one place.</p>
+        </div>
+        <div class="flex gap-4">
+            <a href="/upload" class="bg-brand-blue text-white px-8 py-4 rounded-xl font-bold text-xs uppercase tracking-wider shadow-xl shadow-blue-900/20 hover:scale-105 transition-all no-underline flex items-center gap-3 font-openSans">
+                <span class="material-symbols-rounded">add_circle</span> New Resource
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm text-center group hover:border-brand-blue/30 transition-all">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4 font-openSans">Total Shared</p>
+            <p class="text-5xl font-bold text-brand-blue tracking-tight group-hover:scale-110 transition-transform font-poppins">{{ resources|length }}</p>
+            <p class="text-[9px] font-bold text-brand-orange uppercase tracking-wider mt-2">Library Assets</p>
+        </div>
+        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm text-center group hover:border-brand-blue/30 transition-all">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4 font-openSans">Study Groups</p>
+            <p class="text-5xl font-bold text-brand-blue tracking-tight group-hover:scale-110 transition-transform font-poppins">{{ groups|length }}</p>
+            <p class="text-[9px] font-bold text-brand-orange uppercase tracking-wider mt-2">Active Circles</p>
+        </div>
+        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm text-center group hover:border-brand-blue/30 transition-all">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4 font-openSans">Platform Rank</p>
+            <p class="text-5xl font-bold text-brand-blue tracking-tight group-hover:scale-110 transition-transform font-poppins">#{{ 1 }}</p>
+            <p class="text-[9px] font-bold text-brand-orange uppercase tracking-wider mt-2">Elite Member</p>
+        </div>
+        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm text-center group hover:border-brand-blue/30 transition-all">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4 font-openSans">Community Rep</p>
+            <p class="text-5xl font-bold text-brand-orange tracking-tight group-hover:scale-110 transition-transform font-poppins">{{ 98 }}%</p>
+            <p class="text-[9px] font-bold text-brand-blue uppercase tracking-wider mt-2">Positive Rating</p>
+        </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        <!-- Main: My Resources -->
+        <div class="lg:col-span-8 space-y-8">
+            <div class="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-10">
+                    <h3 class="text-xl font-bold text-brand-blue tracking-tight font-poppins">My Library Contributions</h3>
+                    <span class="material-symbols-rounded text-brand-orange">library_books</span>
+                </div>
+                
+                <div class="space-y-6">
+                    {% if resources %}
+                        {% for r in resources %}
+                        <div class="flex items-center justify-between p-6 rounded-2xl border border-slate-50 hover:bg-slate-50 transition-colors group">
+                            <div class="flex items-center gap-6">
+                                <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center font-bold">
+                                    <span class="material-symbols-rounded">description</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-blue uppercase tracking-tight">{{ r.title }}</h4>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{{ r.subject }} • {{ r.resource_type }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <a href="/edit_resource/{{ r._id }}" class="w-10 h-10 bg-slate-100 text-slate-400 rounded-lg flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all no-underline">
+                                    <span class="material-symbols-rounded text-sm">edit</span>
+                                </a>
+                                <a href="/resource/{{ r._id }}" class="w-10 h-10 bg-slate-100 text-slate-400 rounded-lg flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all no-underline">
+                                    <span class="material-symbols-rounded text-sm">visibility</span>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="py-20 text-center space-y-6">
+                            <span class="material-symbols-rounded text-6xl text-slate-200">cloud_upload</span>
+                            <p class="text-slate-400 font-medium">You haven't shared any resources yet.</p>
+                            <a href="/upload" class="inline-block bg-brand-blue text-white px-10 py-4 rounded-xl font-bold text-xs uppercase tracking-wider no-underline">Start Sharing</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar: Joined Circles -->
+        <div class="lg:col-span-4 space-y-8">
+            <div class="bg-brand-blue p-10 rounded-[2.5rem] text-white shadow-xl shadow-blue-900/20">
+                <h3 class="text-xl font-bold uppercase tracking-tight italic mb-8">My Inner Circles</h3>
+                <div class="space-y-6">
+                    {% if groups %}
+                        {% for g in groups %}
+                        <a href="/group/{{ g._id }}" class="flex items-center justify-between p-4 rounded-2xl hover:bg-white/10 transition-colors no-underline group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-brand-orange text-white rounded-lg flex items-center justify-center font-bold text-xs">
+                                    {{ g.name[0]|upper }}
+                                </div>
+                                <span class="font-bold text-sm tracking-tight group-hover:text-brand-orange transition-colors">{{ g.name }}</span>
+                            </div>
+                            <span class="material-symbols-rounded text-white/40 text-sm">arrow_forward</span>
+                        </a>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-white/40 text-sm font-medium">No circles joined yet.</p>
+                        <a href="/groups" class="inline-block text-brand-orange font-bold uppercase tracking-wider text-xs mt-4 no-underline">Explore Circles →</a>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 text-center">
+                <span class="material-symbols-rounded text-5xl text-brand-orange/20 mb-6">workspace_premium</span>
+                <h4 class="font-bold text-brand-blue uppercase tracking-tight mb-2">Campusconnect Pro</h4>
+                <p class="text-slate-400 text-xs font-medium mb-6">Upgrade to access premium lecture recordings and verified expert notes.</p>
+                <button class="w-full bg-slate-50 text-slate-400 py-4 rounded-xl font-bold text-[10px] uppercase tracking-wider cursor-not-allowed">Coming Soon</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

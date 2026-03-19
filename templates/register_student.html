@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Student Registration{% endblock %}
+
+{% block content %}
+<!-- Floating Icons (Subtle Background) -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden h-full w-full z-0 opacity-[0.08]">
+    <span class="material-symbols-rounded absolute text-brand-blue text-8xl animate-float" style="top: 15%; left: 8%; animation-delay: 0s;">school</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float" style="top: 30%; right: 10%; animation-delay: 1s;">menu_book</span>
+    <span class="material-symbols-rounded absolute text-brand-blue text-7xl animate-float" style="bottom: 25%; left: 12%; animation-delay: 2s;">edit_note</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float" style="bottom: 15%; right: 15%; animation-delay: 3s;">quiz</span>
+    <span class="material-symbols-rounded absolute text-brand-bright text-6xl animate-float" style="top: 55%; left: 5%; animation-delay: 4s;">library_books</span>
+</div>
+
+<div class="min-h-[90vh] flex items-center justify-center px-6 py-20 relative z-10">
+    <div class="max-w-xl w-full">
+        <div class="text-center mb-12 space-y-4">
+            <div class="w-16 h-16 bg-brand-blue text-white rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-blue-900/20">
+                <span class="material-symbols-rounded text-3xl">school</span>
+            </div>
+            <h1 class="text-4xl font-bold text-brand-blue tracking-tight font-poppins">Student Terminal</h1>
+            <p class="text-slate-500 font-medium italic text-sm">"Unlock the power of shared knowledge."</p>
+        </div>
+
+        <div class="bg-white p-10 lg:p-12 rounded-[2.5rem] border border-slate-200 shadow-sm">
+            <form action="{{ url_for('auth.register_student') }}" method="POST" class="space-y-8">
+                <input type="hidden" name="role" value="Student">
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Full Name</label>
+                        <input type="text" name="name" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="John Doe" required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Academic Email</label>
+                        <input type="email" name="email" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="name@university.edu" required>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Secret Key</label>
+                        <input type="password" name="password" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="••••••••" required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Institution</label>
+                        <input type="text" name="college" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="Global Tech University" required>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Academic Branch</label>
+                        <select name="branch" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:bg-white focus:border-brand-blue/20 transition-all cursor-pointer">
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Biology">Biology</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Management">Management</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1">Current Semester</label>
+                        <select name="semester" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:bg-white focus:border-brand-blue/20 transition-all cursor-pointer">
+                            {% for i in range(1, 9) %}
+                            <option value="{{ i }}">{{ i }}{% if i == 1 %}st{% elif i == 2 %}nd{% elif i == 3 %}rd{% else %}th{% endif %} sem</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <button type="submit" class="w-full bg-brand-blue text-white py-6 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-2xl shadow-blue-900/20 hover:scale-[1.02] transition-all font-openSans">Enroll to Connect</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-10 text-center flex flex-col items-center space-y-4">
+            <a href="{{ url_for('auth.register') }}" class="text-slate-400 text-[10px] font-bold uppercase tracking-wider hover:text-brand-blue transition-colors flex items-center font-openSans">
+                <span class="material-symbols-rounded text-sm mr-1">arrow_back</span>
+                Change Role
+            </a>
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">
+                Already registered? <a href="/login" class="text-brand-blue no-underline hover:underline">Access Terminal</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

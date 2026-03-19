@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-6 pt-10 pb-32">
+    <!-- Profile Card (Classroom Style) -->
+    <div class="bg-white rounded-[2.5rem] p-12 lg:p-16 border border-slate-200 shadow-sm mb-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+            <span class="material-symbols-rounded text-[15rem] text-brand-blue">badge</span>
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-10 relative z-10">
+            <div class="w-40 h-40 bg-brand-blue text-white rounded-[2.5rem] flex items-center justify-center text-6xl font-bold shadow-2xl shadow-blue-900/20 font-poppins">
+                {{ current_user.name[0]|upper }}
+            </div>
+            <div class="text-center md:text-left space-y-4">
+                <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                    <span class="bg-brand-orange text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-openSans">Verified Scholar</span>
+                    <span class="bg-slate-100 text-slate-500 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-openSans capitalize">{{ current_user.role }}</span>
+                </div>
+                <h1 class="text-5xl font-bold text-brand-blue tracking-tight font-poppins">{{ current_user.name }}</h1>
+                <p class="text-slate-500 font-medium text-lg italic">"Contributor at CampusConnect"</p>
+                
+                <div class="flex flex-wrap justify-center md:justify-start gap-8 pt-4">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-rounded text-brand-orange text-sm">mail</span>
+                        <span class="text-xs font-bold text-brand-blue/60 uppercase tracking-tight font-openSans">{{ current_user.email }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-rounded text-brand-orange text-sm">school</span>
+                        <span class="text-xs font-bold text-brand-blue/60 uppercase tracking-tight font-openSans">{{ current_user.college or 'CampusConnect Global' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Grid -->
+    <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-3xl p-10 border border-slate-200 shadow-sm space-y-8">
+            <h3 class="text-xl font-bold text-brand-blue tracking-tight flex items-center gap-3 font-poppins">
+                <span class="material-symbols-rounded text-brand-orange">settings</span>
+                Platform Settings
+            </h3>
+            <div class="space-y-6">
+                <div class="flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-rounded text-slate-400">notifications</span>
+                        <span class="text-sm font-bold text-slate-600">Email Notifications</span>
+                    </div>
+                    <div class="w-10 h-6 bg-brand-blue/10 rounded-full relative">
+                        <div class="absolute right-1 top-1 w-4 h-4 bg-brand-blue rounded-full"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-rounded text-slate-400">visibility</span>
+                        <span class="text-sm font-bold text-slate-600">Public Profile</span>
+                    </div>
+                    <div class="w-10 h-6 bg-brand-blue/10 rounded-full relative">
+                        <div class="absolute right-1 top-1 w-4 h-4 bg-brand-blue rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+            <a href="/logout" class="block w-full text-center bg-slate-50 text-slate-400 py-5 rounded-2xl font-bold text-[10px] uppercase tracking-wider hover:bg-red-50 hover:text-red-500 transition-all no-underline font-openSans">Log Out System</a>
+        </div>
+
+        <div class="bg-brand-blue p-10 rounded-3xl text-white shadow-xl shadow-blue-900/20 flex flex-col justify-between">
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold tracking-tight italic font-poppins">Personal Analytics</h3>
+                <p class="text-white/60 text-sm font-medium">Your contribution to the digital campus ecosystem.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-8 py-8">
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-brand-orange mb-2 font-openSans">Resources</p>
+                    <p class="text-4xl font-bold tracking-tight font-poppins">{{ 0 }}</p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-brand-orange mb-2 font-openSans">Circles</p>
+                    <p class="text-4xl font-bold tracking-tight font-poppins">{{ 0 }}</p>
+                </div>
+            </div>
+            <a href="/dashboard" class="bg-white/10 hover:bg-white/20 text-white py-4 rounded-xl text-center text-[10px] font-bold uppercase tracking-wider no-underline border border-white/10 transition-colors font-openSans">View Detailed Activity</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

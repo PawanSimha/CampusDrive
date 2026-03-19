@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Teacher Registration{% endblock %}
+
+{% block content %}
+<!-- Floating Icons (Subtle Background) -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden h-full w-full z-0 opacity-[0.08]">
+    <span class="material-symbols-rounded absolute text-brand-orange text-8xl animate-float" style="top: 12%; left: 10%; animation-delay: 0s;">co_present</span>
+    <span class="material-symbols-rounded absolute text-brand-blue text-9xl animate-float" style="top: 28%; right: 12%; animation-delay: 1.5s;">supervisor_account</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-7xl animate-float" style="bottom: 22%; left: 18%; animation-delay: 2.5s;">edit_calendar</span>
+    <span class="material-symbols-rounded absolute text-brand-blue text-9xl animate-float" style="bottom: 18%; right: 10%; animation-delay: 3.5s;">assignment</span>
+    <span class="material-symbols-rounded absolute text-brand-bright text-6xl animate-float" style="top: 48%; left: 4%; animation-delay: 4.5s;">workspace_premium</span>
+</div>
+
+<div class="min-h-[90vh] flex items-center justify-center px-6 py-20 relative z-10">
+    <div class="max-w-xl w-full">
+        <div class="text-center mb-12 space-y-4">
+            <div class="w-16 h-16 bg-brand-orange text-white rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-orange-900/20">
+                <span class="material-symbols-rounded text-3xl">co_present</span>
+            </div>
+            <h1 class="text-4xl font-bold text-brand-orange tracking-tight font-poppins">Educator Terminal</h1>
+            <p class="text-slate-500 font-medium italic text-sm">"Lead the next generation of scholars."</p>
+        </div>
+
+        <div class="bg-white p-10 lg:p-12 rounded-[2.5rem] border border-slate-200 shadow-sm">
+            <form action="{{ url_for('auth.register_teacher') }}" method="POST" class="space-y-8">
+                <input type="hidden" name="role" value="Teacher">
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Full Name</label>
+                        <input type="text" name="name" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" placeholder="Dr. Sarah Jenkins" required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Faculty Email</label>
+                        <input type="email" name="email" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" placeholder="sarah.j@university.edu" required>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Secret Key</label>
+                        <input type="password" name="password" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" placeholder="••••••••" required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Teacher ID</label>
+                        <input type="text" name="teacher_id" 
+                            pattern="[A-Z]{4}[0-9]{6}" 
+                            title="Format must be 4 uppercase letters followed by 6 digits (e.g., ABCD123456)"
+                            maxlength="10"
+                            minlength="10"
+                            class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" 
+                            placeholder="AAAA000000" required>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Institution</label>
+                        <input type="text" name="college" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" placeholder="Global Tech University" required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Department</label>
+                        <select name="branch" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-orange uppercase tracking-tight outline-none focus:bg-white focus:border-brand-orange/20 transition-all cursor-pointer">
+                            <option value="School of Applied Sciences">School of Applied Sciences</option>
+                            <option value="School of Management">School of Management</option>
+                            <option value="School of Medical Sciences">School of Medical Sciences</option>
+                            <option value="School of Engineering">School of Engineering</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Professional Bio / Expertise</label>
+                    <textarea name="bio" rows="3" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all resize-none" placeholder="PhD in Artificial Intelligence. Passionate about mentoring students in web technologies." required></textarea>
+                </div>
+
+                <div class="pt-6">
+                    <button type="submit" class="w-full bg-brand-orange text-white py-6 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-2xl shadow-orange-900/20 hover:scale-[1.02] transition-all font-openSans">Begin Mentorship</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-10 text-center flex flex-col items-center space-y-4">
+            <a href="{{ url_for('auth.register') }}" class="text-slate-400 text-[10px] font-bold uppercase tracking-wider hover:text-brand-orange transition-colors flex items-center font-openSans">
+                <span class="material-symbols-rounded text-sm mr-1">arrow_back</span>
+                Change Role
+            </a>
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">
+                Already registered? <a href="/login" class="text-brand-blue no-underline hover:underline">Access Terminal</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,555 @@
+{% extends "base.html" %}
+{% block title %}Welcome to CampusConnect{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-28 pb-40">
+    <!-- Floating Icons (Subtle Background) -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden h-full w-full z-0 opacity-[0.08]">
+        <span class="material-symbols-rounded absolute text-brand-blue text-8xl animate-float"
+            style="top: 10%; left: 5%; animation-delay: 0s;">book</span>
+        <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float"
+            style="top: 25%; right: 5%; animation-delay: 1s;">science</span>
+        <span class="material-symbols-rounded absolute text-brand-blue text-7xl animate-float"
+            style="bottom: 20%; left: 15%; animation-delay: 2s;">functions</span>
+        <span class="material-symbols-rounded absolute text-brand-orange text-8xl animate-float"
+            style="bottom: 10%; right: 8%; animation-delay: 3s;">history_edu</span>
+        <span class="material-symbols-rounded absolute text-brand-bright text-6xl animate-float"
+            style="top: 50%; left: 2%; animation-delay: 4s;">psychology</span>
+        <span class="material-symbols-rounded absolute text-brand-bright text-7xl animate-float"
+            style="top: 15%; right: 35%; animation-delay: 5s;">architecture</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-16 items-center relative z-10">
+        <div class="lg:col-span-7 space-y-10">
+            <div
+                class="inline-flex items-center gap-3 bg-brand-orange/10 px-4 py-2 rounded-full border border-brand-orange/20 animate-fade-in">
+                <div class="flex -space-x-2">
+                    <div
+                        class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white flex items-center justify-center text-[8px] font-bold">
+                        SJ</div>
+                    <div
+                        class="w-6 h-6 rounded-full bg-slate-300 border-2 border-white flex items-center justify-center text-[8px] font-bold">
+                        RM</div>
+                    <div
+                        class="w-6 h-6 rounded-full bg-slate-400 border-2 border-white flex items-center justify-center text-[8px] font-bold">
+                        JW</div>
+                </div>
+                <span class="text-brand-orange text-[10px] font-bold uppercase tracking-wider font-openSans">Trusted by 10,000+
+                    Students</span>
+            </div>
+
+            <h1
+                class="text-6xl lg:text-7xl font-bold text-brand-blue tracking-tight leading-[1.1] font-poppins max-w-2xl">
+                All-in-One Platform for <span class="text-brand-orange">Smarter</span> Student Collaboration.
+            </h1>
+
+            <p class="text-lg lg:text-xl text-slate-500 font-medium leading-relaxed max-w-xl">
+                Access curated study resources, collaborate with peers, and stay organized all in one place. Built for
+                excellence, shared for success.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+                <div class="flex flex-col gap-3 w-full sm:w-auto">
+                    <a href="/register"
+                        class="bg-brand-blue text-white px-10 py-5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-2xl shadow-blue-900/30 hover:scale-105 hover:bg-brand-bright transition-all no-underline text-center font-openSans">
+                        Get Started Free
+                    </a>
+                    <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider text-center font-openSans">No credit
+                        card required</span>
+                </div>
+                <a href="/social"
+                    class="group flex items-center gap-3 text-brand-blue font-bold text-xs uppercase tracking-wider no-underline hover:text-brand-bright transition-colors px-6 py-5 font-openSans">
+                    Explore Resources
+                    <span
+                        class="material-symbols-rounded text-lg group-hover:translate-x-1 transition-transform">east</span>
+                </a>
+            </div>
+
+            <div class="pt-10 flex items-center gap-12 border-t border-slate-200/50 max-w-lg">
+                <div class="flex flex-col gap-1">
+                    <span class="text-4xl font-bold text-brand-blue font-poppins">50+</span>
+                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider font-openSans">Universities</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <span class="text-4xl font-bold text-brand-blue font-poppins">20k+</span>
+                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider font-openSans">Resources</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <span class="text-4xl font-bold text-brand-blue font-poppins">4.9/5</span>
+                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider font-openSans">User Rating</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-5 relative">
+            <div
+                class="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl shadow-blue-900/10 border-4 border-white transform hover:rotate-1 transition-transform duration-700">
+                <img src="{{ url_for('static', filename='img/hero.png') }}"
+                    alt="Angelic Child - Smarter Student Collaboration" class="w-full h-auto scale-[1.02]">
+            </div>
+            <!-- Interactive Badge -->
+            <div
+                class="absolute -bottom-6 -right-6 bg-white p-6 rounded-[2rem] shadow-2xl border border-slate-100 hidden md:block animate-float z-20">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-500/10 text-green-600 rounded-xl flex items-center justify-center">
+                        <span class="material-symbols-rounded">verified</span>
+                    </div>
+                    <div>
+                        <p class="text-[9px] uppercase font-bold text-slate-400 tracking-wider mb-1 font-openSans">Status</p>
+                        <p class="text-brand-blue font-bold text-sm uppercase font-openSans">100% Free & Secure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats / Information Blocks -->
+<section class="bg-white py-32 border-y border-slate-100 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="grid md:grid-cols-3 gap-16">
+            <div class="space-y-6 text-center group">
+                <div
+                    class="w-24 h-24 bg-brand-blue/5 text-brand-blue rounded-[2.5rem] flex items-center justify-center mx-auto group-hover:bg-brand-blue group-hover:text-white transition-all duration-500 shadow-xl shadow-blue-900/5">
+                    <span class="material-symbols-rounded text-5xl">folder_shared</span>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="text-2xl font-bold text-brand-blue tracking-tight font-poppins">Verified Library</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed">Access 20,000+ peer-reviewed resources, notes,
+                        and previous year papers categorized by subject.</p>
+                </div>
+            </div>
+            <div class="space-y-6 text-center group">
+                <div
+                    class="w-24 h-24 bg-brand-orange/5 text-brand-orange rounded-[2.5rem] flex items-center justify-center mx-auto group-hover:bg-brand-orange group-hover:text-white transition-all duration-500 shadow-xl shadow-orange-900/5">
+                    <span class="material-symbols-rounded text-5xl">groups</span>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="text-2xl font-bold text-brand-blue tracking-tight font-poppins">Study Circles</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed">Join 500+ private groups to collaborate with
+                        your peers, share materials, and track collective progress.</p>
+                </div>
+            </div>
+            <div class="space-y-6 text-center group">
+                <div
+                    class="w-24 h-24 bg-brand-bright/5 text-brand-bright rounded-[2.5rem] flex items-center justify-center mx-auto group-hover:bg-brand-bright group-hover:text-white transition-all duration-500 shadow-xl shadow-emerald-900/5">
+                    <span class="material-symbols-rounded text-5xl">verified_user</span>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="text-2xl font-bold text-brand-blue tracking-tight font-poppins">Secure & Private</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed">Your data is safe. Control who sees your
+                        resources with advanced privacy settings and encrypted chats.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scannable Feature Section -->
+<section class="py-32 bg-brand-beige/30">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-24 items-center">
+            <div class="relative">
+                <div
+                    class="rounded-[4rem] overflow-hidden shadow-2xl border-4 border-white transform -rotate-1 hover:rotate-0 transition-transform duration-700">
+                    <img src="/static/img/collab.png" alt="Collaborative Learning" class="w-full h-auto">
+                </div>
+                <div
+                    class="absolute -top-10 -right-10 w-40 h-40 bg-brand-orange rounded-full flex items-center justify-center text-white text-center p-6 animate-pulse hidden xl:flex">
+                    <span class="font-bold uppercase text-[10px] tracking-wider leading-tight font-openSans">Empowering 10,000+
+                        Learners</span>
+                </div>
+            </div>
+            <div class="space-y-12">
+                <div class="space-y-6">
+                    <span class="text-brand-orange font-bold uppercase text-[10px] tracking-wider font-openSans">Built for
+                        Excellence</span>
+                    <h2 class="text-5xl font-bold text-brand-blue tracking-tight leading-none font-poppins">
+                        A Hub for <br><span class="text-brand-orange">Academic Synergy.</span>
+                    </h2>
+                    <p class="text-lg text-slate-500 font-medium leading-relaxed">
+                        CampusConnect transforms isolated studying into a collaborative powerhouse. Join a community
+                        that values knowledge sharing and collective growth.
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-8">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-rounded text-lg">check</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-brand-blue uppercase text-xs tracking-wider mb-1">Study Groups
+                            </h4>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-loose">
+                                Real-time collaboration</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-rounded text-lg">check</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-brand-blue uppercase text-xs tracking-wider mb-1">Resource
+                                Sharing</h4>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-loose">
+                                Peer-to-peer verification</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-rounded text-lg">check</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-brand-blue uppercase text-xs tracking-wider mb-1">Progress
+                                Tracking</h4>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-loose">
+                                Monitor your achievements</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-rounded text-lg">check</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-brand-blue uppercase text-xs tracking-wider mb-1">Peer
+                                Assessments</h4>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-loose">
+                                Community-driven quality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scrolling Reviews -->
+<section class="bg-brand-blue py-32 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+        <h2 class="text-4xl font-bold text-white tracking-tight font-poppins">Trusted by Educators & Learners</h2>
+    </div>
+    <div class="relative w-full group overflow-hidden">
+        <!-- Shine Masks -->
+        <div
+            class="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-brand-blue to-transparent z-10 pointer-events-none">
+        </div>
+        <div
+            class="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-brand-blue to-transparent z-10 pointer-events-none">
+        </div>
+
+        <div class="flex w-full hover:[animation-play-state:paused]">
+            <div class="flex animate-scroll-reverse shrink-0">
+                <!-- Student Review 1 -->
+                <div
+                    class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] min-w-[400px] shadow-2xl mx-4">
+                    <div class="flex items-center gap-5 mb-6">
+                        <img src="/static/img/student.png"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
+                        <div>
+                            <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Sarah Johnson</h4>
+                            <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Engineering
+                                Student</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 font-medium italic text-base leading-relaxed">"CampusConnect saved my
+                        finals last semester. The library is incredibly well-organized!"</p>
+                </div>
+                <!-- Teacher Review 1 -->
+                <div
+                    class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] min-w-[400px] shadow-2xl mx-4">
+                    <div class="flex items-center gap-5 mb-6">
+                        <img src="/static/img/teacher.png"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
+                        <div>
+                            <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Dr. Robert Miller
+                            </h4>
+                            <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Physics
+                                Professor</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 font-medium italic text-base leading-relaxed">"I recommend this to all my
+                        students. It fosters a healthy collaborative culture that is essential for academia."</p>
+                </div>
+                <!-- Student Review 2 -->
+                <div
+                    class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] min-w-[400px] shadow-2xl mx-4">
+                    <div class="flex items-center gap-5 mb-6">
+                        <img src="/static/img/student.png"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
+                        <div>
+                            <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">James Wilson</h4>
+                            <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">BCA Student
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 font-medium italic text-base leading-relaxed">"The card-based UI is so much
+                        easier to navigate than traditional library portals. Love it!"</p>
+                </div>
+                <!-- Teacher Review 2 -->
+                <div
+                    class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] min-w-[400px] shadow-2xl mx-4">
+                    <div class="flex items-center gap-5 mb-6">
+                        <img src="/static/img/teacher.png"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
+                        <div>
+                            <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Prof. Alicia Green
+                            </h4>
+                            <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">HOD, Comp Sci
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 font-medium italic text-base leading-relaxed">"A game-changer for student
+                        organization. The verification system is brilliant."</p>
+                </div>
+            </div>
+            <div class="flex animate-scroll-reverse shrink-0">
+                <!-- Student Review 1 -->
+                <div
+                    class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] min-w-[400px] shadow-2xl mx-4">
+                    <div class="flex items-center gap-5 mb-6">
+                        <img src="/static/img/student.png"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
+                        <div>
+                            <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Sarah Johnson</h4>
+                            <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Engineering
+                                Student</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 font-medium italic text-base leading-relaxed">"CampusConnect saved my
+                        finals last semester. The library is incredibly well-organized!"</p>
+                </div>
+                <!-- Teacher Review 1 -->
+                <div
+                    class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] min-w-[400px] shadow-2xl mx-4">
+                    <div class="flex items-center gap-5 mb-6">
+                        <img src="/static/img/teacher.png"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
+                        <div>
+                            <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Dr. Robert Miller
+                            </h4>
+                            <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Physics
+                                Professor</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 font-medium italic text-base leading-relaxed">"I recommend this to all my
+                        students. It fosters a healthy collaborative culture that is essential for academia."</p>
+                </div>
+                <!-- Student Review 2 -->
+                <div
+                    class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] min-w-[400px] shadow-2xl mx-4">
+                    <div class="flex items-center gap-5 mb-6">
+                        <img src="/static/img/student.png"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
+                        <div>
+                            <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">James Wilson</h4>
+                            <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">BCA Student
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 font-medium italic text-base leading-relaxed">"The card-based UI is so much
+                        easier to navigate than traditional library portals. Love it!"</p>
+                </div>
+                <!-- Teacher Review 2 -->
+                <div
+                    class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] min-w-[400px] shadow-2xl mx-4">
+                    <div class="flex items-center gap-5 mb-6">
+                        <img src="/static/img/teacher.png"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
+                        <div>
+                            <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Prof. Alicia Green
+                            </h4>
+                            <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">HOD, Comp Sci
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 font-medium italic text-base leading-relaxed">"A game-changer for student
+                        organization. The verification system is brilliant."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-32 bg-brand-beige relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-20 space-y-4">
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-wider font-openSans">Knowledge Base</span>
+            <h2 class="text-5xl font-bold text-brand-blue tracking-tight font-poppins">Everything You Need to Know</h2>
+        </div>
+        <div class="space-y-6">
+            <!-- FAQ 1 -->
+            <details
+                class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/10 transition-all duration-300">
+                <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
+                    <span class="font-bold text-brand-blue uppercase tracking-tight">Is CampusConnect really free for
+                        students?</span>
+                    <span
+                        class="material-symbols-rounded group-open:rotate-180 transition-transform text-brand-orange">expand_more</span>
+                </summary>
+                <div class="px-8 pb-8 text-slate-500 font-medium text-base leading-relaxed">
+                    Yes, CampusConnect is 100% free for students. Our mission is to bridge the academic gap by providing
+                    a platform where knowledge flows freely. No hidden fees, no credit cards required.
+                </div>
+            </details>
+            <!-- FAQ 2 -->
+            <details
+                class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/10 transition-all duration-300">
+                <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
+                    <span class="font-bold text-brand-blue uppercase tracking-tight">How do I verify the quality of a
+                        resource?</span>
+                    <span
+                        class="material-symbols-rounded group-open:rotate-180 transition-transform text-brand-orange">expand_more</span>
+                </summary>
+                <div class="px-8 pb-8 text-slate-500 font-medium text-base leading-relaxed">
+                    We use a community-driven rating system. Every document is rated by your peers and reviewed by
+                    platform-verified teachers to ensure you only study the best material.
+                </div>
+            </details>
+            <!-- FAQ 3 -->
+            <details
+                class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/10 transition-all duration-300">
+                <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
+                    <span class="font-bold text-brand-blue uppercase tracking-tight">Can I create my own private study
+                        group?</span>
+                    <span
+                        class="material-symbols-rounded group-open:rotate-180 transition-transform text-brand-orange">expand_more</span>
+                </summary>
+                <div class="px-8 pb-8 text-slate-500 font-medium text-base leading-relaxed">
+                    Absolutely. You can create private "Study Circles" and invite your friends using a unique access
+                    code. This perfect for collaborating on projects or preparing for specific exams together.
+                </div>
+            </details>
+            <!-- FAQ 4 -->
+            <details
+                class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/10 transition-all duration-300">
+                <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
+                    <span class="font-bold text-brand-blue uppercase tracking-tight">Who can upload resources to the
+                        platform?</span>
+                    <span
+                        class="material-symbols-rounded group-open:rotate-180 transition-transform text-brand-orange">expand_more</span>
+                </summary>
+                <div class="px-8 pb-8 text-slate-500 font-medium text-base leading-relaxed">
+                    Any registered student or educator can upload study materials. We encourage a culture of sharing
+                    where everyone contributes to the collective knowledge base.
+                </div>
+            </details>
+            <!-- FAQ 5 -->
+            <details
+                class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/10 transition-all duration-300">
+                <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
+                    <span class="font-bold text-brand-blue uppercase tracking-tight">What types of files can I
+                        share?</span>
+                    <span
+                        class="material-symbols-rounded group-open:rotate-180 transition-transform text-brand-orange">expand_more</span>
+                </summary>
+                <div class="px-8 pb-8 text-slate-500 font-medium text-base leading-relaxed">
+                    You can upload a variety of academic resources including PDFs, Word documents, PowerPoint
+                    presentations, Excel spreadsheets, and images (notes, past papers, etc.).
+                </div>
+            </details>
+            <!-- FAQ 6 -->
+            <details
+                class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/10 transition-all duration-300">
+                <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
+                    <span class="font-bold text-brand-blue uppercase tracking-tight">How does the platform handle
+                        inappropriate content?</span>
+                    <span
+                        class="material-symbols-rounded group-open:rotate-180 transition-transform text-brand-orange">expand_more</span>
+                </summary>
+                <div class="px-8 pb-8 text-slate-500 font-medium text-base leading-relaxed">
+                    We strictly prohibit the upload of copyrighted materials without permission and any inappropriate
+                    content. Our admin team monitors submissions, and users can report files that violate our community
+                    guidelines.
+                </div>
+            </details>
+            <!-- FAQ 7 -->
+            <details
+                class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/10 transition-all duration-300">
+                <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
+                    <span class="font-bold text-brand-blue uppercase tracking-tight">Can I access CampusConnect on my
+                        mobile device?</span>
+                    <span
+                        class="material-symbols-rounded group-open:rotate-180 transition-transform text-brand-orange">expand_more</span>
+                </summary>
+                <div class="px-8 pb-8 text-slate-500 font-medium text-base leading-relaxed">
+                    Yes! Our platform is fully responsive and designed to work seamlessly across desktops, tablets, and
+                    smartphones, ensuring you have access to your study materials anytime, anywhere.
+                </div>
+            </details>
+            <!-- FAQ 8 -->
+            <details
+                class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/10 transition-all duration-300">
+                <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
+                    <span class="font-bold text-brand-blue uppercase tracking-tight">Are there any premium features or
+                        paid plans?</span>
+                    <span
+                        class="material-symbols-rounded group-open:rotate-180 transition-transform text-brand-orange">expand_more</span>
+                </summary>
+                <div class="px-8 pb-8 text-slate-500 font-medium text-base leading-relaxed">
+                    Currently, all core features of CampusConnect are entirely free. We may introduce optional premium
+                    features for advanced analytics or verified expert tutoring in the future, but the basic resource
+                    sharing will always remain free.
+                </div>
+            </details>
+        </div>
+        <div class="mt-12 text-center">
+            <p class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Still have questions? <a
+                    href="/contact" class="text-brand-blue hover:text-brand-bright no-underline">Contact our support
+                    team</a></p>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="mb-32 relative">
+    <div class="max-w-7xl mx-auto px-6">
+        <div
+            class="bg-brand-blue p-20 rounded-[4rem] text-center text-white shadow-2xl shadow-blue-900/40 relative overflow-hidden group">
+            <!-- Decorative Gradient -->
+            <div
+                class="absolute inset-0 bg-gradient-to-br from-brand-blue via-brand-blue to-brand-bright opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+            </div>
+
+            <div class="relative z-10 space-y-12">
+                <div class="space-y-6">
+                    <h2 class="text-5xl lg:text-7xl font-bold tracking-tight leading-none italic font-poppins">
+                        Ready to Transform Your <br><span class="text-brand-orange">Academic Future?</span>
+                    </h2>
+                    <p class="text-xl opacity-80 font-medium max-w-2xl mx-auto">
+                        Join 10,000+ students and educators who are already redefining the way they learn and
+                        collaborate.
+                    </p>
+                </div>
+
+                <div class="flex flex-col items-center gap-6">
+                    <a href="/register"
+                        class="bg-white text-brand-blue px-16 py-7 rounded-[2.5rem] font-bold text-sm uppercase tracking-wider shadow-2xl hover:scale-105 hover:bg-slate-100 transition-all inline-block no-underline font-openSans">
+                        Get Started Free
+                    </a>
+                    <div class="flex items-center gap-8 opacity-60">
+                        <span class="flex items-center gap-2 text-[10px] uppercase font-bold tracking-wider font-openSans">
+                            <span class="material-symbols-rounded text-sm">verified</span>
+                            Secure & Private
+                        </span>
+                        <span class="flex items-center gap-2 text-[10px] uppercase font-bold tracking-wider font-openSans">
+                            <span class="material-symbols-rounded text-sm">group</span>
+                            10k+ Learners
+                        </span>
+                        <span class="flex items-center gap-2 text-[10px] uppercase font-bold tracking-wider font-openSans">
+                            <span class="material-symbols-rounded text-sm">star</span>
+                            4.9/5 Rating
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

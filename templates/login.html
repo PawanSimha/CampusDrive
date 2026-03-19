@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Authentication{% endblock %}
+
+{% block content %}
+<!-- Floating Icons (Subtle Background) -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden h-full w-full z-0 opacity-[0.08]">
+    <span class="material-symbols-rounded absolute text-brand-blue text-8xl animate-float" style="top: 15%; left: 8%; animation-delay: 0s;">lock</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float" style="top: 25%; right: 10%; animation-delay: 1s;">key</span>
+    <span class="material-symbols-rounded absolute text-brand-blue text-7xl animate-float" style="bottom: 20%; left: 15%; animation-delay: 2s;">shield</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float" style="bottom: 15%; right: 12%; animation-delay: 3s;">security</span>
+    <span class="material-symbols-rounded absolute text-brand-bright text-6xl animate-float" style="top: 55%; left: 5%; animation-delay: 4s;">fingerprint</span>
+</div>
+
+<div class="min-h-[80vh] flex items-center justify-center px-6 relative z-10">
+    <div class="max-w-md w-full">
+        <div class="text-center mb-12 space-y-4">
+            <div class="w-16 h-16 bg-brand-blue text-white rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-blue-900/20">
+                <span class="material-symbols-rounded text-3xl">lock</span>
+            </div>
+            <h1 class="text-4xl font-bold text-brand-blue tracking-tight font-poppins">Welcome Back.</h1>
+            <p class="text-slate-500 font-medium italic text-sm">"Re-enter the CampusConnect ecosystem."</p>
+        </div>
+
+        <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
+            <form method="POST" class="space-y-6">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Email Terminal</label>
+                    <input type="email" name="email" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="name@university.edu" required>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Security Key</label>
+                    <input type="password" name="password" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="••••••••" required>
+                </div>
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-brand-blue text-white py-5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-2xl shadow-blue-900/20 hover:scale-[1.02] transition-all font-openSans">Establish Connection</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-10 text-center">
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">
+                New researcher? <a href="/register" class="text-brand-orange no-underline hover:underline">Apply for Access</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

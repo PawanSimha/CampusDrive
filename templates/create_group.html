@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Create New Circle{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-6 pt-10 pb-32">
+    <div class="text-center mb-16 space-y-4">
+        <div class="w-16 h-16 bg-brand-blue text-white rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-blue-900/20">
+            <span class="material-symbols-rounded text-3xl">group_add</span>
+        </div>
+        <h1 class="text-4xl font-bold text-brand-blue uppercase tracking-tight">Forge a New Circle.</h1>
+        <p class="text-slate-500 font-medium italic text-sm">"Establishing a new hub for academic collaboration."</p>
+    </div>
+
+    <div class="bg-white p-10 lg:p-12 rounded-[2.5rem] border border-slate-200 shadow-sm">
+        <form method="POST" class="space-y-8">
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Circle Identity (Name)</label>
+                <input type="text" name="name" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="e.g., Advanced Quantum Mechanics" required>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Circle Code (ID)</label>
+                <input type="text" name="group_code" 
+                    pattern="[A-Z]{4}-\d{4}" 
+                    title="Format must be AAAA-0000 (4 letters, hyphen, 4 numbers)"
+                    class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all uppercase" 
+                    placeholder="e.g., PHYS-1011" required>
+                <p class="text-[9px] text-slate-400 font-medium ml-1 font-roboto italic">"Mandatory Format: **AAAA-0000** (e.g., MATH-1234)"</p>
+            </div>
+            
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Circle Objective (Description)</label>
+                <textarea name="description" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all min-h-[150px] resize-none" placeholder="Describe the purpose of this study circle..." required></textarea>
+            </div>
+
+            <div class="pt-6">
+                <button type="submit" class="w-full bg-brand-blue text-white py-6 rounded-2xl font-bold text-xs uppercase tracking-widest shadow-2xl shadow-blue-900/20 hover:scale-[1.02] transition-all font-openSans">Manifest Circle</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mt-12 p-8 bg-brand-orange/5 rounded-3xl border border-brand-orange/10 flex items-start gap-6">
+        <span class="material-symbols-rounded text-brand-orange">info</span>
+        <p class="text-xs text-brand-blue/70 font-medium leading-relaxed">
+            <strong>Pro Tip:</strong> Circles with clear, descriptive objectives tend to attract more dedicated collaborators. You can archive your circle anytime from the admin settings.
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Join CampusConnect{% endblock %}
+
+{% block content %}
+<!-- Floating Icons (Subtle Background) -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden h-full w-full z-0 opacity-[0.08]">
+    <span class="material-symbols-rounded absolute text-brand-blue text-8xl animate-float" style="top: 10%; left: 5%; animation-delay: 0s;">how_to_reg</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float" style="top: 25%; right: 5%; animation-delay: 1s;">group</span>
+    <span class="material-symbols-rounded absolute text-brand-blue text-7xl animate-float" style="bottom: 20%; left: 15%; animation-delay: 2s;">join_inner</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float" style="bottom: 15%; right: 8%; animation-delay: 3s;">person_add</span>
+    <span class="material-symbols-rounded absolute text-brand-bright text-6xl animate-float" style="top: 50%; left: 2%; animation-delay: 4s;">hub</span>
+</div>
+
+<div class="min-h-[90vh] flex items-center justify-center px-6 py-20 relative z-10">
+    <div class="max-w-4xl w-full">
+        <div class="text-center mb-16 space-y-4">
+            <h1 class="text-6xl font-bold text-brand-blue tracking-tight font-poppins">Choose Your Path</h1>
+            <p class="text-slate-500 font-medium italic text-lg">"Whether you're here to learn or to lead, excellence starts here."</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+            <!-- Student Path -->
+            <a href="{{ url_for('auth.register_student') }}" class="group block bg-white p-12 rounded-[3rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-blue/10 transition-all duration-500 hover:-translate-y-2">
+                <div class="w-20 h-20 bg-brand-blue text-white rounded-3xl flex items-center justify-center mb-10 shadow-xl group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-rounded text-4xl">school</span>
+                </div>
+                <h2 class="text-3xl font-bold text-brand-blue tracking-tight mb-4 font-poppins">I am a Student</h2>
+                <p class="text-slate-600 font-medium leading-relaxed mb-8">Access verified resources, join study circles, and collaborate with peers across your institution.</p>
+                <div class="flex items-center text-brand-blue font-bold uppercase text-xs tracking-wider font-openSans">
+                    Start Learning
+                    <span class="material-symbols-rounded ml-2 group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Teacher Path -->
+            <a href="{{ url_for('auth.register_teacher') }}" class="group block bg-white p-12 rounded-[3rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-orange/10 transition-all duration-500 hover:-translate-y-2">
+                <div class="w-20 h-20 bg-brand-orange text-white rounded-3xl flex items-center justify-center mb-10 shadow-xl group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-rounded text-4xl">co_present</span>
+                </div>
+                <h2 class="text-3xl font-bold text-brand-orange tracking-tight mb-4 font-poppins">I am a Teacher</h2>
+                <p class="text-slate-600 font-medium leading-relaxed mb-8">Share resources, mentor students, build communities, and verify academic excellence.</p>
+                <div class="flex items-center text-brand-orange font-bold uppercase text-xs tracking-wider font-openSans">
+                    Start Mentoring
+                    <span class="material-symbols-rounded ml-2 group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="mt-16 text-center">
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">
+                Already part of the network? <a href="/login" class="text-brand-blue no-underline hover:underline">Access Terminal</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

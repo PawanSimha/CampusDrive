@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Explore Resources{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 pt-10 pb-32">
+    <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+        <div class="space-y-4">
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-[.2em] font-openSans">Knowledge Archive</span>
+            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins">The Vault.</h1>
+            <p class="text-slate-500 font-medium max-w-lg">Discover and download high-quality academic resources shared by the CampusConnect community.</p>
+        </div>
+        <div class="flex gap-4">
+            <a href="/upload" class="bg-brand-blue text-white px-8 py-4 rounded-xl font-bold text-xs uppercase tracking-wider shadow-xl shadow-blue-900/20 hover:scale-105 transition-all no-underline flex items-center gap-3 font-openSans">
+                <span class="material-symbols-rounded">add_circle</span> Upload Resource
+            </a>
+        </div>
+    </div>
+
+    <!-- Filters Bar (Classroom Style) -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-12 flex flex-wrap items-center gap-6">
+        <form action="/social" method="GET" class="flex flex-wrap items-center gap-6 w-full">
+            <div class="flex-1 min-w-[200px] relative">
+                <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                <input type="text" name="q" value="{{ query or '' }}" placeholder="Search resources..." 
+                    class="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 pl-12 pr-4 text-sm font-medium focus:border-brand-blue/30 focus:bg-white transition-all outline-none">
+            </div>
+            <select name="subject" class="bg-slate-50 border border-slate-100 rounded-xl py-3 px-6 text-sm font-bold text-brand-blue uppercase tracking-tight outline-none focus:border-brand-blue/30 transition-all cursor-pointer font-openSans">
+                <option value="">All Subjects</option>
+                {% for sub in subjects %}
+                <option value="{{ sub }}" {% if sub == selected_subject %}selected{% endif %}>{{ sub }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="bg-brand-orange text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-brand-bright transition-colors shadow-lg shadow-orange-900/10 font-openSans">Apply Filter</button>
+        </form>
+    </div>
+
+    <!-- Resources Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% if resources %}
+            {% for r in resources %}
+            <a href="/resource/{{ r._id }}" class="no-underline group">
+                <div class="card-classroom h-full flex flex-col hover:border-brand-blue/20">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-brand-blue/5 text-brand-blue rounded-2xl flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all">
+                            {% if r.resource_type == 'Notes' %}
+                            <span class="material-symbols-rounded text-3xl">description</span>
+                            {% elif r.resource_type == 'Previous Year' %}
+                            <span class="material-symbols-rounded text-3xl">history</span>
+                            {% else %}
+                            <span class="material-symbols-rounded text-3xl">book</span>
+                            {% endif %}
+                        </div>
+                        <span class="{% if r.privacy == 'public' %}bg-green-50 text-green-600{% else %}bg-brand-orange/10 text-brand-orange{% endif %} px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-openSans">
+                            {{ r.privacy }}
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-blue tracking-tight mb-3 group-hover:text-brand-bright transition-colors font-poppins">{{ r.title }}</h3>
+                    <p class="text-slate-500 text-sm font-medium line-clamp-2 mb-6 flex-grow">{{ r.description }}</p>
+                    
+                    <div class="pt-6 border-t border-slate-50 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-brand-orange text-white rounded-lg flex items-center justify-center font-bold text-[10px] font-openSans">
+                                {{ (r.get('uploader_name', 'U')|string)[0]|upper }}
+                            </div>
+                            <span class="text-xs font-bold text-brand-blue/60 uppercase tracking-tight font-openSans">{{ r.uploader_name or 'Community' }}</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-orange">
+                            <span class="material-symbols-rounded text-sm">star</span>
+                            <span class="text-xs font-bold font-openSans">{{ r.avg_rating or 0 }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 flex gap-2 overflow-hidden">
+                        <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider font-openSans">{{ r.subject }}</span>
+                        <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider font-openSans">{{ r.resource_type }}</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        {% else %}
+            <div class="col-span-full py-40 text-center space-y-6">
+                <span class="material-symbols-rounded text-8xl text-slate-200">folder_off</span>
+                <h3 class="text-2xl font-bold text-brand-blue tracking-tight font-poppins">No resources found</h3>
+                <p class="text-slate-400 font-medium">Be the first to share something with the CampusConnect community.</p>
+                <a href="/upload" class="inline-block bg-brand-blue text-white px-10 py-4 rounded-xl font-bold text-xs uppercase tracking-wider no-underline font-openSans">Upload Now</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

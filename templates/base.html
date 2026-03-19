@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusConnect: {% block title %}Empowering Academic Collaboration{% endblock %}</title>
+    <meta name="description"
+        content="CampusConnect — The ultimate academic collaboration platform. Share and discover elite resources. Built with precision for excellence.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- Google Fonts: Roboto, Poppins, Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS with Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#001BB7', /* NEW PRIMARY DARK BLUE */
+                            950: '#172554',
+                        },
+                        brand: {
+                            blue: '#001BB7',
+                            bright: '#0046FF',
+                            orange: '#FF8040',
+                            beige: '#F5F1DC',
+                        }
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        roboto: ['Roboto', 'sans-serif'],
+                        openSans: ['Open Sans', 'sans-serif'],
+                        sans: ['Roboto', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'scroll': 'scroll 40s linear infinite',
+                        'scroll-reverse': 'scroll-reverse 40s linear infinite',
+                    },
+                    keyframes: {
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'scroll': {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        'scroll-reverse': {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts consolidated above -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+
+</head>
+
+<body
+    class="bg-brand-beige min-h-screen font-roboto text-slate-900 antialiased selection:bg-brand-blue selection:text-white">
+    <!-- Desktop Header -->
+    <header class="fixed top-0 left-0 right-0 z-[100] px-6 py-6 pointer-events-none transition-all duration-500"
+        id="mainHeader">
+        <nav
+            class="max-w-7xl mx-auto h-20 bg-white shadow-xl shadow-blue-900/5 backdrop-blur-xl rounded-2xl px-8 flex items-center justify-between pointer-events-auto border border-white/20">
+            <a href="/" class="flex items-center gap-3 group no-underline">
+                <div
+                    class="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center group-hover:bg-brand-bright transition-all duration-300 shadow-lg shadow-blue-900/10">
+                    <span class="material-symbols-rounded text-white text-2xl">school</span>
+                </div>
+                <div class="flex flex-col gap-0 leading-none">
+                    <span class="font-roboto font-bold text-3xl text-brand-blue tracking-normal"><span
+                            class="text-brand-orange">C</span>ampus<span class="text-brand-orange">C</span>onnect</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden lg:flex items-center gap-14">
+                {% if current_user.is_authenticated %}
+                <div class="flex items-center gap-10">
+                    <a href="/social"
+                        class="nav-link text-xs text-primary-900/60 uppercase font-black tracking-[0.2em] no-underline hover:text-primary-900 transition-colors">Resources</a>
+                    <a href="/groups"
+                        class="nav-link text-xs text-primary-900/60 uppercase font-black tracking-[0.2em] no-underline hover:text-primary-900 transition-colors">Circles</a>
+                    <a href="/subjects"
+                        class="nav-link text-xs text-primary-900/60 uppercase font-black tracking-[0.2em] no-underline hover:text-primary-900 transition-colors">Vault</a>
+                </div>
+                <div class="w-px h-6 bg-slate-200 mx-2"></div>
+                <div class="flex items-center gap-6">
+                    <a href="/upload"
+                        class="bg-primary-900 text-white px-7 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest no-underline flex items-center gap-2 hover:bg-brand-bright transition-all shadow-lg shadow-blue-900/10 hover:scale-105">
+                        <span class="material-symbols-rounded text-sm">add_circle</span>
+                        Upload
+                    </a>
+                    <div class="relative group/user">
+                        <a href="/profile"
+                            class="w-12 h-12 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-primary-900 font-bold hover:bg-primary-50 transition-all duration-300 no-underline shadow-sm hover:border-primary-900/30">
+                            {{ current_user.name[0]|upper }}
+                        </a>
+                        <!-- Quick Menu Tooltip Style -->
+                        <div
+                            class="absolute top-full right-0 w-52 pt-4 opacity-0 translate-y-2 pointer-events-none group-hover/user:opacity-100 group-hover/user:translate-y-0 group-hover/user:pointer-events-auto transition-all duration-300 z-50">
+                            <div class="bg-primary-900 p-3 rounded-2xl border border-white/10 shadow-2xl">
+                                <a href="/dashboard"
+                                    class="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-xl text-white/70 hover:text-white transition-colors text-[10px] uppercase font-black tracking-widest no-underline">
+                                    <span class="material-symbols-rounded text-sm">dashboard</span>
+                                    Dashboard
+                                </a>
+                                <a href="/profile"
+                                    class="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-xl text-white/70 hover:text-white transition-colors text-[10px] uppercase font-black tracking-widest no-underline">
+                                    <span class="material-symbols-rounded text-sm">person</span>
+                                    Profile
+                                </a>
+                                <div class="h-px bg-white/10 my-2 mx-2"></div>
+                                <a href="/logout"
+                                    class="flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 rounded-xl text-red-400 hover:text-red-300 transition-colors text-[10px] uppercase font-black tracking-widest no-underline">
+                                    <span class="material-symbols-rounded text-sm">logout</span>
+                                    Sign Out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="flex items-center gap-12 font-openSans">
+                    <a href="/contact"
+                        class="nav-link text-[10px] text-primary-900/50 uppercase font-bold tracking-wider no-underline hover:text-primary-900 transition-colors">Support</a>
+                    <a href="/login"
+                        class="nav-link text-[10px] text-primary-900/50 uppercase font-bold tracking-wider no-underline hover:text-primary-900 transition-colors">Sign
+                        In</a>
+                    <a href="/register"
+                        class="bg-primary-900 text-white px-10 py-4 rounded-xl font-bold text-[10px] uppercase tracking-widest no-underline shadow-xl shadow-primary-900/20 hover:bg-brand-bright hover:scale-105 transition-all">
+                        Join Platform
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="lg:hidden w-10 h-10 flex items-center justify-center text-primary-900">
+                <span class="material-symbols-rounded">menu</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="fixed top-32 right-6 z-[110] flex flex-col gap-4 max-w-sm pointer-events-none">
+        {% for message in messages %}
+        <div
+            class="bg-primary-900 text-white p-5 rounded-2xl shadow-2xl border-l-[6px] border-primary-500 animate-slide-up pointer-events-auto backdrop-blur-xl">
+            <div class="flex items-start gap-4">
+                <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-rounded text-white text-lg">info</span>
+                </div>
+                <p class="text-[13px] font-medium leading-relaxed tracking-wide opacity-90">{{ message }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <main class="pt-32 min-h-screen">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer with Outward Curve -->
+    <footer class="bg-brand-blue mt-32 relative pt-24 pb-12">
+        <!-- The Outward Curve -->
+        <div
+            class="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform -translate-y-[99%] pointer-events-none">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                <path d="M0 120 L1440 120 L1440 60 C1080 0 360 0 0 60 Z" fill="#001BB7" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-10 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-16 mb-24">
+                <div class="lg:col-span-4 space-y-10">
+                    <a href="/" class="flex items-center gap-5 no-underline group">
+                        <div
+                            class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform border border-white/10">
+                            <span class="material-symbols-rounded text-white text-3xl">school</span>
+                        </div>
+                        <div class="flex flex-col gap-0 leading-none">
+                            <span class="font-roboto font-bold text-4xl text-white tracking-normal">CampusConnect</span>
+                            <span
+                                class="text-[10px] uppercase tracking-[.2em] font-bold text-brand-orange font-openSans">Academic
+                                Synergy</span>
+                        </div>
+                    </a>
+                    <p class="text-white font-medium text-lg leading-relaxed opacity-90">
+                        The definitive digital ecosystem for modern students. We bridge the gap between curriculum and
+                        collaboration, enabling a culture of shared excellence.
+                    </p>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-10 h-10 bg-white/5 text-white rounded-xl flex items-center justify-center border border-white/10 hover:bg-brand-orange hover:border-brand-orange transition-all cursor-pointer">
+                            <span class="material-symbols-rounded text-sm">mail</span>
+                        </div>
+                        <div
+                            class="w-10 h-10 bg-white/5 text-white rounded-xl flex items-center justify-center border border-white/10 hover:bg-brand-orange hover:border-brand-orange transition-all cursor-pointer">
+                            <span class="material-symbols-rounded text-sm">call</span>
+                        </div>
+                        <div
+                            class="w-10 h-10 bg-white/5 text-white rounded-xl flex items-center justify-center border border-white/10 hover:bg-brand-orange hover:border-brand-orange transition-all cursor-pointer">
+                            <span class="material-symbols-rounded text-sm">location_on</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <h4
+                        class="font-poppins font-bold text-white uppercase text-xs tracking-wider mb-10 text-brand-orange">
+                        Navigation</h4>
+                    <ul class="space-y-6 list-none p-0">
+                        <li><a href="/social"
+                                class="text-white hover:text-brand-orange transition-all text-sm uppercase font-black tracking-widest no-underline block">Resources</a>
+                        </li>
+                        <li><a href="/groups"
+                                class="text-white hover:text-brand-orange transition-all text-sm uppercase font-black tracking-widest no-underline block">Circles</a>
+                        </li>
+                        <li><a href="/subjects"
+                                class="text-white hover:text-brand-orange transition-all text-sm uppercase font-black tracking-widest no-underline block">Subjects</a>
+                        </li>
+                        <li><a href="/register"
+                                class="text-white hover:text-brand-orange transition-all text-sm uppercase font-black tracking-widest no-underline block">Join
+                                Now</a></li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <h4 class="font-black text-white uppercase text-[10px] tracking-[.3em] mb-10 text-brand-orange">
+                        Resources</h4>
+                    <ul class="space-y-6 list-none p-0">
+                        <li><a href="#"
+                                class="text-white hover:text-brand-orange transition-all text-sm uppercase font-black tracking-widest no-underline block">Upload
+                                Guide</a></li>
+                        <li><a href="#"
+                                class="text-white hover:text-brand-orange transition-all text-sm uppercase font-black tracking-widest no-underline block">Verification</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-white hover:text-brand-orange transition-all text-sm uppercase font-black tracking-widest no-underline block">Circle
+                                Rules</a></li>
+                        <li><a href="/contact"
+                                class="text-white hover:text-brand-orange transition-all text-sm uppercase font-black tracking-widest no-underline block">Support</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-4">
+                    <h4 class="font-black text-white uppercase text-[10px] tracking-[.3em] mb-10 text-brand-orange">
+                        Platform Intelligence</h4>
+                    <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span class="text-white text-[10px] uppercase font-black tracking-widest">Global Ops: 100%
+                                Stable</span>
+                        </div>
+                        <p class="text-white/60 text-xs leading-relaxed font-medium italic">
+                            "Connecting minds across the globe through verified academic archives."
+                        </p>
+                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                            <span class="text-white font-black text-[10px] uppercase">v2.0.0-CC</span>
+                            <span class="text-brand-orange font-black text-[10px] uppercase">GPL v3.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-10 font-openSans">
+                <p class="text-white/40 text-[9px] uppercase tracking-widest font-bold">© 2026 CampusConnect ecosystem
+                    — Intellectual Hub</p>
+                <div class="flex gap-12">
+                    <a href="#"
+                        class="text-white/40 hover:text-white transition-all uppercase text-[10px] font-bold tracking-widest no-underline">Twitter</a>
+                    <a href="#"
+                        class="text-white/40 hover:text-white transition-all uppercase text-[10px] font-bold tracking-widest no-underline">LinkedIn</a>
+                    <a href="#"
+                        class="text-white/40 hover:text-white transition-all uppercase text-[10px] font-bold tracking-widest no-underline">Github</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+
+    <script>
+        // Sticky Header Effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('py-3');
+                header.classList.remove('py-6');
+                // Removed bg-brand-beige/95 to keep it fully transparent
+            } else {
+                header.classList.add('py-6');
+                header.classList.remove('py-3');
+            }
+        });
+    </script>
+</body>
+
+</html>

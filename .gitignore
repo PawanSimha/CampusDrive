@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Agents
+.agents/
+.gemini/
+
+# Project Specific
+static/uploads/*
+!static/uploads/.gitkeep
+brain/
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.webp

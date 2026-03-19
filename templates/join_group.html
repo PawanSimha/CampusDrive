@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Access New Circle{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-6">
+    <div class="max-w-md w-full">
+        <div class="text-center mb-12 space-y-4">
+            <div class="w-16 h-16 bg-brand-orange text-white rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-orange-900/20">
+                <span class="material-symbols-rounded text-3xl">key</span>
+            </div>
+            <h1 class="text-4xl font-bold text-brand-blue uppercase tracking-tight">Enter Protocol.</h1>
+            <p class="text-slate-500 font-medium italic text-sm">"Provide the unique access code for the study circle."</p>
+        </div>
+
+        <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
+            <form method="POST" class="space-y-8">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Circle Code (AAAA-0000)</label>
+                    <input type="text" name="search" 
+                        pattern="[A-Z]{4}-\d{4}"
+                        title="Format must be AAAA-0000 (e.g., MATH-1234)"
+                        class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-5 px-6 text-center text-xl font-bold text-brand-blue uppercase tracking-widest focus:bg-white focus:border-brand-blue/20 outline-none transition-all placeholder:text-slate-200" 
+                        placeholder="AAAA-0000" required>
+                    <p class="text-[9px] text-slate-400 text-center font-medium font-roboto italic mt-2">"Enter the unique 8-character identity provided by your teacher."</p>
+                </div>
+                
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-brand-blue text-white py-6 rounded-2xl font-bold text-xs uppercase tracking-widest shadow-2xl shadow-blue-900/20 hover:scale-[1.02] transition-all font-openSans">Access Circle</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-12 text-center p-6 bg-white/50 rounded-2xl border border-dashed border-slate-200">
+             <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                Don't have a code? <br><a href="/groups" class="text-brand-blue no-underline hover:underline mt-2 inline-block">Browse Public Circles</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
