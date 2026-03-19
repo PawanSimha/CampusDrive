@@ -91,12 +91,40 @@
         <div class="lg:col-span-8 space-y-8">
             <!-- Message Input -->
             <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
-                <form action="/group/{{ group._id }}/message" method="POST" class="space-y-6">
+                <form action="/group/{{ group._id }}/message" method="POST" enctype="multipart/form-data" class="space-y-6">
                     <div class="flex gap-4">
                         <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center font-bold shrink-0">
                             {{ current_user.name[0]|upper }}
                         </div>
-                        <textarea name="message" placeholder="Announce something to your circle..." class="w-full bg-slate-50 border border-slate-100 rounded-2xl p-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 transition-all outline-none resize-none min-h-[120px]" required></textarea>
+                        <div class="flex-1 space-y-4">
+                            <textarea name="message" placeholder="Announce something to your circle..." class="w-full bg-slate-50 border border-slate-100 rounded-2xl p-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 transition-all outline-none resize-none min-h-[120px]" required></textarea>
+                            
+                            {% if current_user.role in ['Teacher', 'admin'] %}
+                            <!-- File Attachment UI -->
+                            <div class="flex items-center gap-4">
+                                <label class="flex items-center gap-3 px-6 py-3 bg-slate-50 border border-slate-100 rounded-xl cursor-pointer hover:bg-slate-100 transition-all group">
+                                    <input type="file" name="file" class="hidden" id="announcementFile" onchange="updateFileName(this)">
+                                    <span class="material-symbols-rounded text-slate-400 group-hover:text-brand-blue">attach_file</span>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-brand-blue" id="fileNameDisplay">Attach Notes</span>
+                                </label>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">PDF, DOCX, PPT, XLS, PNG, JPG</p>
+                            </div>
+                            <script>
+                                function updateFileName(input) {
+                                    const display = document.getElementById('fileNameDisplay');
+                                    if (input.files && input.files[0]) {
+                                        display.innerText = input.files[0].name;
+                                        display.classList.remove('text-slate-400');
+                                        display.classList.add('text-brand-blue');
+                                    } else {
+                                        display.innerText = "Attach Notes";
+                                        display.classList.remove('text-brand-blue');
+                                        display.classList.add('text-slate-400');
+                                    }
+                                }
+                            </script>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="flex justify-end">
                         <button type="submit" class="bg-brand-blue text-white px-10 py-4 rounded-xl font-bold text-xs uppercase tracking-wider shadow-xl shadow-blue-900/20 hover:scale-105 transition-all">Post Announcement</button>
@@ -115,10 +143,34 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-brand-blue text-sm uppercase tracking-tight">{{ msg.sender_name }}</h4>
-                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{{ msg.timestamp.strftime('%B %d, %H:%M') }}</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{{ msg.timestamp.strftime('%B %d, %G %H:%M') }}</p>
                             </div>
                         </div>
-                        <p class="text-slate-600 font-medium leading-relaxed">{{ msg.content }}</p>
+                        <p class="text-slate-600 font-medium leading-relaxed mb-6">{{ msg.content }}</p>
+
+                        {% if msg.attachment_path %}
+                        <!-- Attachment Card -->
+                        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 flex items-center justify-between group hover:bg-brand-blue/5 transition-all">
+                            <div class="flex items-center gap-5">
+                                <div class="w-14 h-14 bg-white rounded-xl border border-slate-200 flex items-center justify-center text-brand-blue shadow-sm">
+                                    {% if msg.attachment_name.lower().endswith(('.png', '.jpg', '.jpeg')) %}
+                                    <span class="material-symbols-rounded text-3xl">image</span>
+                                    {% elif msg.attachment_name.lower().endswith('.pdf') %}
+                                    <span class="material-symbols-rounded text-3xl">picture_as_pdf</span>
+                                    {% else %}
+                                    <span class="material-symbols-rounded text-3xl">description</span>
+                                    {% endif %}
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-brand-blue text-sm truncate max-w-[200px] md:max-w-md">{{ msg.attachment_name }}</span>
+                                    <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Educational Resource</span>
+                                </div>
+                            </div>
+                            <a href="/{{ msg.attachment_path }}" download="{{ msg.attachment_name }}" class="p-3 bg-white border border-slate-200 text-slate-400 rounded-xl hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all">
+                                <span class="material-symbols-rounded">download</span>
+                            </a>
+                        </div>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 {% else %}

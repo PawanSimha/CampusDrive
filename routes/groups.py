@@ -222,12 +222,36 @@ def post_message(group_id):
     if not message_content or not message_content.strip():
         flash("Announcement cannot be empty.")
         return redirect(url_for("groups.group_detail", group_id=group_id))
-        
+
+    attachment_path = None
+    attachment_name = None
+
+    # Handle file attachment (Only for Teachers/Admins)
+    if "file" in request.files and current_user.role in ["Teacher", "admin"]:
+        file = request.files["file"]
+        if file and file.filename != "":
+            if allowed_file(file.filename):
+                original_name = secure_filename(file.filename)
+                unique_name = str(uuid.uuid4()) + "_" + original_name
+                # Ensure directory exists
+                upload_folder = "static/uploads/groups"
+                if not os.path.exists(upload_folder):
+                    os.makedirs(upload_folder)
+                
+                filepath = os.path.join(upload_folder, unique_name).replace("\\", "/")
+                file.save(filepath)
+                attachment_path = filepath
+                attachment_name = original_name
+            else:
+                flash("Invalid file type. Supported: PDF, Word, Excel, PPT, Images.")
+
     db.group_messages.insert_one({
         "group_id": ObjectId(group_id),
         "sender_id": ObjectId(current_user.id),
         "sender_name": current_user.name,
         "content": message_content.strip(),
+        "attachment_path": attachment_path,
+        "attachment_name": attachment_name,
         "timestamp": datetime.utcnow()
     })
     
