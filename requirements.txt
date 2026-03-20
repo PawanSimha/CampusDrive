@@ -8,3 +8,5 @@ requests
 werkzeug
 email_validator
 certifi
+flask-wtf
+waitress

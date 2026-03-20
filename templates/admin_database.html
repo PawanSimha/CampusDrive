@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block title %}Admin Database{% endblock %}
+
+{% block content %}
+<div class="max-w-[1440px] mx-auto px-6 pt-10 pb-32">
+    <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+        <div class="space-y-4">
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-wider">Root Access</span>
+            <h1 class="text-6xl font-bold text-brand-blue uppercase tracking-tight leading-none">Database.</h1>
+            <p class="text-slate-500 font-medium max-w-lg">Complete overview of all registered scholars, educators, and study circles.</p>
+        </div>
+    </div>
+
+    <!-- Circles Section -->
+    <div class="mb-16">
+        <div class="flex items-center gap-4 mb-8">
+            <span class="w-12 h-1 bg-brand-orange rounded-full"></span>
+            <h2 class="text-3xl font-bold text-brand-blue uppercase tracking-tight font-poppins">Active Circles</h2>
+            <span class="bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest">{{ groups|length }} Total</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for group in groups %}
+            <a href="/group/{{ group._id }}" class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:border-brand-orange/30 hover:shadow-xl hover:shadow-brand-orange/5 transition-all group/card no-underline flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-12 h-12 bg-brand-orange/10 text-brand-orange rounded-xl flex items-center justify-center group-hover/card:bg-brand-orange group-hover/card:text-white transition-colors">
+                        <span class="material-symbols-rounded text-2xl">diversity_3</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-brand-blue/40 uppercase tracking-widest font-openSans">{{ group.group_code }}</span>
+                </div>
+                <h3 class="text-xl font-bold text-brand-blue tracking-tight mb-2 group-hover/card:text-brand-orange transition-colors font-poppins">{{ group.name }}</h3>
+                <p class="text-slate-500 text-xs font-medium line-clamp-2 mb-6 flex-grow">{{ group.description }}</p>
+                <div class="pt-6 border-t border-slate-50 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-rounded text-slate-300 text-sm">group</span>
+                        <span class="text-xs font-bold text-slate-500">{{ group.members|length }} Members</span>
+                    </div>
+                    <div class="text-[9px] font-bold text-brand-blue uppercase tracking-wider">
+                        By {{ (group.creator_name or 'Unknown')[:10] }}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+            {% if not groups %}
+            <div class="col-span-full py-12 text-center bg-white rounded-3xl border border-dashed border-slate-200">
+                <p class="text-slate-400 font-bold tracking-tight font-poppins">No Circles Found</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Teachers Section -->
+    <div class="mb-16">
+        <div class="flex items-center gap-4 mb-8">
+            <span class="w-12 h-1 bg-brand-blue rounded-full"></span>
+            <h2 class="text-3xl font-bold text-brand-blue uppercase tracking-tight font-poppins">Educators</h2>
+            <span class="bg-brand-blue/10 text-brand-blue px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest">{{ teacher_stats|length }} Approved</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            {% for t in teacher_stats %}
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col relative overflow-hidden group">
+                <div class="flex items-start gap-5">
+                    <div class="w-16 h-16 bg-brand-blue text-white rounded-2xl flex items-center justify-center font-bold text-xl uppercase shrink-0 shadow-lg shadow-blue-900/20">
+                        {{ t.name[0]|upper }}
+                    </div>
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-brand-blue text-lg uppercase tracking-tight mb-1">{{ t.name }}</h4>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-3">{{ t.college or 'Unknown Institution' }}</p>
+                        <p class="text-xs text-slate-500 font-medium mb-1 flex items-center gap-2"><span class="material-symbols-rounded text-sm">mail</span> {{ t.email }}</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-slate-50">
+                    <div>
+                        <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Uploads</p>
+                        <p class="text-xl font-bold text-brand-blue">{{ t.uploads }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Circles</p>
+                        <p class="text-xl font-bold text-brand-orange">{{ t.groups }}</p>
+                    </div>
+                </div>
+
+                <div class="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <a href="/admin/delete_user/{{ t.id }}" class="text-red-400 hover:text-red-600 bg-red-50 p-2 rounded-lg" onclick="return confirm('Purge {{ t.name }} permanently?')">
+                        <span class="material-symbols-rounded text-sm">delete</span>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+            {% if not teacher_stats %}
+            <div class="col-span-full py-12 text-center bg-white rounded-3xl border border-dashed border-slate-200">
+                <p class="text-slate-400 font-bold tracking-tight font-poppins">No Educators Found</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Students Section -->
+    <div>
+        <div class="flex items-center gap-4 mb-8">
+            <span class="w-12 h-1 bg-slate-300 rounded-full"></span>
+            <h2 class="text-3xl font-bold text-brand-blue uppercase tracking-tight font-poppins">Scholars</h2>
+            <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest">{{ students|length }} Enrolled</span>
+        </div>
+
+        <div class="bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="px-10 py-6 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Scholar Name</th>
+                            <th class="px-10 py-6 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Institution</th>
+                            <th class="px-10 py-6 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Branch/Batch</th>
+                            <th class="px-10 py-6 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for u in students %}
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-10 py-5">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 bg-slate-100 text-slate-500 rounded-xl flex items-center justify-center font-bold text-xs uppercase">{{ u.name[0]|upper }}</div>
+                                    <div>
+                                        <p class="font-bold text-brand-blue text-sm">{{ u.name }}</p>
+                                        <p class="text-[10px] text-slate-400 font-bold tracking-tight">{{ u.email }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-10 py-5 text-xs font-bold text-slate-500">{{ u.college }}</td>
+                            <td class="px-10 py-5 text-xs font-bold text-slate-500">{{ u.branch }} <span class="text-slate-300">|</span> {{ u.year_batch }}</td>
+                            <td class="px-10 py-5 text-right">
+                                <a href="/admin/delete_user/{{ u._id }}" class="text-red-400 hover:text-red-600 transition-colors inline-block p-2 hover:bg-red-50 rounded-lg" onclick="return confirm('Purge student {{ u.name }}?')">
+                                    <span class="material-symbols-rounded text-[18px]">delete</span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if not students %}
+                <div class="py-12 text-center text-slate-400 font-bold text-sm uppercase tracking-widest">No scholars enrolled.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

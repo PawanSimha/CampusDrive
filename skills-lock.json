@@ -1,10 +1,20 @@
 {
   "version": 1,
   "skills": {
+    "backend-testing": {
+      "source": "supercent-io/skills-template",
+      "sourceType": "github",
+      "computedHash": "1149c16f3cb08bf0d68e842dd1bf872172f756c3a244e9cb92b96c7acce4e724"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "computedHash": "516bd2154eb843a8240e43d5b285229129853114ad7075a5e141e1c08e408c84"
+    },
+    "python-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "45c36d56b92b0bdb99c86052b45e0c7e5e424c4ec7a4b2f45604e195dc80289c"
     },
     "systematic-debugging": {
       "source": "obra/superpowers",

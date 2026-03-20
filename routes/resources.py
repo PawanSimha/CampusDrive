@@ -3,6 +3,7 @@ Resource routes — upload, social, subjects, edit, delete, download, detail, fa
 """
 
 import os
+import re
 import uuid
 from datetime import datetime
 from werkzeug.utils import secure_filename
@@ -28,7 +29,7 @@ def upload():
         year_batch = request.form["year_batch"]
         tags = request.form["tags"].split(",")
         description = request.form["description"]
-        privacy = request.form["privacy"]
+        privacy = "public" if current_user.role == "Student" else request.form.get("privacy", "public")
 
         file = request.files["file"]
 
@@ -102,18 +103,20 @@ def social():
 
     # Unified search across title, subject, tags, description
     if search:
+        escaped_search = re.escape(search)
         search_filter = {
             "$or": [
-                {"title": {"$regex": search, "$options": "i"}},
-                {"subject": {"$regex": search, "$options": "i"}},
-                {"tags": {"$regex": search, "$options": "i"}},
-                {"description": {"$regex": search, "$options": "i"}}
+                {"title": {"$regex": escaped_search, "$options": "i"}},
+                {"subject": {"$regex": escaped_search, "$options": "i"}},
+                {"tags": {"$regex": escaped_search, "$options": "i"}},
+                {"description": {"$regex": escaped_search, "$options": "i"}}
             ]
         }
         query["$and"].append(search_filter)
 
     if subject:
-        query["$and"].append({"subject": {"$regex": subject, "$options": "i"}})
+        escaped_subject = re.escape(subject)
+        query["$and"].append({"subject": {"$regex": escaped_subject, "$options": "i"}})
 
     if semester:
         query["$and"].append({"semester": semester})
@@ -147,11 +150,14 @@ def social():
     # Get public announcements from teachers, pinned first
     public_announcements = list(db.public_announcements.find().sort([("is_pinned", -1), ("timestamp", -1)]))
     
-    # Separate resources into public assets
-    # We can still use the resources list, but in the template we will position them on the right
+    # Fetch user favorites to show active states
+    user_data = db.users.find_one({"_id": ObjectId(current_user.id)})
+    user_favorites = user_data.get("favorites", [])
+
     return render_template("social.html", resources=resources, subjects=all_subjects, 
                          selected_subject=subject, query=query,
-                         public_announcements=public_announcements)
+                         public_announcements=public_announcements,
+                         user_favorites=user_favorites)
 
 
 @resources_bp.route("/pin_announcement/<announcement_id>")
@@ -229,8 +235,15 @@ def subjects():
         flash("Vault access is restricted for faculty. Please use the Public or Circles sections.")
         return redirect(url_for("resources.social"))
 
-    subjects = db.resources.distinct("subject")
-    return render_template("subjects.html", subjects=subjects)
+    # Fetch user to get their favorites array
+    user = db.users.find_one({"_id": ObjectId(current_user.id)})
+    favorites = user.get("favorites", [])
+
+    # Fetch the actual resources and announcements from the DB
+    vault_resources = list(db.resources.find({"_id": {"$in": favorites}}).sort("created_at", -1))
+    vault_announcements = list(db.public_announcements.find({"_id": {"$in": favorites}}).sort("timestamp", -1))
+    
+    return render_template("vault.html", resources=vault_resources, announcements=vault_announcements)
 
 
 @resources_bp.route("/edit_resource/<resource_id>", methods=["GET", "POST"])
@@ -324,7 +337,7 @@ def toggle_favorite(resource_id):
         )
         flash("⭐ Resource added to favorites!")
 
-    return redirect(url_for("resources.resource_detail", resource_id=resource_id))
+    return redirect(request.referrer or url_for("resources.social"))
 
 
 @resources_bp.route("/toggle_privacy/<resource_id>")
@@ -424,13 +437,17 @@ def resource_detail(resource_id):
                 "created_at": datetime.utcnow()
             })
 
-        # Recalculate Average Rating
-        all_reviews = list(db.reviews.find({"resource_id": ObjectId(resource_id)}))
-        avg_rating = sum(r["rating"] for r in all_reviews) / len(all_reviews)
+        # Recalculate Average Rating using efficient Aggregation
+        pipeline = [
+            {"$match": {"resource_id": ObjectId(resource_id)}},
+            {"$group": {"_id": "$resource_id", "avg_rating": {"$avg": "$rating"}}}
+        ]
+        agg_result = list(db.reviews.aggregate(pipeline))
+        new_avg = round(agg_result[0]["avg_rating"], 2) if agg_result else 0
 
         db.resources.update_one(
             {"_id": ObjectId(resource_id)},
-            {"$set": {"avg_rating": round(avg_rating, 2)}}
+            {"$set": {"avg_rating": new_avg}}
         )
 
         flash("✅ Review submitted successfully!")

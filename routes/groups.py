@@ -22,7 +22,10 @@ def groups():
     from app import db
 
     # Get all groups
-    all_groups = list(db.groups.find().sort("created_at", -1))
+    if current_user.role == "Student":
+        all_groups = list(db.groups.find({"members": ObjectId(current_user.id)}).sort("created_at", -1))
+    else:
+        all_groups = list(db.groups.find().sort("created_at", -1))
 
     # Get user's joined groups
     user_groups = list(db.groups.find({"members": ObjectId(current_user.id)}))
@@ -182,12 +185,13 @@ def join_group():
 
     if request.method == "POST":
         search_query = request.form["search"]
+        escaped_search = re.escape(search_query)
 
         # Search by group name or code
         group = db.groups.find_one({
             "$or": [
                 {"group_code": search_query.upper()},
-                {"name": {"$regex": search_query, "$options": "i"}}
+                {"name": {"$regex": escaped_search, "$options": "i"}}
             ]
         })
 
@@ -244,8 +248,8 @@ def group_detail(group_id):
     # Get group messages
     messages = list(db.group_messages.find({"group_id": ObjectId(group_id)}).sort("timestamp", 1))
 
-    # Check if user is a member or creator
-    is_member = ObjectId(current_user.id) in group.get("members", [])
+    # Check if user is a member, creator, or admin
+    is_member = (ObjectId(current_user.id) in group.get("members", [])) or (current_user.role == 'admin')
     is_creator = str(group.get("created_by")) == current_user.id
 
     # Get user's own resources for sharing dropdown (only for teachers/admins)
@@ -271,6 +275,11 @@ def post_announcement(group_id):
     if current_user.role not in ["Teacher", "admin"]:
         flash("Only teachers and admins can post announcements")
         return redirect(url_for("groups.group_detail", group_id=group_id))
+
+    # Membership check
+    if ObjectId(current_user.id) not in group.get("members", []):
+        flash("Error: You must be a member of this circle to post announcements.")
+        return redirect(url_for("groups.groups"))
 
     title = request.form["title"]
     content = request.form["content"]
@@ -307,6 +316,11 @@ def post_message(group_id):
 
     if not group:
         flash("Group not found")
+        return redirect(url_for("groups.groups"))
+
+    # Membership check for any message post
+    if ObjectId(current_user.id) not in group.get("members", []):
+        flash("Error: You must be a member of this circle to send messages.")
         return redirect(url_for("groups.groups"))
 
     message_content = request.form.get("message")
@@ -366,6 +380,11 @@ def share_resource_to_group(group_id):
         flash("Only teachers and admins can share resources to groups")
         return redirect(url_for("groups.group_detail", group_id=group_id))
 
+    # Membership check
+    if ObjectId(current_user.id) not in group.get("members", []):
+        flash("Error: You must be a member of this circle to share resources.")
+        return redirect(url_for("groups.groups"))
+
     resource_id = request.form["resource_id"]
 
     # Check if resource already shared
@@ -384,6 +403,19 @@ def share_resource_to_group(group_id):
     return redirect(url_for("groups.group_detail", group_id=group_id))
 
 
+@groups_bp.route("/group/<group_id>/delete_announcement/<ann_id>")
+@login_required
+def delete_circle_announcement(group_id, ann_id):
+    from app import db
+    if current_user.role != "admin":
+        flash("Unauthorized deletion attempt.")
+        return redirect(url_for("groups.group_detail", group_id=group_id))
+    
+    db.group_announcements.delete_one({"_id": ObjectId(ann_id)})
+    flash("Announcement permanently purged.")
+    return redirect(url_for("groups.group_detail", group_id=group_id))
+
+
 @groups_bp.route("/group/<group_id>/upload_resource", methods=["POST"])
 @login_required
 def upload_to_group(group_id):
@@ -398,6 +430,11 @@ def upload_to_group(group_id):
     if current_user.role not in ["Teacher", "admin"]:
         flash("Only teachers and admins can upload resources to groups")
         return redirect(url_for("groups.group_detail", group_id=group_id))
+
+    # Membership check
+    if ObjectId(current_user.id) not in group.get("members", []):
+        flash("Error: You must be a member of this circle to upload files.")
+        return redirect(url_for("groups.groups"))
 
     title = request.form["title"]
     subject = request.form["subject"]

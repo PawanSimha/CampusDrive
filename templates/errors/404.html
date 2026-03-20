@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}404 - Archive Not Found{% endblock %}
+
+{% block content %}
+<div class="min-h-[70vh] flex items-center justify-center px-6">
+    <div class="max-w-md w-full text-center space-y-8">
+        <div class="relative">
+            <div class="w-32 h-32 bg-slate-100 rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 border border-slate-200">
+                <span class="material-symbols-rounded text-6xl text-slate-300">search_off</span>
+            </div>
+            <div class="absolute -bottom-2 right-1/2 translate-x-16 bg-brand-orange text-white px-4 py-2 rounded-xl font-bold text-[10px] uppercase tracking-wider shadow-lg">Error 404</div>
+        </div>
+        
+        <div class="space-y-4">
+            <h1 class="text-4xl font-bold text-brand-blue tracking-tight font-poppins">Resource Missing.</h1>
+            <p class="text-slate-500 font-medium leading-relaxed italic">"The document you are looking for does not exist in our central archive or has been moved to a restricted protocol."</p>
+        </div>
+
+        <div class="pt-6">
+            <a href="/" class="inline-flex items-center gap-3 bg-brand-blue text-white px-10 py-5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-2xl shadow-blue-900/20 hover:scale-105 transition-all no-underline font-openSans">
+                <span class="material-symbols-rounded">home</span> Back to Hub
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

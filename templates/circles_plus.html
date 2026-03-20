@@ -3,18 +3,16 @@
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-6 pt-10 pb-32">
-    <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-        <div class="space-y-4">
-            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-[.2em] font-openSans">Advanced
-                educator Tools</span>
-            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins">Circles<span
-                    class="text-brand-orange">++</span></h1>
-            <p class="text-slate-500 font-medium max-w-lg">Broadcast resources and announcements across multiple study
-                circles simultaneously. One action, universal reach.</p>
+    <div class="flex flex-col items-center justify-center text-center gap-6 mb-16 relative z-10">
+        <div class="space-y-4 flex flex-col items-center">
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-widest font-openSans">Advanced Educator Tools</span>
+            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins capitalize">Circles++</h1>
+            <p class="text-slate-500 font-medium max-w-lg mt-4 text-center">Broadcast resources and announcements across multiple study circles simultaneously. One action, universal reach.</p>
         </div>
     </div>
 
     <form action="/circles_plus" method="POST" enctype="multipart/form-data" class="space-y-12">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <!-- Section 1: Target Selection -->
         <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
             <div class="flex items-center gap-4 mb-8">

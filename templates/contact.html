@@ -16,18 +16,21 @@
         style="top: 55%; left: 3%; animation-delay: 4.8s;">alternate_email</span>
 </div>
 
-<div class="max-w-4xl mx-auto px-6 pt-10 pb-32 relative z-10">
-    <div class="text-center mb-20 space-y-4">
-        <span class="text-brand-orange font-bold uppercase text-xs tracking-[.2em] font-openSans">Get in Touch</span>
-        <h1 class="text-5xl md:text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins">Contact
-            Support.</h1>
-        <p class="text-slate-500 font-medium max-w-lg mx-auto text-lg">We're here to support your academic journey and
-            answer any questions.</p>
+<div class="max-w-7xl mx-auto px-6 lg:px-12 pt-10 pb-32 relative z-10">
+    <div class="flex flex-col items-center justify-center text-center gap-6 mb-16 relative z-10">
+        <div class="space-y-4 flex flex-col items-center">
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-widest font-openSans">Get In
+                Touch</span>
+            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins capitalize">Contact
+                Support</h1>
+            <p class="text-slate-500 font-medium max-w-lg mt-4 text-center">We're here to support your academic journey
+                and answer any questions.</p>
+        </div>
     </div>
 
-    <div class="grid md:grid-cols-12 gap-12">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-20">
         <!-- Contact Info -->
-        <div class="md:col-span-5 space-y-8">
+        <div class="lg:col-span-5 space-y-8">
             <div
                 class="bg-gradient-to-br from-brand-blue to-primary-800 p-10 rounded-3xl text-white shadow-2xl shadow-blue-900/20 relative overflow-hidden">
                 <div class="absolute -top-10 -right-10 opacity-10 pointer-events-none transform rotate-12">
@@ -103,10 +106,12 @@
         </div>
 
         <!-- Form -->
-        <div class="md:col-span-7">
-            <div class="bg-white rounded-3xl p-10 lg:p-12 border border-slate-200 shadow-sm h-full">
-                <h3 class="text-2xl font-poppins font-bold text-brand-blue mb-8">Send a Message</h3>
+        <div class="lg:col-span-7">
+            <div
+                class="bg-white rounded-3xl p-10 lg:p-5 border border-slate-200 shadow-sm h-full flex flex-col justify-center">
+                <h3 class="text-3xl font-poppins font-bold text-brand-blue mb-10">Send a Message</h3>
                 <form method="POST" class="space-y-8">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="grid grid-cols-2 gap-8">
                         <div class="space-y-3">
                             <label class="block text-sm font-semibold text-slate-700">Your Name</label>
@@ -130,11 +135,11 @@
                     <div class="space-y-3">
                         <label class="block text-sm font-semibold text-slate-700">Message</label>
                         <textarea name="message"
-                            class="w-full bg-slate-50/50 border border-slate-200 rounded-xl py-4 px-5 text-sm font-medium text-slate-800 focus:bg-white focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/10 outline-none transition-all placeholder:text-slate-400 min-h-[160px] resize-none"
+                            class="w-full bg-slate-50/50 border border-slate-200 rounded-xl py-4 px-5 text-sm font-medium text-slate-800 focus:bg-white focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/10 outline-none transition-all placeholder:text-slate-400 min-h-[220px] resize-none"
                             placeholder="How can we help you?" required></textarea>
                     </div>
                     <button type="submit"
-                        class="w-full bg-brand-blue text-white py-5 rounded-xl font-bold text-sm tracking-wide shadow-xl shadow-blue-900/20 hover:bg-brand-bright hover:-translate-y-0.5 transition-all duration-300 font-openSans flex items-center justify-center gap-2">
+                        class="w-full bg-brand-blue text-white py-5 mt-4 rounded-xl font-bold text-sm tracking-wide shadow-xl shadow-blue-900/20 hover:bg-brand-bright hover:-translate-y-0.5 transition-all duration-300 font-openSans flex items-center justify-center gap-2">
                         Send Message <span class="material-symbols-rounded text-sm">send</span>
                     </button>
                 </form>

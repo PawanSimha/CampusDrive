@@ -46,102 +46,13 @@
     </div>
 
     <div class="grid lg:grid-cols-12 gap-12">
-        <!-- Sidebar: Members & Actions -->
-        <div class="lg:col-span-4 space-y-8">
-            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
-                <h3 class="text-lg font-bold text-brand-blue uppercase tracking-tight mb-8 flex items-center gap-3">
-                    <span class="material-symbols-rounded text-brand-orange">group</span>
-                    Classmates
-                </h3>
-                <div class="space-y-6">
-                    {% for member in members %}
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 bg-brand-blue text-white rounded-xl flex items-center justify-center font-bold text-xs uppercase">
-                                {{ member.name[0]|upper }}
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-brand-blue text-sm">{{ member.name }}</span>
-                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">{{
-                                    member.college or 'Campus Drive User' }}</span>
-                            </div>
-                        </div>
-                        {% if member._id|string == group.created_by|string %}
-                        <span
-                            class="bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-wider font-openSans">Creator</span>
-                        {% elif is_creator %}
-                        <!-- Remove Member Action (Only for Creator) -->
-                        <a href="/group/{{ group._id }}/remove/{{ member._id }}"
-                            class="text-rose-500 hover:text-rose-600 transition-colors p-2 rounded-lg hover:bg-rose-50"
-                            onclick="return confirm('Remove this member from the circle?')" title="Remove Member">
-                            <span class="material-symbols-rounded text-lg">person_remove</span>
-                        </a>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
-                <h3 class="text-lg font-bold text-brand-blue uppercase tracking-tight mb-8 flex items-center gap-3">
-                    <span class="material-symbols-rounded text-brand-orange">folder_shared</span>
-                    Circle Library
-                </h3>
-                {% if resources %}
-                <div class="space-y-4">
-                    {% for res in resources %}
-                    <div
-                        class="group/res flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-blue/20 hover:bg-white transition-all">
-                        <div class="flex items-center gap-3 overflow-hidden">
-                            <div
-                                class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-brand-blue shrink-0">
-                                {% if res.resource_type == 'Notes' %}
-                                <span class="material-symbols-rounded text-sm">description</span>
-                                {% else %}
-                                <span class="material-symbols-rounded text-sm">book</span>
-                                {% endif %}
-                            </div>
-                            <div class="flex flex-col overflow-hidden">
-                                <span class="text-[11px] font-bold text-brand-blue truncate">{{ res.title }}</span>
-                                <span class="text-[8px] text-slate-400 font-bold uppercase tracking-widest">{{
-                                    res.subject }}</span>
-                            </div>
-                        </div>
-                        <a href="/download/{{ res._id }}"
-                            class="p-2 text-slate-400 hover:text-brand-blue transition-colors">
-                            <span class="material-symbols-rounded text-lg">download</span>
-                        </a>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% else %}
-                <div class="py-10 text-center border-2 border-dashed border-slate-100 rounded-3xl">
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">No resources shared yet
-                    </p>
-                </div>
-                {% endif %}
-            </div>
-            {% if is_creator %}
-            <div class="bg-brand-orange p-8 rounded-3xl text-white shadow-xl shadow-orange-900/20">
-                <h4 class="font-bold uppercase tracking-wider text-[10px] mb-4 opacity-80">Admin Controls</h4>
-                <div class="flex flex-col gap-4">
-                    <a href="/group/{{ group._id }}/delete"
-                        class="bg-white/10 hover:bg-white/20 text-white p-4 rounded-xl text-xs font-bold uppercase tracking-wider no-underline flex items-center gap-3 transition-colors"
-                        onclick="return confirm('Archive this circle?')">
-                        <span class="material-symbols-rounded text-sm">archive</span> Archive Circle
-                    </a>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-
         <!-- Main Feed: Messages & Resources -->
         <div class="lg:col-span-8 space-y-8">
             <!-- Message Input -->
             <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
                 <form action="/group/{{ group._id }}/message" method="POST" enctype="multipart/form-data"
                     class="space-y-6">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="flex gap-4">
                         <div
                             class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center font-bold shrink-0">
@@ -219,6 +130,14 @@
                             <span class="material-symbols-rounded text-[10px]">campaign</span> Announcement
                         </span>
                         {% endif %}
+                        
+                        {% if current_user.role == 'admin' %}
+                        <a href="/group/{{ group._id }}/delete_{% if item.title %}announcement{% else %}message{% endif %}/{{ item._id }}"
+                            class="text-red-400 hover:text-red-600 transition-colors p-2 rounded-lg hover:bg-red-50 ml-auto"
+                            onclick="return confirm('Purge this asset from the database permanently?')" title="Delete Asset">
+                            <span class="material-symbols-rounded text-lg">delete</span>
+                        </a>
+                        {% endif %}
                     </div>
 
                     {% if item.title %}
@@ -267,6 +186,94 @@
                 {% endif %}
             </div>
         </div>
+
+        <!-- Sidebar: Members & Actions -->
+        <div class="lg:col-span-4 space-y-8">
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-bold text-brand-blue uppercase tracking-tight mb-8 flex items-center gap-3">
+                    <span class="material-symbols-rounded text-brand-orange">group</span>
+                    Classmates
+                </h3>
+                <div class="space-y-6">
+                    {% for member in members %}
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-10 h-10 bg-brand-blue text-white rounded-xl flex items-center justify-center font-bold text-xs uppercase">
+                                {{ member.name[0]|upper }}
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-brand-blue text-sm">{{ member.name }}</span>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">{{
+                                    member.college or 'Campus Drive User' }}</span>
+                            </div>
+                        </div>
+                        {% if member._id|string == group.created_by|string %}
+                        <span
+                            class="bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-wider font-openSans">Creator</span>
+                        {% elif is_creator %}
+                        <!-- Remove Member Action (Only for Creator) -->
+                        <a href="/group/{{ group._id }}/remove/{{ member._id }}"
+                            class="text-rose-500 hover:text-rose-600 transition-colors p-2 rounded-lg hover:bg-rose-50"
+                            onclick="return confirm('Remove this member from the circle?')" title="Remove Member">
+                            <span class="material-symbols-rounded text-lg">person_remove</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-bold text-brand-blue uppercase tracking-tight mb-8 flex items-center gap-3">
+                    <span class="material-symbols-rounded text-brand-orange">folder_shared</span>
+                    Circle Library
+                </h3>
+                {% if resources %}
+                <div class="space-y-4">
+                    {% for res in resources %}
+                    <div
+                        class="group/res flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-blue/20 hover:bg-white transition-all">
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-brand-blue shrink-0">
+                                {% if res.resource_type == 'Notes' %}
+                                <span class="material-symbols-rounded text-sm">description</span>
+                                {% else %}
+                                <span class="material-symbols-rounded text-sm">book</span>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col overflow-hidden">
+                                <span class="text-[11px] font-bold text-brand-blue truncate">{{ res.title }}</span>
+                                <span class="text-[8px] text-slate-400 font-bold uppercase tracking-widest">{{
+                                    res.subject }}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="/download/{{ res._id }}"
+                                class="p-2 text-slate-400 hover:text-brand-blue transition-colors">
+                                <span class="material-symbols-rounded text-lg">download</span>
+                            </a>
+                            {% if current_user.role == 'admin' %}
+                            <a href="/admin/delete_resource/{{ res._id }}" onclick="return confirm('Purge asset from database?')"
+                                class="p-2 text-red-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                                <span class="material-symbols-rounded text-lg">delete</span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="py-10 text-center border-2 border-dashed border-slate-100 rounded-3xl">
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">No resources shared yet
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
     </div>
 </div>
 {% endblock %}

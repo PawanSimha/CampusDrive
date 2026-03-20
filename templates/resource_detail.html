@@ -61,24 +61,7 @@
                 </div>
             </div>
 
-            <!-- Interaction Hub -->
-            <div class="bg-brand-blue p-12 rounded-[3rem] text-white shadow-xl shadow-blue-900/20">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div class="space-y-2 text-center md:text-left">
-                        <h3 class="text-2xl font-bold tracking-tight italic font-poppins">Peer Validation</h3>
-                        <p class="text-white/60 text-sm font-medium">Rate this resource to help maintain platform excellence.</p>
-                    </div>
-                    <form action="{{ url_for('resources.resource_detail', resource_id=resource._id|string) }}" method="POST" class="star-container flex items-center gap-2">
-                        {% for i in range(1,6) %}
-                        <input type="radio" name="rating" value="{{ i }}" class="hidden" {% if user_rating == i %}checked{% endif %}>
-                        <button type="submit" class="star-rating-trigger w-12 h-12 bg-white/10 hover:bg-brand-orange rounded-xl flex items-center justify-center transition-all group" data-star-index="{{ i }}">
-                            <span class="material-symbols-rounded text-white group-hover:fill-current">star</span>
-                        </button>
-                        {% endfor %}
-                    </form>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Sidebar: Discovery -->
         <div class="lg:col-span-4 space-y-10">
@@ -93,13 +76,7 @@
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-openSans">Transmission Date</span>
                         <span class="text-brand-blue font-bold text-sm">{{ resource.created_at.strftime('%b %d, %Y') if resource.created_at else 'Active' }}</span>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-openSans">Asset Rank</span>
-                        <div class="flex items-center gap-1 text-brand-orange">
-                            <span class="material-symbols-rounded text-sm">star</span>
-                            <span class="text-sm font-bold font-openSans">{{ resource.avg_rating or 0 }}</span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
 

@@ -2,24 +2,42 @@
 {% block title %}Create New Circle{% endblock %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto px-6 pt-10 pb-32">
-    <div class="text-center mb-16 space-y-4">
-        <div class="w-16 h-16 bg-brand-blue text-white rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-blue-900/20">
-            <span class="material-symbols-rounded text-3xl">group_add</span>
+<!-- Floating Icons (Subtle Background) -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden h-full w-full z-0 opacity-[0.08]">
+    <span class="material-symbols-rounded absolute text-brand-blue text-8xl animate-float"
+        style="top: 15%; left: 5%; animation-delay: 0s;">group</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float"
+        style="top: 35%; right: 8%; animation-delay: 1.2s;">school</span>
+    <span class="material-symbols-rounded absolute text-brand-blue text-7xl animate-float"
+        style="bottom: 20%; left: 15%; animation-delay: 2.4s;">forum</span>
+    <span class="material-symbols-rounded absolute text-brand-orange text-9xl animate-float"
+        style="bottom: 12%; right: 10%; animation-delay: 3.6s;">diversity_3</span>
+    <span class="material-symbols-rounded absolute text-brand-bright text-6xl animate-float"
+        style="top: 55%; left: 3%; animation-delay: 4.8s;">menu_book</span>
+</div>
+
+<div class="max-w-3xl mx-auto px-6 pt-10 pb-32 relative z-10">
+    <div class="flex flex-col items-center justify-center text-center gap-6 mb-16 relative z-10">
+        <div class="space-y-4 flex flex-col items-center">
+            <div class="w-12 h-12 bg-brand-blue text-white rounded-2xl flex items-center justify-center shadow-xl shadow-blue-900/20 mb-2">
+                <span class="material-symbols-rounded text-2xl">group_add</span>
+            </div>
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-widest font-openSans">Circle Creation</span>
+            <h1 class="text-6xl font-bold text-brand-blue tracking-tight leading-none font-poppins capitalize">Forge A New Circle</h1>
+            <p class="text-slate-500 font-medium max-w-lg mt-4 text-center">"Establishing a new hub for academic collaboration."</p>
         </div>
-        <h1 class="text-4xl font-bold text-brand-blue uppercase tracking-tight">Forge a New Circle.</h1>
-        <p class="text-slate-500 font-medium italic text-sm">"Establishing a new hub for academic collaboration."</p>
     </div>
 
     <div class="bg-white p-10 lg:p-12 rounded-[2.5rem] border border-slate-200 shadow-sm">
         <form method="POST" class="space-y-8">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="space-y-2">
-                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Circle Identity (Name)</label>
+                <label class="block text-sm font-semibold text-slate-700">Circle Identity (Name)</label>
                 <input type="text" name="name" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="e.g., Advanced Quantum Mechanics" required>
             </div>
 
             <div class="space-y-2">
-                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Circle Code (ID)</label>
+                <label class="block text-sm font-semibold text-slate-700">Circle Code (ID)</label>
                 <input type="text" name="group_code" 
                     pattern="[A-Z]{4}-\d{4}" 
                     title="Format must be AAAA-0000 (4 letters, hyphen, 4 numbers)"
@@ -29,7 +47,7 @@
             </div>
             
             <div class="space-y-2">
-                <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Circle Objective (Description)</label>
+                <label class="block text-sm font-semibold text-slate-700">Circle Objective (Description)</label>
                 <textarea name="description" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all min-h-[150px] resize-none" placeholder="Describe the purpose of this study circle..." required></textarea>
             </div>
 

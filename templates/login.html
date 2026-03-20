@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Authentication{% endblock %}
+{% block meta_title %}Login to CampusDrive | Secure Student Portal{% endblock %}
+{% block meta_description %}Access your university's shared resources. Securely log in to CampusDrive to browse notes, download question papers, and collaborate with your peers.{% endblock %}
 
 {% block content %}
 <!-- Floating Icons (Subtle Background) -->
@@ -23,6 +25,7 @@
 
         <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
             <form method="POST" class="space-y-6">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="space-y-2">
                     <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Email Terminal</label>
                     <input type="email" name="email" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="name@university.edu" required>

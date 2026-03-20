@@ -14,7 +14,8 @@
     </div>
 
     <div class="bg-white p-10 lg:p-12 rounded-[2.5rem] border border-slate-200 shadow-sm">
-        <form method="POST" class="space-y-8">
+        <form method="POST" enctype="multipart/form-data" class="space-y-8">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="space-y-2">
                 <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Archive
                     Title</label>
@@ -46,6 +47,7 @@
                 </div>
             </div>
 
+            {% if current_user.role in ['Teacher', 'admin'] %}
             <div class="space-y-2">
                 <label
                     class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Protocol /
@@ -56,6 +58,9 @@
                     <option value="private">🔒 Private (Restricted to My Circles)</option>
                 </select>
             </div>
+            {% else %}
+            <input type="hidden" name="privacy" value="public">
+            {% endif %}
 
             <div class="space-y-2">
                 <label

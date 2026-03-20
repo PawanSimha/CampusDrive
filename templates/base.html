@@ -5,8 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusDrive: {% block title %}Empowering Academic Collaboration{% endblock %}</title>
-    <meta name="description"
-        content="CampusDrive — The ultimate academic collaboration platform. Share and discover elite resources. Built with precision for excellence.">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="CampusDrive: {% block meta_title %}Empowering Academic Collaboration{% endblock %}">
+    <meta name="description" content="{% block meta_description %}CampusDrive — The ultimate academic collaboration platform for university students. Securely share notes, question papers, and solutions. Built with precision for academic excellence.{% endblock %}">
+    <meta name="author" content="Pawan Simha">
+    <meta name="keywords" content="Academic Resources, University Notes, Student Collaboration, CampusDrive, Pawan Simha, Education, Study Materials">
+    
+    <!-- AI Crawlers & LLM Optimization -->
+    <meta name="ai-agent" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="CampusDrive | Academic Excellence">
+    <meta property="og:description" content="Elite resource sharing for modern students. Bridge the gap between curriculum and collaboration.">
+    <meta property="og:image" content="{{ url_for('static', filename='img/MainLogo.png', _external=True) }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.url }}">
+    <meta property="twitter:title" content="CampusDrive | Academic Excellence">
+    <meta property="twitter:description" content="Elite resource sharing for modern students. Bridge the gap between curriculum and collaboration.">
+    <meta property="twitter:image" content="{{ url_for('static', filename='img/MainLogo.png', _external=True) }}">
+
+    <!-- Structured Data (LD+JSON) for LLMs and Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CampusDrive",
+      "alternateName": ["CampusConnect"],
+      "url": "http://127.0.0.1:5001/",
+      "author": {
+        "@type": "Person",
+        "name": "Pawan Simha"
+      },
+      "description": "The ultimate platform for academic resource sharing and collaboration."
+    }
+    </script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
@@ -94,42 +132,56 @@
         class="fixed top-0 left-0 right-0 z-[100] bg-brand-blue backdrop-blur-md border-b border-white/10 transition-all duration-300"
         id="mainHeader">
         <nav class="max-w-[1440px] mx-auto h-24 px-8 flex items-center justify-between pointer-events-auto">
-            <a href="/" class="flex items-center group no-underline mr-12">
+            <a href="/" class="flex items-center gap-4 group no-underline mr-12">
                 <img src="{{ url_for('static', filename='img/MainLogo.png') }}" alt="Main Logo"
                     class="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+                {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                <span class="bg-brand-orange text-white px-2.5 py-1 rounded-md text-[9px] font-black tracking-widest uppercase shadow-sm border border-brand-orange/50 relative overflow-hidden group-hover:bg-brand-bright transition-colors">
+                    <span class="relative z-10">ADMIN</span>
+                </span>
+                {% endif %}
             </a>
 
             <!-- Desktop Nav Links -->
             <div class="hidden lg:flex items-center gap-4">
                 {% if current_user.is_authenticated %}
                 <div class="flex items-center gap-10">
-                    {% if current_user.role == 'Teacher' %}
+                    {% if current_user.role == 'admin' %}
                     <a href="/social"
-                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Social</a>
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Social</a>
+                    <a href="/admin/database"
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Database</a>
+                    <a href="/admin/approvals"
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Approvals</a>
                     <a href="/groups"
-                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Circles</a>
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Circles</a>
+                    {% elif current_user.role == 'Teacher' %}
+                    <a href="/social"
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Social</a>
+                    <a href="/groups"
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Circles</a>
                     <a href="/circles_plus"
-                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Broadcast</a>
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Broadcast</a>
                     {% else %}
                     <a href="/social"
-                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Social</a>
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Social</a>
                     <a href="/groups"
-                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Circles</a>
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Circles</a>
                     <a href="/subjects"
-                        class="nav-link text-sm text-white hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Vault</a>
+                        class="nav-link text-sm text-white hover:text-brand-orange hover:font-bold uppercase font-bold tracking-[0.2em] no-underline transition-all">Vault</a>
                     {% endif %}
                 </div>
                 <div class="w-px h-8 bg-white/20 mx-2"></div>
                 <div class="flex items-center gap-6">
                     <a href="/contact"
-                        class="nav-link text-sm text-white uppercase font-bold tracking-[0.2em] no-underline transition-colors mr-1">Contact</a>
+                        class="nav-link text-sm text-white hover:text-brand-orange uppercase font-bold tracking-[0.2em] no-underline transition-colors mr-1">Contact</a>
                     {% if current_user.role == 'Teacher' %}
                     <a href="/create_group"
                         class="bg-brand-orange text-white px-5 py-3 rounded-2xl font-bold text-[10px] uppercase tracking-widest no-underline flex items-center gap-3 hover:bg-orange-600 transition-all shadow-lg shadow-orange-900/10 hover:scale-105 whitespace-nowrap">
                         <span class="material-symbols-rounded text-lg">add</span>
-                        Create Table
+                        Create Circle
                     </a>
-                    {% else %}
+                    {% elif current_user.role == 'Student' %}
                     <a href="/upload"
                         class="bg-white text-brand-blue px-6 py-3 rounded-2xl font-bold text-[10px] uppercase tracking-widest no-underline flex items-center gap-3 hover:bg-slate-100 transition-all shadow-lg shadow-black/10 hover:scale-105 whitespace-nowrap">
                         <span class="material-symbols-rounded text-lg">upload</span>
@@ -169,9 +221,9 @@
                 {% else %}
                 <div class="flex items-center gap-12 font-openSans">
                     <a href="/contact"
-                        class="nav-link text-sm text-white uppercase font-bold tracking-wider no-underline transition-colors">Support</a>
+                        class="nav-link text-sm text-white hover:text-brand-orange uppercase font-bold tracking-wider no-underline transition-colors">Support</a>
                     <a href="/login"
-                        class="nav-link text-sm text-white uppercase font-bold tracking-wider no-underline transition-colors">Sign
+                        class="nav-link text-sm text-white hover:text-brand-orange uppercase font-bold tracking-wider no-underline transition-colors">Sign
                         In</a>
                     <a href="/register"
                         class="bg-white text-brand-blue px-10 py-4 rounded-xl font-bold text-sm uppercase tracking-widest no-underline shadow-xl shadow-black/10 hover:bg-slate-100 hover:scale-105 transition-all">

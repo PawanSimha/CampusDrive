@@ -16,5 +16,7 @@ def allowed_file(filename):
 
 
 def generate_group_code():
-    """Generate a unique 9-character group code"""
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
+    """Generate a unique group code in format AAAA-0000"""
+    letters = ''.join(random.choices(string.ascii_uppercase, k=4))
+    digits = ''.join(random.choices(string.digits, k=4))
+    return f"{letters}-{digits}"

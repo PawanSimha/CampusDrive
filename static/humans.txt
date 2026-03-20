@@ -1,0 +1,13 @@
+/* TEAM */
+Author: Pawan Simha
+GitHub: https://github.com/PawanSimha
+LinkedIn: https://linkedin.com/in/pawansimha
+
+/* THANKS */
+Google DeepMind: For the advanced agentic coding environment.
+Ramaiah Institute of Technology: For the Hackathon opportunity.
+
+/* SITE */
+Last update: 2026/03/20
+Language: English
+Software: Flask, MongoDB, Tailwind CSS

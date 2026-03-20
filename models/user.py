@@ -10,7 +10,7 @@ class User(UserMixin):
 
     def __init__(self, user_data):
         self.id = str(user_data["_id"])
-        self.name = user_data["name"]
-        self.email = user_data["email"]
-        self.role = user_data["role"]
-        self.college = user_data["college"]
+        self.name = user_data.get("name", "Unknown")
+        self.email = user_data.get("email", "")
+        self.role = user_data.get("role", "Student")
+        self.college = user_data.get("college", "CampusDrive")
