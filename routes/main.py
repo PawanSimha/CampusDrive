@@ -3,7 +3,7 @@ Main routes — home, contact, dashboard, profile
 """
 
 from datetime import datetime
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, send_from_directory
 from flask_login import login_required, current_user
 from bson.objectid import ObjectId
 
@@ -73,3 +73,12 @@ def contact():
         return redirect(url_for("main.contact"))
 
     return render_template("contact.html")
+
+
+@main_bp.route("/robots.txt")
+@main_bp.route("/sitemap.xml")
+@main_bp.route("/ai.txt")
+@main_bp.route("/humans.txt")
+def static_from_root():
+    from flask import current_app
+    return send_from_directory(current_app.static_folder, request.path[1:])

@@ -1,17 +1,10 @@
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /dashboard
-Disallow: /profile
+Allow: /static/
+Disallow: /admin/
+Disallow: /admin/database
+Disallow: /admin/approvals
+Disallow: /edit_resource/
 
-# AI Crawlers Optimization
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
+# Sitemap Location
 Sitemap: http://127.0.0.1:5001/sitemap.xml

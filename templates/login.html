@@ -23,25 +23,25 @@
             <p class="text-slate-500 font-medium italic text-sm">"Re-enter the Campus Drive ecosystem."</p>
         </div>
 
-        <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
+        <div class="bg-white p-6 sm:p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
             <form method="POST" class="space-y-6">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <div class="space-y-2">
-                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Email Terminal</label>
+                <div class="space-y-2 text-left">
+                    <label class="text-xs font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Email Terminal</label>
                     <input type="email" name="email" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="name@university.edu" required>
                 </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Security Key</label>
+                <div class="space-y-2 text-left">
+                    <label class="text-xs font-bold text-brand-blue uppercase tracking-wider ml-1 font-openSans">Security Key</label>
                     <input type="password" name="password" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-blue/20 outline-none transition-all" placeholder="••••••••" required>
                 </div>
                 <div class="pt-4">
-                    <button type="submit" class="w-full bg-brand-blue text-white py-5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-2xl shadow-blue-900/20 hover:scale-[1.02] transition-all font-openSans">Establish Connection</button>
+                    <button type="submit" class="w-full bg-brand-blue text-white py-5 rounded-2xl font-bold text-sm uppercase tracking-wider shadow-2xl shadow-blue-900/20 hover:scale-[1.02] transition-all font-openSans">Establish Connection</button>
                 </div>
             </form>
         </div>
 
         <div class="mt-10 text-center">
-            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">
+            <p class="text-slate-400 text-sm font-bold uppercase tracking-wider">
                 New researcher? <a href="/register" class="text-brand-orange no-underline hover:underline">Apply for Access</a>
             </p>
         </div>

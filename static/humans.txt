@@ -1,13 +1,19 @@
 /* TEAM */
-Author: Pawan Simha
-GitHub: https://github.com/PawanSimha
-LinkedIn: https://linkedin.com/in/pawansimha
-
-/* THANKS */
-Google DeepMind: For the advanced agentic coding environment.
-Ramaiah Institute of Technology: For the Hackathon opportunity.
+  Founder & Developer: Pawan Simha
+  Contact: https://www.linkedin.com/in/pawansimha
+  GitHub: https://github.com/PawanSimha
+  Location: India
 
 /* SITE */
-Last update: 2026/03/20
-Language: English
-Software: Flask, MongoDB, Tailwind CSS
+  Last update: March 2026
+  Language: English
+  Doctype: HTML5
+  IDE: VS Code / Agentic Copilot
+
+/* TECHNOLOGIES */
+  Backend: Python 3, Flask, Waitress
+  Database: MongoDB Atlas
+  Frontend: Tailwind CSS, HTML5, Vanilla JS
+  Generative AI: Google Gemini 1.5 Pro
+  Authentication: Flask-Login, Bcrypt
+  Security: Flask-WTF (CSRF Protection)

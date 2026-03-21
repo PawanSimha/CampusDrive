@@ -23,6 +23,17 @@
     --wise-forest: var(--primary-blue);
     --wise-fast: var(--primary-blue-bright);
     --wise-light: var(--primary-beige);
+
+    /* Fluid Typography and Spacing (Mobile-first responsive scaling) */
+    --step-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+    --step-lg: clamp(1.25rem, 1.16rem + 0.45vw, 1.5rem);
+    --step-xl: clamp(1.56rem, 1.39rem + 0.85vw, 2rem);
+    --spacing-xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.75rem);
+    --spacing-sm: clamp(0.75rem, 0.65rem + 0.5vw, 1.25rem);
+    --spacing-md: clamp(1.5rem, 1.25rem + 1.25vw, 2.75rem);
+    
+    /* Accessibility */
+    --min-touch-target: 44px;
 }
 
 /* Base resets and info-rich extensions */
@@ -65,8 +76,9 @@ body {
     background: var(--background);
     color: var(--text-main);
     line-height: 1.6;
+    font-size: var(--step-base);
     -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
 }

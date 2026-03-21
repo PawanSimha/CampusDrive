@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Aradhaya.ai - Academic Assistant{% endblock %}
+
+{% block head %}
+<!-- Marked.js for Markdown parsing -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<!-- Highlight.js for code blocks -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<!-- html2pdf for exporting conversations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/aradhaya.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 lg:px-6 flex flex-col h-[calc(100dvh-160px)] animate-fade-in relative z-10">
+    
+    <!-- Header Area -->
+    <div class="flex items-center justify-between mb-6 shrink-0 mt-4">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-brand-orange to-red-500 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/20 text-white animate-float">
+                <span class="material-symbols-rounded text-2xl">magic_button</span>
+            </div>
+            <div>
+                <h1 class="text-3xl font-bold text-brand-blue tracking-tight font-poppins flex items-center gap-2">
+                    Aradhaya.ai 
+                    <span class="bg-brand-blue/10 text-brand-blue px-2 py-0.5 rounded text-xs uppercase font-bold tracking-widest font-openSans">Beta</span>
+                </h1>
+                <p class="text-slate-500 text-base font-medium font-poppins">Your CampusDrive Academic Assistant</p>
+            </div>
+        </div>
+        
+        <!-- Export PDF Button -->
+        <button id="export-pdf-btn" data-logo="{{ url_for('static', filename='img/pdf.png', _external=True) }}" class="flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-blue hover:text-brand-blue text-slate-600 px-4 py-2.5 rounded-xl font-poppins text-sm font-medium transition-all shadow-sm">
+            <span class="material-symbols-rounded text-[20px]">download</span>
+            Export PDF
+        </button>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="flex-1 bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col overflow-hidden relative">
+        
+        <!-- Messages Area -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-6 scroll-smooth">
+            <!-- Initial Greeting -->
+            <div class="message aradhaya flex gap-4 max-w-[85%]">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-orange to-red-500 flex shrink-0 items-center justify-center text-white shadow-sm mt-1">
+                    <span class="material-symbols-rounded text-lg">magic_button</span>
+                </div>
+                <div class="message-bubble bg-brand-blue/5 border border-brand-blue/10 rounded-2xl rounded-tl-sm p-5 text-slate-800 text-base leading-relaxed prose prose-base prose-slate max-w-none shadow-sm font-poppins">
+                    <p>Hello <strong>{{ current_user.name.split(' ')[0] }}</strong>! I am Aradhaya, your CampusDrive AI academic assistant. How can I help you today?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Indicator (Hidden by default) -->
+        <div id="typing-indicator" class="hidden px-6 pb-4">
+            <div class="flex gap-4">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-orange to-red-500 flex shrink-0 items-center justify-center text-white shadow-sm mt-1">
+                    <span class="material-symbols-rounded text-sm">magic_button</span>
+                </div>
+                <div class="bg-brand-blue/5 border border-brand-blue/10 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1.5 h-10 w-16">
+                    <div class="w-1.5 h-1.5 bg-brand-orange rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div class="w-1.5 h-1.5 bg-brand-orange rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div class="w-1.5 h-1.5 bg-brand-orange rounded-full animate-bounce"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area (Fixed at bottom of container) -->
+        <div class="shrink-0 p-4 bg-slate-50 border-t border-slate-100">
+            <!-- Quick Prompts -->
+            <div class="flex flex-wrap gap-2 mb-3 font-poppins" id="quick-prompts">
+                <button class="quick-prompt px-4 min-h-[44px] bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-blue hover:border-brand-blue/30 transition-all shadow-sm">
+                    Explain a concept
+                </button>
+                <button class="quick-prompt px-4 min-h-[44px] bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-blue hover:border-brand-blue/30 transition-all shadow-sm">
+                    Career guidance
+                </button>
+                <button class="quick-prompt px-4 min-h-[44px] bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-blue hover:border-brand-blue/30 transition-all shadow-sm">
+                    Ask academic doubt
+                </button>
+                <button class="quick-prompt px-4 min-h-[44px] bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-blue hover:border-brand-blue/30 transition-all shadow-sm">
+                    Study tips
+                </button>
+            </div>
+
+            <!-- Input Box -->
+            <form id="chat-form" class="relative flex items-end gap-3 font-poppins">
+                <div class="relative flex-1 bg-white rounded-2xl border border-slate-200 shadow-sm focus-within:border-brand-blue/40 focus-within:shadow-md transition-all group overflow-hidden">
+                    <textarea 
+                        id="chat-input" 
+                        rows="1"
+                        placeholder="Ask Aradhaya something..." 
+                        class="w-full bg-transparent py-4 pl-5 pr-12 text-base text-slate-800 placeholder-slate-400 outline-none resize-none max-h-40 min-h-[60px]"
+                        style="height: 60px;"
+                    ></textarea>
+                </div>
+                <button 
+                    type="submit" 
+                    id="send-btn"
+                    class="h-[60px] w-[60px] shrink-0 bg-brand-blue text-white rounded-2xl flex items-center justify-center hover:bg-brand-bright transition-colors shadow-lg shadow-blue-900/10 disabled:opacity-50 disabled:cursor-not-allowed group"
+                >
+                    <span class="material-symbols-rounded group-hover:block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">send</span>
+                </button>
+            </form>
+            <div class="text-center mt-2">
+                <span class="text-[10px] text-slate-400 font-medium font-openSans">Aradhaya can make mistakes. Verify important information. Markdown supported.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/aradhaya.js') }}"></script>
+{% endblock %}

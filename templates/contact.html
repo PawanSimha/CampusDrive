@@ -112,7 +112,7 @@
                 <h3 class="text-3xl font-poppins font-bold text-brand-blue mb-10">Send a Message</h3>
                 <form method="POST" class="space-y-8">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <div class="grid grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         <div class="space-y-3">
                             <label class="block text-sm font-semibold text-slate-700">Your Name</label>
                             <input type="text" name="name"

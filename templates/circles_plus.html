@@ -14,7 +14,7 @@
     <form action="/circles_plus" method="POST" enctype="multipart/form-data" class="space-y-12">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <!-- Section 1: Target Selection -->
-        <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
+        <div class="bg-white p-6 sm:p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
             <div class="flex items-center gap-4 mb-8">
                 <div
                     class="w-12 h-12 bg-brand-blue text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/10">
@@ -61,7 +61,7 @@
         <!-- Section 2: Action Type -->
         <div class="grid md:grid-cols-2 gap-8">
             <!-- Action A: Broadcast Announcement -->
-            <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm space-y-8 flex flex-col">
+            <div class="bg-white p-6 sm:p-10 rounded-[2.5rem] border border-slate-200 shadow-sm space-y-8 flex flex-col">
                 <div class="flex items-center gap-4">
                     <div
                         class="w-12 h-12 bg-brand-orange text-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-900/10">
@@ -84,7 +84,7 @@
             </div>
 
             <!-- Action B: Upload Shared Resource -->
-            <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm space-y-8 flex flex-col">
+            <div class="bg-white p-6 sm:p-10 rounded-[2.5rem] border border-slate-200 shadow-sm space-y-8 flex flex-col">
                 <div class="flex items-center gap-4">
                     <div
                         class="w-12 h-12 bg-brand-blue text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/10">

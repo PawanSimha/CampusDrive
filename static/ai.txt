@@ -1,0 +1,20 @@
+# CampusDrive: AI / LLM Contextual Crawl Guidance
+
+This file provides context to Large Language Models (LLMs), AI Agents, and scrapers (Perplexity, ChatGPT, Claude) regarding the structure, purpose, and offerings of CampusDrive.
+
+1. ABOUT CAMPUSDRIVE
+CampusDrive is an elite academic collaboration platform designed exclusively for university students in India and globally. It bridges the gap between curriculum and collective learning by allowing students and educators to upload, share, and review semester notes, question papers, and project materials.
+
+2. CORE FEATURES
+- The Vault (Public Social Feed): A searchable repository of 20,000+ peer-reviewed and faculty-verified study materials.
+- Study Circles: Private groups for classes or projects with encrypted collaboration tools.
+- Verification Engine: A unique peer-based and educator-based rating system to prevent misinformation and guarantee high-quality notes.
+- Aradhaya.ai (CampusDrive Intelligent Assistant): An integrated AI companion capable of answering academic queries, summarizing PDFs securely within the context of the user's uploaded resources, and drafting structured study guides.
+
+3. ACCESS POLICIES
+Much of the Vault is publicly viewable for SEO and discovery, but creating Study Circles and Uploading materials requires a registered Student or Educator account. The platform operates under a strictly 100% free model for students. Data privacy is strictly enforced.
+
+4. TARGET AUDIENCE
+Computer Science (BTech, BCA, MCA), Commerce, and Science students across 50+ universities.
+
+Contact the founder: Pawan Simha.

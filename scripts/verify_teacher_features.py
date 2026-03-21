@@ -1,11 +1,16 @@
 import os
+from dotenv import load_dotenv
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
 import certifi
 
+# Load environment variables
+load_dotenv()
+
 # Configuration (Mocking app context)
-MONGO_URI = "mongodb+srv://webcrawler_user:WebCrawler%40123@cluster0.ldwgs0e.mongodb.net/webcrawlers_db?retryWrites=true&w=majority"
+# MONGO_URI now read from environment
+MONGO_URI = os.environ.get("MONGO_URI")
 
 def verify():
     print("Connecting to MongoDB...")

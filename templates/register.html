@@ -20,26 +20,26 @@
 
         <div class="grid md:grid-cols-2 gap-12">
             <!-- Student Path -->
-            <a href="{{ url_for('auth.register_student') }}" class="group block bg-white p-12 rounded-[3rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-blue/10 transition-all duration-500 hover:-translate-y-2">
-                <div class="w-20 h-20 bg-brand-blue text-white rounded-3xl flex items-center justify-center mb-10 shadow-xl group-hover:scale-110 transition-transform">
+            <a href="{{ url_for('auth.register_student') }}" class="group block bg-white p-8 sm:p-12 rounded-[3rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-blue/10 transition-all duration-500 hover:-translate-y-2 text-center sm:text-left">
+                <div class="w-20 h-20 bg-brand-blue text-white rounded-3xl flex items-center justify-center mb-10 shadow-xl group-hover:scale-110 transition-transform mx-auto sm:mx-0">
                     <span class="material-symbols-rounded text-4xl">school</span>
                 </div>
-                <h2 class="text-3xl font-bold text-brand-blue tracking-tight mb-4 font-poppins">I am a Student</h2>
-                <p class="text-slate-600 font-medium leading-relaxed mb-8">Access verified resources, join study circles, and collaborate with peers across your institution.</p>
-                <div class="flex items-center text-brand-blue font-bold uppercase text-xs tracking-wider font-openSans">
+                <h2 class="text-4xl font-bold text-brand-blue tracking-tight mb-4 font-poppins">I am a Student</h2>
+                <p class="text-lg text-slate-600 font-medium leading-relaxed mb-8">Access verified resources, join study circles, and collaborate with peers across your institution.</p>
+                <div class="flex items-center justify-center sm:justify-start text-brand-blue font-bold uppercase text-sm tracking-wider font-openSans">
                     Start Learning
                     <span class="material-symbols-rounded ml-2 group-hover:translate-x-2 transition-transform">arrow_forward</span>
                 </div>
             </a>
 
             <!-- Teacher Path -->
-            <a href="{{ url_for('auth.register_teacher') }}" class="group block bg-white p-12 rounded-[3rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-orange/10 transition-all duration-500 hover:-translate-y-2">
-                <div class="w-20 h-20 bg-brand-orange text-white rounded-3xl flex items-center justify-center mb-10 shadow-xl group-hover:scale-110 transition-transform">
+            <a href="{{ url_for('auth.register_teacher') }}" class="group block bg-white p-8 sm:p-12 rounded-[3rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-orange/10 transition-all duration-500 hover:-translate-y-2 text-center sm:text-left">
+                <div class="w-20 h-20 bg-brand-orange text-white rounded-3xl flex items-center justify-center mb-10 shadow-xl group-hover:scale-110 transition-transform mx-auto sm:mx-0">
                     <span class="material-symbols-rounded text-4xl">co_present</span>
                 </div>
-                <h2 class="text-3xl font-bold text-brand-orange tracking-tight mb-4 font-poppins">I am a Teacher</h2>
-                <p class="text-slate-600 font-medium leading-relaxed mb-8">Share resources, mentor students, build communities, and verify academic excellence.</p>
-                <div class="flex items-center text-brand-orange font-bold uppercase text-xs tracking-wider font-openSans">
+                <h2 class="text-4xl font-bold text-brand-orange tracking-tight mb-4 font-poppins">I am a Teacher</h2>
+                <p class="text-lg text-slate-600 font-medium leading-relaxed mb-8">Share resources, mentor students, build communities, and verify academic excellence.</p>
+                <div class="flex items-center justify-center sm:justify-start text-brand-orange font-bold uppercase text-sm tracking-wider font-openSans">
                     Start Mentoring
                     <span class="material-symbols-rounded ml-2 group-hover:translate-x-2 transition-transform">arrow_forward</span>
                 </div>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="mt-16 text-center">
-            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">
+            <p class="text-slate-400 text-sm font-bold uppercase tracking-wider">
                 Already part of the network? <a href="/login" class="text-brand-blue no-underline hover:underline">Access Terminal</a>
             </p>
         </div>

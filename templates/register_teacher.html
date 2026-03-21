@@ -21,29 +21,29 @@
             <p class="text-slate-500 font-medium italic text-sm">"Lead the next generation of scholars."</p>
         </div>
 
-        <div class="bg-white p-10 lg:p-12 rounded-[2.5rem] border border-slate-200 shadow-sm">
+        <div class="bg-white p-6 sm:p-10 lg:p-12 rounded-[2.5rem] border border-slate-200 shadow-sm">
             <form action="{{ url_for('auth.register_teacher') }}" method="POST" class="space-y-8">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="role" value="Teacher">
                 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Full Name</label>
+                        <label class="text-xs font-bold text-brand-orange uppercase tracking-wider ml-1">Full Name</label>
                         <input type="text" name="name" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" placeholder="Dr. Sarah Jenkins" required>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Faculty Email</label>
+                        <label class="text-xs font-bold text-brand-orange uppercase tracking-wider ml-1">Faculty Email</label>
                         <input type="email" name="email" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" placeholder="sarah.j@university.edu" required>
                     </div>
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Secret Key</label>
+                        <label class="text-xs font-bold text-brand-orange uppercase tracking-wider ml-1">Secret Key</label>
                         <input type="password" name="password" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" placeholder="••••••••" required>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Teacher ID</label>
+                        <label class="text-xs font-bold text-brand-orange uppercase tracking-wider ml-1">Teacher ID</label>
                         <input type="text" name="teacher_id" 
                             pattern="[A-Z]{4}[0-9]{6}" 
                             title="Format must be 4 uppercase letters followed by 6 digits (e.g., ABCD123456)"
@@ -56,11 +56,11 @@
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Institution</label>
+                        <label class="text-xs font-bold text-brand-orange uppercase tracking-wider ml-1">Institution</label>
                         <input type="text" name="college" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all" placeholder="Global Tech University" required>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Department</label>
+                        <label class="text-xs font-bold text-brand-orange uppercase tracking-wider ml-1">Department</label>
                         <select name="branch" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-brand-orange uppercase tracking-tight outline-none focus:bg-white focus:border-brand-orange/20 transition-all cursor-pointer">
                             <option value="School of Applied Sciences">School of Applied Sciences</option>
                             <option value="School of Management">School of Management</option>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="text-[10px] font-bold text-brand-orange uppercase tracking-wider ml-1">Professional Bio / Expertise</label>
+                    <label class="text-xs font-bold text-brand-orange uppercase tracking-wider ml-1">Professional Bio / Expertise</label>
                     <textarea name="bio" rows="3" class="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-medium focus:bg-white focus:border-brand-orange/20 outline-none transition-all resize-none" placeholder="PhD in Artificial Intelligence. Passionate about mentoring students in web technologies." required></textarea>
                 </div>
 
@@ -83,11 +83,11 @@
         </div>
 
         <div class="mt-10 text-center flex flex-col items-center space-y-4">
-            <a href="{{ url_for('auth.register') }}" class="text-slate-400 text-[10px] font-bold uppercase tracking-wider hover:text-brand-orange transition-colors flex items-center font-openSans">
+            <a href="{{ url_for('auth.register') }}" class="text-slate-400 text-xs font-bold uppercase tracking-wider hover:text-brand-orange transition-colors flex items-center font-openSans">
                 <span class="material-symbols-rounded text-sm mr-1">arrow_back</span>
                 Change Role
             </a>
-            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">
+            <p class="text-slate-400 text-sm font-bold uppercase tracking-wider">
                 Already registered? <a href="/login" class="text-brand-blue no-underline hover:underline">Access Terminal</a>
             </p>
         </div>

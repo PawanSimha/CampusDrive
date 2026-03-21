@@ -26,13 +26,29 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # -------------------------
+# Security Enhancements
+# -------------------------
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax'
+)
+
+# -------------------------
 # MongoDB Connection
 # -------------------------
 client = MongoClient(
     app.config["MONGO_URI"],
-    tlsCAFile=certifi.where()
+    tlsCAFile=certifi.where(),
+    maxPoolSize=50,
+    wTimeoutMS=2500
 )
 db = client.get_database()
+
+# Scalability Indexes
+db.resources.create_index([("download_count", -1)])
+db.resources.create_index([("avg_rating", -1)])
+db.resources.create_index([("created_at", -1)])
 
 # -------------------------
 # Logging Configuration (Production)
@@ -75,6 +91,7 @@ from routes.resources import resources_bp
 from routes.groups import groups_bp
 from routes.admin import admin_bp
 from routes.errors import errors_bp
+from routes.aradhaya import aradhaya_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(main_bp)
@@ -82,6 +99,7 @@ app.register_blueprint(resources_bp)
 app.register_blueprint(groups_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(errors_bp)
+app.register_blueprint(aradhaya_bp)
 
 
 # -------------------------
