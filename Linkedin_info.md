@@ -18,7 +18,7 @@ The system leverages Python, MongoDB Atlas, and Tailwind CSS to guarantee a seam
 5. **SEO & Discoverability Architecture**: JSON-LD Schema.org graphs, automated Sitemaps, and custom LLM-crawler (`ai.txt`) endpoints.
 
 **Start date**
-January 2026
+February 2026
 
 **End date**
 March 2026
