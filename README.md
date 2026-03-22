@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="static/img/MainLogo.png" width="220" alt="CampusDrive Logo">
+  <img src="static/img/pdf.png" width="220" alt="CampusDrive Logo">
 </p>
 
 <h1 align="center">CampusDrive</h1>
