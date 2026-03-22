@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="static/img/MainLogo.png" width="220" alt="CampusDrive Logo">
-</p>
+
 
 <h1 align="center">
   <img src="static/img/logo.png" width="45" align="center" alt="CampusDrive Favicon"> CampusDrive
