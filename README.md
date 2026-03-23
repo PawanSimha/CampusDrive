@@ -1,10 +1,8 @@
 <p align="center">
-  <img src="static/img/MainLogo.png" width="220" alt="CampusDrive Logo">
+  <img src="static/img/pdf.png" width="220" alt="CampusDrive Logo">
 </p>
 
-<h1 align="center">
-  <img src="static/img/logo.png" width="45" align="center" alt="CampusDrive Favicon"> CampusDrive
-</h1>
+<h1 align="center">CampusDrive</h1>
 <p align="center">
   <strong>Empowering Academic Collaboration</strong><br>
   <em>A premium resource-sharing ecosystem designed for the modern university student.</em>
