@@ -2,11 +2,11 @@
 {% block title %}Approval Queue{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-6 pt-10 pb-32">
+<div class="max-w-7xl mx-auto px-6 pt-10 pb-16">
     <div class="flex flex-col items-center justify-center text-center gap-6 mb-16 relative z-10">
         <div class="space-y-4 flex flex-col items-center">
             <span class="text-brand-orange font-bold uppercase text-sm tracking-widest font-openSans">Identity Authorization</span>
-            <h1 class="text-7xl font-bold text-brand-blue tracking-tight leading-none font-poppins capitalize">
+            <h1 class="text-3xl font-bold text-brand-blue tracking-tight leading-none font-poppins capitalize">
                 Approvals
             </h1>
             <p class="text-slate-500 text-lg font-medium max-w-lg mt-4 text-center">
@@ -62,8 +62,8 @@
         </div>
     </div>
     {% else %}
-        <div class="py-24 text-center bg-white rounded-3xl border border-dashed border-slate-200">
-            <span class="material-symbols-rounded text-6xl text-slate-200 mb-6 block">verified_user</span>
+        <div class="py-12 text-center bg-white rounded-3xl border border-dashed border-slate-200">
+            <span class="material-symbols-rounded text-4xl text-slate-200 mb-6 block">verified_user</span>
             <p class="text-slate-600 font-bold tracking-tight font-poppins text-2xl mb-2">Queue is Empty</p>
             <p class="text-slate-400 font-medium italic text-sm max-w-sm mx-auto">There are no pending registrations waiting for authorization at this moment.</p>
         </div>

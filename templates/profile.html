@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block content %}
-<main class="max-w-4xl mx-auto px-6 pt-10 pb-32">
+<main class="max-w-4xl mx-auto px-6 pt-10 pb-16">
     <!-- Profile Card (Classroom Style) -->
     <div class="bg-white rounded-[2.5rem] p-6 sm:p-12 lg:p-16 border border-slate-200 shadow-sm mb-12 relative overflow-hidden">
         <div class="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
@@ -31,7 +31,7 @@
         </div>
         
         <div class="flex flex-col md:flex-row items-center gap-10 relative z-10">
-            <div class="w-40 h-40 bg-brand-blue text-white rounded-[2.5rem] flex items-center justify-center text-6xl font-bold shadow-2xl shadow-blue-900/20 font-poppins">
+            <div class="w-40 h-40 bg-brand-blue text-white rounded-[2.5rem] flex items-center justify-center text-4xl font-bold shadow-2xl shadow-blue-900/20 font-poppins">
                 {{ current_user.name[0]|upper }}
             </div>
             <div class="text-center md:text-left space-y-4">
@@ -39,7 +39,7 @@
                     <span class="bg-brand-orange text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-openSans">Verified Scholar</span>
                     <span class="bg-slate-100 text-slate-500 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-openSans capitalize">{{ current_user.role }}</span>
                 </div>
-                <h1 class="text-5xl font-bold text-brand-blue tracking-tight font-poppins">{{ current_user.name }}</h1>
+                <h1 class="text-3xl font-bold text-brand-blue tracking-tight font-poppins">{{ current_user.name }}</h1>
                 <p class="text-slate-500 font-medium text-lg italic">"Contributor at Campus Drive"</p>
                 
                 <div class="flex flex-wrap justify-center md:justify-start gap-8 pt-4">
