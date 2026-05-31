@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <img src="campus-drive-hero.webp" alt="CampusDrive Hero" width="800" style="border-radius: 12px;" />
+  <img src="static/img/campus-drive-hero.webp" alt="CampusDrive Hero" width="800" style="border-radius: 12px;" />
 </p>
 
 ---
@@ -254,7 +254,8 @@ python -m venv venv
 pip install -r requirements.txt
 
 # 4. Configure environment variables
-cp .env.example .env
+#   macOS/Linux:  cp .env.example .env
+#   Windows:      copy .env.example .env
 ```
 
 Edit `.env` with your credentials:
@@ -264,6 +265,9 @@ SECRET_KEY=your_random_secret_key_here
 MONGO_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/campusdrive?retryWrites=true&w=majority
 GEMINI_API_KEY=your_google_gemini_api_key
 ```
+
+> **Note:** `requirements.txt` now pins exact versions for reproducible builds.  
+> If you encounter a version conflict, run `pip install -r requirements.txt --upgrade`.
 
 ### Run
 

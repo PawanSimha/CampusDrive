@@ -1,24 +1,48 @@
-# Python
+# ── Python ────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
+*.egg-info/
+dist/
+build/
+*.egg
 venv/
+.venv/
+env/
+
+# ── Environment & Secrets ────────────────────────────────────────
 .env
+.env.local
+*.key
+*.pem
 
-# OS
-.DS_Store
-Thumbs.db
-*.lnk
+# ── Logs ──────────────────────────────────────────────────────────
+logs/
+*.log
 
-# IDEs
-.vscode/
-.idea/
-
-# Agents
-.agents/
-.gemini/
-
-# Project Specific
+# ── Uploads (keep .gitkeep only) ─────────────────────────────────
 static/uploads/*
 !static/uploads/.gitkeep
+
+# ── OS Artifacts ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.lnk
+
+# ── IDEs & Editors ────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Project Tooling ──────────────────────────────────────────────
+.agents/
+.gemini/
+skills-lock.json
 brain/
+
+# ── OS-specific Python ───────────────────────────────────────────
+Scripts/
+Lib/

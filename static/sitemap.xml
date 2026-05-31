@@ -1,2 +1,0 @@
-<!-- Sitemap is now served dynamically via /sitemap.xml route (templates/sitemap.xml) -->
-<!-- This static file is kept to prevent 404s but is no longer used. -->
