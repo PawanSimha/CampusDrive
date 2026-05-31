@@ -1,6 +1,6 @@
-# CampusConnect: User Flow & Roles Guide
+# CampusDrive: User Flow & Roles Guide
 
-This document outlines the workflows and capabilities for the three primary user roles in the **CampusConnect** platform.
+This document outlines the workflows and capabilities for the three primary user roles in the **CampusDrive** platform.
 
 ---
 
@@ -23,7 +23,9 @@ Teachers are the primary source of verified academic content and the leaders of 
 2.  **Leading Study Circles**: 
     - Create specialized **Study Circles** (Groups) for specific subjects or batches.
     - Generate and share **Invite Codes** with students.
-3.  **Community Engagement**: 
+3.  **Circles++ Broadcast**: 
+    - Send one-to-many broadcast messages that reach all members across all of the teacher's Circles simultaneously (ideal for exam alerts, schedule changes, deadline reminders).
+4.  **Community Engagement**: 
     - Post high-priority **Announcements** within Study Circles.
     - Chat with students to provide guidance and answer queries.
     - Share specific resources or upload files directly into the Circle's private library.
@@ -40,12 +42,15 @@ Students use the platform to access verified materials and collaborate with peer
     - **Download** verified materials for offline study.
     - **Mark Favorites** to build a personalized library for quick access.
     - **Rate & Review** resources to help peers find the best materials.
-3.  **Collaborative Learning**:
+3.  **Aradhaya AI Assistant**: 
+    - Ask academic questions to the Gemini-powered AI chatbot on the Aradhaya page.
+    - Get instant explanations, study tips, and resource recommendations.
+4.  **Collaborative Learning**:
     - **Join Study Circles** using names or invite codes provided by teachers.
     - Participate in Circle discussions via the **Chat** interface.
     - Access exclusive resources shared by teachers within the Circle.
     - Stay updated via the **Announcements** feed.
-4.  **Profile Management**: Track their own downloads, favorites, and uploaded (private) materials.
+5.  **Profile Management**: Track their own downloads, favorites, and uploaded (private) materials.
 
 ---
 
@@ -56,8 +61,10 @@ Students use the platform to access verified materials and collaborate with peer
 | Approve/Reject Users | ✅ | ❌ | ❌ |
 | Create Study Circles | ✅ | ✅ | ❌ |
 | Join Study Circles | ✅ | ✅ | ✅ |
+| Circles++ Broadcast | ❌ | ✅ | ❌ |
 | Upload Resources | ✅ | ✅ | ✅ |
 | Delete Any Resource | ✅ | ❌ | ❌ |
 | Post Announcements | ✅ | ✅ | ❌ |
 | Rate & Review | ✅ | ✅ | ✅ |
+| Aradhaya AI Chat | ✅ | ✅ | ✅ |
 | View Admin Dashboard| ✅ | ❌ | ❌ |

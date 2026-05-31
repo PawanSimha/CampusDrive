@@ -153,12 +153,13 @@ University students and educators currently operate across a disconnected set of
 - Verify MongoDB indexes, CSRF coverage, and AI response format
 
 ### Phase 2 — Institutional Beta (Week 3–4)
-- Deploy to Render/Railway via `Procfile` (Waitress WSGI)
+- Deploy to Vercel via `vercel.json` (`@vercel/python` serverless runtime)
+- Alternative: Render/Railway via `Procfile` (Waitress WSGI)
 - Onboard 1–2 university departments (50–100 users)
 - Collect feedback on search relevance, AI quality, and circle management
 
 ### Phase 3 — Public Launch (Week 5+)
 - Open registration; publish to GitHub
-- Enable `ai.txt` / `robots.txt` for LLM crawler indexing
+- Enable `ai.txt` / `robots.txt` / `llms.txt` / `llms-full.txt` for LLM crawler indexing
 - Promote via LinkedIn, GitHub, and developer communities
-- Monitor `logs/campusconnect.log` for errors; iterate on P1 features
+- Monitor `logs/campusconnect.log` (local) or Vercel Function Logs for errors; iterate on P1 features

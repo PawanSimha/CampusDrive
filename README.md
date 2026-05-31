@@ -146,8 +146,8 @@ Every section heading is followed by a concise, descriptive subtitle  -  optimiz
 | **Templating** | Jinja2 with block inheritance, JSON-LD structured data |
 | **File Handling** | Werkzeug secure filenames, UUID-based renaming, extension whitelist (`pdf`, `docx`, `pptx`, `xlsx`, `png`, `jpg`, `jpeg`) |
 | **Testing** | Python backend logic tests, role-specific test runners (Student, Teacher, Admin) |
-| **Deployment** | Gunicorn/Waitress, Procfile, rotating file logging |
-| **SEO / AI** | `robots.txt`, `sitemap.xml`, `ai.txt`, `llms.txt`, `humans.txt`, Open Graph, Twitter Cards, JSON-LD `@graph` |
+| **Deployment** | Vercel (`@vercel/python`), Gunicorn/Waitress, Procfile, rotating file logging via `/tmp` |
+| **SEO / AI** | `robots.txt`, `sitemap.xml`, `ai.txt`, `llms.txt`, `llms-full.txt`, `humans.txt`, Open Graph, Twitter Cards, JSON-LD `@graph` |
 
 ### Performance
 
@@ -156,7 +156,7 @@ Every section heading is followed by a concise, descriptive subtitle  -  optimiz
 | **Image Optimization** | Compressed `.png` and `.webp` assets, `favicon.ico` for legacy browsers |
 | **Font Loading** | Google Fonts via `<link>` preconnect with `display=swap` (no FOUT) |
 | **Database** | MongoDB connection pooling (50 max, 2500ms timeout), prebuilt ranking indexes |
-| **Logging** | Rotating file handler (10 KB × 10 backups), production info-level logging |
+| **Logging** | Serverless-compatible rotating file handler via `/tmp`, graceful fallback to console-only on read-only filesystems |
 | **Bundle** | Zero runtime animation libraries  -  all effects are CSS-native transition and keyframe |
 
 ---
@@ -165,10 +165,11 @@ Every section heading is followed by a concise, descriptive subtitle  -  optimiz
 
 ```
 CampusDrive/
-├── app.py                      # App factory  -  MongoDB init, extensions, Blueprint registration
+├── app.py                      # App factory  -  lazy MongoDB init (serverless-safe), extensions, Blueprint registration
 ├── wsgi.py                     # Waitress production entry point
 ├── config.py                   # Environment-based configuration (MONGO_URI, SECRET_KEY, GEMINI_API_KEY)
-├── Procfile                    # Heroku/render deployment definition
+├── vercel.json                 # Vercel serverless deployment config
+├── Procfile                    # Render/Railway deployment definition
 ├── project_run.bat             # One-click Windows launcher
 ├── requirements.txt            # Python dependencies (13 packages)
 ├── .env.example                # Environment variable template
@@ -211,6 +212,7 @@ CampusDrive/
 │   ├── sitemap.xml             # XML sitemap for SEO
 │   ├── ai.txt                  # LLM contextual crawl guidance
 │   ├── llms.txt                # GEO: structured LLM extraction context
+│   ├── llms-full.txt           # GEO: expanded LLM context with API endpoints, DB collections, deployment
 │   └── humans.txt              # Author attribution
 │
 ├── scripts/                    # Database seed & maintenance
@@ -279,6 +281,21 @@ python app.py
 # Production server (Waitress)
 python wsgi.py
 # → http://0.0.0.0:5001
+```
+
+### Vercel Deployment (Serverless)
+
+```bash
+# 1. Push to GitHub, then import repo on vercel.com
+# 2. Vercel auto-detects Python from vercel.json
+# 3. Add these environment variables in Vercel dashboard:
+#    - SECRET_KEY  (generate via: python -c "import secrets; print(secrets.token_hex(32))")
+#    - MONGO_URI   (your MongoDB Atlas connection string)
+#    - GEMINI_API_KEY (your Google Gemini API key)
+# 4. Deploy — Vercel serves the Flask app via @vercel/python runtime
+#
+# Note: app.py uses lazy MongoDB initialization and serverless-compatible
+# logging (writes to /tmp) so it works on Vercel's read-only filesystem.
 ```
 
 ### Windows One-Click Launch
@@ -394,12 +411,14 @@ python scripts/seed_resources.py  # Populates the vault with sample study materi
 ### Troubleshooting
 
 | Issue | Solution |
-|---|---|
+|---|---|---|
 | `pymongo.errors.ServerSelectionTimeoutError` | Verify `MONGO_URI` in `.env` and whitelist your IP in MongoDB Atlas Network Access |
+| `FUNCTION_INVOCATION_FAILED` on Vercel | Ensure `SECRET_KEY`, `MONGO_URI`, `GEMINI_API_KEY` are set in Vercel Environment Variables. The app uses lazy MongoDB init and `/tmp` logging for serverless compatibility. |
 | `google.generativeai` import error | Run `pip install google-generativeai` (included in `requirements.txt`) |
 | `ModuleNotFoundError: No module named 'dotenv'` | Install `python-dotenv`: `pip install python-dotenv` |
 | File upload fails silently | Check `UPLOAD_FOLDER=static/uploads` exists and has write permissions; max file size is 16 MB |
 | `[WinError 32]` file deletion error (Windows) | Close any file explorer window open in `static/uploads/` |
+| Vercel 500 after deploy | Check Vercel Function Logs for `os.mkdir` or `PermissionError` — app now uses lazy DB init and `/tmp` logging to avoid read-only filesystem crashes |
 
 ### Running Tests
 

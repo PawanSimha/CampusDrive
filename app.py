@@ -15,6 +15,7 @@ import certifi
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+import tempfile
 
 from config import Config
 from models.user import User
@@ -35,33 +36,55 @@ app.config.update(
 )
 
 # -------------------------
-# MongoDB Connection
+# MongoDB Connection (Lazy — safe for serverless)
 # -------------------------
-client = MongoClient(
-    app.config["MONGO_URI"],
-    tlsCAFile=certifi.where(),
-    maxPoolSize=50,
-    wTimeoutMS=2500
-)
-db = client.get_database()
+_db_client = None
+_db_instance = None
 
-# Scalability Indexes
-db.resources.create_index([("download_count", -1)])
-db.resources.create_index([("avg_rating", -1)])
-db.resources.create_index([("created_at", -1)])
+def get_db():
+    global _db_client, _db_instance
+    if _db_instance is not None:
+        return _db_instance
+    _db_client = MongoClient(
+        app.config["MONGO_URI"],
+        tlsCAFile=certifi.where(),
+        maxPoolSize=50,
+        wTimeoutMS=2500,
+        serverSelectionTimeoutMS=5000
+    )
+    _db_instance = _db_client.get_database()
+    try:
+        _db_instance.resources.create_index([("download_count", -1)])
+        _db_instance.resources.create_index([("avg_rating", -1)])
+        _db_instance.resources.create_index([("created_at", -1)])
+    except Exception:
+        pass
+    return _db_instance
+
+class _DBProxy:
+    def __getattr__(self, name):
+        return getattr(get_db(), name)
+
+db = _DBProxy()
 
 # -------------------------
-# Logging Configuration (Production)
+# Logging Configuration (Serverless-compatible)
 # -------------------------
 if not app.debug:
-    if not os.path.exists('logs'):
-        os.mkdir('logs')
-    file_handler = RotatingFileHandler('logs/campusconnect.log', maxBytes=10240, backupCount=10)
-    file_handler.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
-    ))
-    file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
+    try:
+        log_dir = os.path.join(tempfile.gettempdir(), 'campusdrive_logs')
+        os.makedirs(log_dir, exist_ok=True)
+        file_handler = RotatingFileHandler(
+            os.path.join(log_dir, 'campusconnect.log'),
+            maxBytes=10240, backupCount=10
+        )
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+        ))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+    except (OSError, PermissionError):
+        pass
     app.logger.setLevel(logging.INFO)
     app.logger.info('CampusDrive Startup')
 
