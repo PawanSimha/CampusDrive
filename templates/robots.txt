@@ -1,5 +1,5 @@
 # ─── CampusDrive — Crawler Directives ──────────────────────────────
-# Production: {{ request.url_root }}
+# Production: {{ SITE_URL }}
 # Last updated: 2026-05-31
 
 # ── Allow AI / LLM Crawlers (GEO compliance) ───────────────────────
@@ -67,4 +67,4 @@ Disallow: /logout
 
 # ── Sitemap ────────────────────────────────────────────────────────
 
-Sitemap: {{ request.url_root }}sitemap.xml
+Sitemap: {{ SITE_URL }}sitemap.xml

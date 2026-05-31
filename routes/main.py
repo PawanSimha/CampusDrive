@@ -3,7 +3,7 @@ Main routes — home, contact, dashboard, profile
 """
 
 from datetime import datetime
-from flask import Blueprint, render_template, redirect, url_for, request, flash, send_from_directory
+from flask import Blueprint, render_template, redirect, url_for, request, flash, send_from_directory, make_response
 from flask_login import login_required, current_user
 from bson.objectid import ObjectId
 
@@ -82,7 +82,6 @@ def contact():
 
 @main_bp.route("/sitemap.xml")
 def sitemap():
-    from flask import make_response
     resp = make_response(render_template("sitemap.xml"))
     resp.headers["Content-Type"] = "application/xml; charset=utf-8"
     return resp
@@ -90,7 +89,6 @@ def sitemap():
 
 @main_bp.route("/robots.txt")
 def robots():
-    from flask import make_response
     resp = make_response(render_template("robots.txt"))
     resp.headers["Content-Type"] = "text/plain; charset=utf-8"
     return resp

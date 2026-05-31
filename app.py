@@ -5,7 +5,7 @@ Slim app factory with Flask extensions, MongoDB connection,
 and Blueprint registration. All routes live in routes/*.py.
 """
 
-from flask import Flask
+from flask import Flask, request
 from pymongo import MongoClient
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
@@ -100,6 +100,22 @@ app.register_blueprint(groups_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(errors_bp)
 app.register_blueprint(aradhaya_bp)
+
+
+# -------------------------
+# Production URL Context (for templates)
+# -------------------------
+@app.context_processor
+def inject_site_url():
+    """Inject SITE_URL into all templates.
+    Uses VERCEL_URL env var when deployed, falls back to request.url_root locally.
+    """
+    vercel_url = os.environ.get("VERCEL_URL")
+    if vercel_url:
+        site_url = f"https://{vercel_url}/"
+    else:
+        site_url = request.url_root
+    return dict(SITE_URL=site_url)
 
 
 # -------------------------

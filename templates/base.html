@@ -7,7 +7,7 @@
     <title>CampusDrive: {% block title %}Empowering Academic Collaboration{% endblock %}</title>
 
     <!-- Primary Meta Tags -->
-    <link rel="canonical" href="{% block canonical_url %}{{ request.base_url }}{% endblock %}">
+    <link rel="canonical" href="{% block canonical_url %}{{ SITE_URL.rstrip('/') }}{{ request.path }}{% endblock %}">
     <meta name="title" content="CampusDrive: {% block meta_title %}Empowering Academic Collaboration{% endblock %}">
     <meta name="description"
         content="{% block meta_description %}CampusDrive — The ultimate academic collaboration platform for university students. Securely share notes, question papers, and solutions. Built with precision for academic excellence.{% endblock %}">
@@ -23,25 +23,25 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:url" content="{% block og_url %}{{ SITE_URL.rstrip('/') }}{{ request.path }}{% endblock %}">
     <meta property="og:locale" content="en_IN">
     <meta property="og:site_name" content="CampusDrive">
     <meta property="og:title" content="{% block og_title %}CampusDrive | Academic Excellence{% endblock %}">
     <meta property="og:description"
         content="{% block og_description %}Elite resource sharing for modern students. Bridge the gap between curriculum and collaboration.{% endblock %}">
     <meta property="og:image"
-        content="{% block og_image %}{{ url_for('static', filename='img/MainLogo.png', _external=True) }}{% endblock %}">
+        content="{% block og_image %}{{ SITE_URL }}static/img/MainLogo.png{% endblock %}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ request.url }}">
+    <meta property="twitter:url" content="{% block twitter_url %}{{ SITE_URL.rstrip('/') }}{{ request.path }}{% endblock %}">
     <meta property="twitter:site" content="@pawansimha">
     <meta property="twitter:creator" content="@pawansimha">
     <meta property="twitter:title" content="{% block twitter_title %}CampusDrive | Academic Excellence{% endblock %}">
     <meta property="twitter:description"
         content="{% block twitter_description %}Elite resource sharing for modern students. Bridge the gap between curriculum and collaboration.{% endblock %}">
     <meta property="twitter:image"
-        content="{% block twitter_image %}{{ url_for('static', filename='img/MainLogo.png', _external=True) }}{% endblock %}">
+        content="{% block twitter_image %}{{ SITE_URL }}static/img/MainLogo.png{% endblock %}">
 
     <!-- Structured Data (LD+JSON) for LLMs and Google -->
     {% block json_ld %}
@@ -51,11 +51,11 @@
       "@graph": [
         {
           "@type": "Organization",
-          "@id": "{{ request.url_root }}#organization",
+          "@id": "{{ SITE_URL }}#organization",
           "name": "CampusDrive",
           "alternateName": "CampusConnect",
-          "url": "{{ request.url_root }}",
-          "logo": "{{ url_for('static', filename='img/MainLogo.png', _external=True) }}",
+          "url": "{{ SITE_URL }}",
+          "logo": "{{ SITE_URL }}static/img/MainLogo.png",
           "description": "The ultimate platform for academic resource sharing and collaboration.",
           "founder": {
             "@type": "Person",
@@ -68,45 +68,45 @@
         },
         {
           "@type": "WebSite",
-          "@id": "{{ request.url_root }}#website",
-          "url": "{{ request.url_root }}",
+          "@id": "{{ SITE_URL }}#website",
+          "url": "{{ SITE_URL }}",
           "name": "CampusDrive",
           "alternateName": ["CampusConnect"],
           "description": "The ultimate platform for academic resource sharing and collaboration.",
           "publisher": {
-            "@id": "{{ request.url_root }}#organization"
+            "@id": "{{ SITE_URL }}#organization"
           },
           "inLanguage": "en-IN",
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "{{ request.url_root }}social?search={search_term_string}"
+              "urlTemplate": "{{ SITE_URL }}social?search={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           }
         },
         {
           "@type": "BreadcrumbList",
-          "@id": "{{ request.url_root }}#breadcrumb",
+          "@id": "{{ SITE_URL }}#breadcrumb",
           "itemListElement": [
             {
               "@type": "ListItem",
               "position": 1,
               "name": "Home",
-              "item": "{{ request.url_root }}"
+              "item": "{{ SITE_URL }}"
             },
             {
               "@type": "ListItem",
               "position": 2,
               "name": "Resources",
-              "item": "{{ request.url_root }}social"
+              "item": "{{ SITE_URL }}social"
             },
             {
               "@type": "ListItem",
               "position": 3,
               "name": "Contact",
-              "item": "{{ request.url_root }}contact"
+              "item": "{{ SITE_URL }}contact"
             }
           ]
         }
