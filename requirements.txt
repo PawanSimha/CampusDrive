@@ -10,4 +10,4 @@ email_validator==2.2.0
 certifi==2024.12.14
 flask-wtf==1.2.2
 waitress==3.0.2
-google-generativeai==0.8.3
+google-genai==2.7.0

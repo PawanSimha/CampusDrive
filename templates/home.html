@@ -4,6 +4,48 @@
 {% block meta_description %}CampusDrive connects students across campuses to share academic resources, notes, and
 insights. Access a community-driven database built for academic excellence.{% endblock %}
 
+{% block head %}
+{{ super() }}
+<style>
+  /* ── Scroll Reveal ── */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Marquee ── */
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .animate-marquee { animation: marquee 30s linear infinite; }
+  .animate-marquee:hover { animation-play-state: paused; }
+
+  /* ── Count Up ── */
+  .count-up { display: inline-block; }
+
+  /* ── Carousel ── */
+  .carousel-track { scroll-behavior: smooth; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .carousel-track::-webkit-scrollbar { display: none; }
+  .carousel-slide { scroll-snap-align: start; }
+
+  /* ── Connector Line ── */
+  .step-connector { position: absolute; top: 40px; left: -50%; width: 100%; height: 2px; background: linear-gradient(90deg, var(--primary-blue), var(--primary-orange)); }
+  @media (max-width: 1023px) { .step-connector { display: none; } }
+
+  /* ── Masonry ── */
+  .masonry-grid { columns: 3; column-gap: 1.5rem; }
+  .masonry-grid > * { break-inside: avoid; margin-bottom: 1.5rem; }
+  @media (max-width: 1023px) { .masonry-grid { columns: 2; } }
+  @media (max-width: 639px) { .masonry-grid { columns: 1; } }
+
+  /* ── Comparison Table ── */
+  .comparison-table td:last-child { background: var(--primary-blue); color: white; font-weight: 700; }
+  .comparison-table td:last-child .material-symbols-rounded { color: #4ade80; }
+
+  /* ── Timeline ── */
+  .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--primary-blue), var(--primary-orange)); transform: translateX(-50%); }
+  @media (max-width: 767px) { .timeline-line { left: 24px; } }
+  .timeline-dot { width: 20px; height: 20px; border-radius: 50%; border: 4px solid var(--primary-blue); background: white; position: absolute; left: 50%; top: 40px; transform: translateX(-50%); z-index: 2; }
+  @media (max-width: 767px) { .timeline-dot { left: 24px; } }
+</style>
+{% endblock %}
+
 {% block json_ld %}
 {{ super() }}
 <script type="application/ld+json">
@@ -141,7 +183,6 @@ insights. Access a community-driven database built for academic excellence.{% en
                         alt="CampusDrive - Smarter Student Collaboration" class="w-full h-auto" loading="eager"
                         fetchpriority="high" width="800" height="450">
                 </div>
-                <!-- Interactive Badge -->
                 <div
                     class="absolute -bottom-4 right-0 bg-white p-4 rounded-3xl shadow-2xl border border-slate-100 hidden md:block animate-float z-20">
                     <div class="flex items-center gap-4">
@@ -156,6 +197,211 @@ insights. Access a community-driven database built for academic excellence.{% en
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SECTION 1: TRUSTED UNIVERSITIES & PARTNERS ── -->
+    <section class="py-14 bg-white border-y border-slate-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-10">
+            <span class="text-brand-orange font-bold uppercase text-[10px] tracking-wider font-openSans">Partners</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-brand-blue tracking-tight font-poppins mt-3">Trusted by Students Across Leading Institutions</h2>
+        </div>
+        <div class="relative overflow-hidden">
+            <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+            <div class="flex animate-marquee w-max">
+                <div class="flex items-center gap-16 mx-8">
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">MIT</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Stanford</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Harvard</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Oxford</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Cambridge</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">NUS</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">IIT</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">IIIT</span></div>
+                </div>
+                <div class="flex items-center gap-16 mx-8">
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">MIT</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Stanford</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Harvard</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Oxford</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Cambridge</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">NUS</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">IIT</span></div>
+                    <div class="flex flex-col items-center gap-2"><div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><span class="material-symbols-rounded text-3xl">school</span></div><span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">IIIT</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-10">
+            <div class="flex flex-wrap justify-center gap-8 sm:gap-16">
+                <div class="text-center"><span class="text-3xl font-bold text-brand-blue font-poppins">100+</span><p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-1">Institutions</p></div>
+                <div class="text-center"><span class="text-3xl font-bold text-brand-blue font-poppins">20,000+</span><p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-1">Students</p></div>
+                <div class="text-center"><span class="text-3xl font-bold text-brand-blue font-poppins">50+</span><p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-1">Subjects</p></div>
+                <div class="text-center"><span class="text-3xl font-bold text-brand-blue font-poppins">1,000+</span><p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-1">Verified Contributors</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SECTION 1.5: LATEST RESOURCES ── -->
+    <section class="py-20 bg-slate-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12 space-y-4">
+                <span class="text-brand-orange font-bold uppercase text-[10px] tracking-wider font-openSans">Highlights</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-brand-blue tracking-tight font-poppins">Latest Study Resources</h2>
+                <p class="text-slate-500 text-sm font-medium max-w-2xl mx-auto">Discover the newest public uploads from our community — verified notes, question papers, and project guides ready to help you study smarter.</p>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {% for resource in latest_resources %}
+                <a href="{{ url_for('resources.resource_detail', resource_id=resource['_id']) }}" class="group block bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 no-underline">
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-brand-orange bg-brand-orange/10 px-3 py-1 rounded-full">{{ resource.resource_type or 'Resource' }}</span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">{{ resource.subject or 'General' }}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-blue leading-tight mb-3">{{ resource.title }}</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">{{ (resource.description or 'No description available.')[:120] }}{% if resource.description and resource.description|length > 120 %}...{% endif %}</p>
+                    <div class="flex items-center justify-between text-[10px] uppercase tracking-wider font-bold text-slate-400">
+                        <span>{{ resource.privacy|capitalize }}</span>
+                        <span>{{ resource.created_at.strftime('%b %d, %Y') if resource.created_at else 'Recent' }}</span>
+                    </div>
+                </a>
+                {% else %}
+                <div class="col-span-full text-center py-14 rounded-[2rem] bg-white border border-slate-200 shadow-sm">
+                    <p class="text-slate-500 font-medium">There are no recent public resources yet. Upload your first study material and help the campus community grow.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SECTION 4: PRODUCT SCREENSHOTS SHOWCASE ── -->
+    <section class="py-20 bg-brand-beige relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 space-y-4">
+                <span class="text-brand-orange font-bold uppercase text-[10px] tracking-wider font-openSans">Showcase</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-brand-blue tracking-tight font-poppins">See CampusDrive In Action</h2>
+            </div>
+            <div class="relative">
+                <div class="flex gap-6 overflow-x-auto carousel-track pb-4">
+                    <div class="carousel-slide shrink-0 w-[85vw] sm:w-[400px] lg:w-[480px]">
+                        <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-xl group hover:shadow-2xl transition-all duration-500">
+                            <div class="bg-slate-800 px-6 py-4 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-yellow-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div><span class="text-white/40 text-xs ml-4 font-medium">Dashboard</span></div>
+                            <div class="p-8 flex items-center justify-center h-52 bg-gradient-to-br from-brand-blue/5 to-brand-orange/5 relative">
+                                <div class="w-full h-full flex flex-col items-center justify-center gap-4">
+                                    <div class="grid grid-cols-3 gap-3 w-full px-2">
+                                        <div class="bg-white/80 rounded-xl p-3 shadow-sm"><div class="h-2 w-full bg-brand-blue/10 rounded mb-2"></div><div class="h-6 w-10 bg-brand-blue/20 rounded"></div></div>
+                                        <div class="bg-white/80 rounded-xl p-3 shadow-sm"><div class="h-2 w-full bg-brand-orange/10 rounded mb-2"></div><div class="h-6 w-10 bg-brand-orange/20 rounded"></div></div>
+                                        <div class="bg-white/80 rounded-xl p-3 shadow-sm"><div class="h-2 w-full bg-green-500/10 rounded mb-2"></div><div class="h-6 w-10 bg-green-500/20 rounded"></div></div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-brand-blue/40"><span class="material-symbols-rounded text-lg">trending_up</span><span class="text-[8px] font-bold uppercase tracking-wider">Activity This Week</span></div>
+                                </div>
+                            </div>
+                            <div class="p-6 border-t border-slate-100"><h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Dashboard</h4><p class="text-slate-500 text-xs font-medium mt-1">Your command center for all academic activity.</p></div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide shrink-0 w-[85vw] sm:w-[400px] lg:w-[480px]">
+                        <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-xl group hover:shadow-2xl transition-all duration-500">
+                            <div class="bg-slate-800 px-6 py-4 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-yellow-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div><span class="text-white/40 text-xs ml-4 font-medium">Resource Library</span></div>
+                            <div class="p-8 flex items-center justify-center h-52 bg-gradient-to-br from-brand-orange/5 to-brand-beige relative">
+                                <div class="w-full h-full flex flex-col gap-2">
+                                    <div class="flex items-center gap-2 bg-white/80 rounded-xl p-3 shadow-sm"><div class="w-8 h-8 rounded-lg bg-brand-orange/20 flex items-center justify-center"><span class="material-symbols-rounded text-sm text-brand-orange/40">description</span></div><div class="flex-1"><div class="h-2 w-3/4 bg-slate-200 rounded"></div><div class="h-1.5 w-1/2 bg-slate-100 rounded mt-1"></div></div></div>
+                                    <div class="flex items-center gap-2 bg-white/80 rounded-xl p-3 shadow-sm"><div class="w-8 h-8 rounded-lg bg-brand-blue/20 flex items-center justify-center"><span class="material-symbols-rounded text-sm text-brand-blue/40">picture_as_pdf</span></div><div class="flex-1"><div class="h-2 w-2/3 bg-slate-200 rounded"></div><div class="h-1.5 w-1/2 bg-slate-100 rounded mt-1"></div></div></div>
+                                    <div class="flex items-center gap-2 bg-white/80 rounded-xl p-3 shadow-sm"><div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center"><span class="material-symbols-rounded text-sm text-green-500/40">slideshow</span></div><div class="flex-1"><div class="h-2 w-4/5 bg-slate-200 rounded"></div><div class="h-1.5 w-1/2 bg-slate-100 rounded mt-1"></div></div></div>
+                                </div>
+                            </div>
+                            <div class="p-6 border-t border-slate-100"><h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Resource Library</h4><p class="text-slate-500 text-xs font-medium mt-1">Browse thousands of verified academic resources.</p></div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide shrink-0 w-[85vw] sm:w-[400px] lg:w-[480px]">
+                        <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-xl group hover:shadow-2xl transition-all duration-500">
+                            <div class="bg-slate-800 px-6 py-4 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-yellow-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div><span class="text-white/40 text-xs ml-4 font-medium">Study Groups</span></div>
+                            <div class="p-8 flex items-center justify-center h-52 bg-gradient-to-br from-green-500/5 to-brand-blue/5 relative">
+                                <div class="w-full h-full flex flex-col gap-3">
+                                    <div class="flex items-center gap-3 bg-white/80 rounded-2xl p-3 shadow-sm"><div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-600 text-xs font-bold">AK</div><div><div class="h-2 w-20 bg-slate-200 rounded"></div><div class="h-1.5 w-14 bg-slate-100 rounded mt-1"></div></div></div>
+                                    <div class="flex items-center gap-3 bg-white/80 rounded-2xl p-3 shadow-sm"><div class="w-10 h-10 rounded-full bg-brand-blue/20 flex items-center justify-center text-brand-blue text-xs font-bold">RJ</div><div><div class="h-2 w-24 bg-slate-200 rounded"></div><div class="h-1.5 w-16 bg-slate-100 rounded mt-1"></div></div></div>
+                                    <div class="flex items-center justify-between bg-white/80 rounded-2xl p-3 shadow-sm mt-1"><span class="text-[8px] font-bold text-brand-blue/60 uppercase tracking-wider">+12 Members Online</span><span class="material-symbols-rounded text-sm text-green-500/60">chat</span></div>
+                                </div>
+                            </div>
+                            <div class="p-6 border-t border-slate-100"><h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Study Groups</h4><p class="text-slate-500 text-xs font-medium mt-1">Collaborate in private circles with your peers.</p></div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide shrink-0 w-[85vw] sm:w-[400px] lg:w-[480px]">
+                        <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-xl group hover:shadow-2xl transition-all duration-500">
+                            <div class="bg-slate-800 px-6 py-4 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-yellow-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div><span class="text-white/40 text-xs ml-4 font-medium">Student Profile</span></div>
+                            <div class="p-8 flex items-center justify-center h-52 bg-gradient-to-br from-purple-500/5 to-brand-beige relative">
+                                <div class="w-full h-full flex flex-col items-center gap-3">
+                                    <div class="w-16 h-16 rounded-full bg-purple-500/20 border-2 border-white shadow-sm flex items-center justify-center"><span class="material-symbols-rounded text-3xl text-purple-500/40">person</span></div>
+                                    <div class="text-center"><div class="h-2 w-24 bg-slate-200 rounded mx-auto"></div><div class="h-1.5 w-16 bg-slate-100 rounded mx-auto mt-1"></div></div>
+                                    <div class="flex gap-4 mt-1"><div class="text-center"><div class="h-6 w-8 bg-brand-blue/10 rounded"></div><div class="h-1.5 w-10 bg-slate-100 rounded mt-1"></div></div><div class="text-center"><div class="h-6 w-8 bg-brand-orange/10 rounded"></div><div class="h-1.5 w-10 bg-slate-100 rounded mt-1"></div></div><div class="text-center"><div class="h-6 w-8 bg-green-500/10 rounded"></div><div class="h-1.5 w-10 bg-slate-100 rounded mt-1"></div></div></div>
+                                </div>
+                            </div>
+                            <div class="p-6 border-t border-slate-100"><h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Student Profile</h4><p class="text-slate-500 text-xs font-medium mt-1">Showcase your academic journey and contributions.</p></div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide shrink-0 w-[85vw] sm:w-[400px] lg:w-[480px]">
+                        <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-xl group hover:shadow-2xl transition-all duration-500">
+                            <div class="bg-slate-800 px-6 py-4 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-yellow-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div><span class="text-white/40 text-xs ml-4 font-medium">Chat System</span></div>
+                            <div class="p-8 flex items-center justify-center h-52 bg-gradient-to-br from-cyan-500/5 to-brand-blue/5 relative">
+                                <div class="w-full h-full flex flex-col gap-2">
+                                    <div class="flex items-start gap-2 max-w-[80%] self-start"><div class="w-6 h-6 rounded-full bg-cyan-500/30 shrink-0"></div><div class="bg-white/80 rounded-2xl rounded-tl-sm p-2.5 shadow-sm"><div class="h-1.5 w-16 bg-slate-200 rounded"></div></div></div>
+                                    <div class="flex items-start gap-2 max-w-[80%] self-end"><div class="bg-brand-blue/80 text-white rounded-2xl rounded-tr-sm p-2.5 shadow-sm"><div class="h-1.5 w-20 bg-white/30 rounded"></div></div><div class="w-6 h-6 rounded-full bg-brand-blue/30 shrink-0"></div></div>
+                                    <div class="flex items-start gap-2 max-w-[80%] self-start"><div class="w-6 h-6 rounded-full bg-cyan-500/30 shrink-0"></div><div class="bg-white/80 rounded-2xl rounded-tl-sm p-2.5 shadow-sm"><div class="h-1.5 w-24 bg-slate-200 rounded"></div></div></div>
+                                </div>
+                            </div>
+                            <div class="p-6 border-t border-slate-100"><h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Chat System</h4><p class="text-slate-500 text-xs font-medium mt-1">Secure messaging within study circles.</p></div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide shrink-0 w-[85vw] sm:w-[400px] lg:w-[480px]">
+                        <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-xl group hover:shadow-2xl transition-all duration-500">
+                            <div class="bg-slate-800 px-6 py-4 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-yellow-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div><span class="text-white/40 text-xs ml-4 font-medium">Upload Resource</span></div>
+                            <div class="p-8 flex items-center justify-center h-52 bg-gradient-to-br from-brand-orange/5 to-yellow-500/5 relative">
+                                <div class="w-full h-full flex flex-col items-center justify-center gap-3">
+                                    <div class="w-20 h-20 border-2 border-dashed border-brand-orange/30 rounded-2xl flex items-center justify-center bg-white/60"><span class="material-symbols-rounded text-4xl text-brand-orange/40">upload_file</span></div>
+                                    <div class="flex gap-2 flex-wrap justify-center"><div class="bg-white/80 rounded-lg px-3 py-1.5 shadow-sm"><span class="text-[7px] font-bold text-slate-400 uppercase">PDF</span></div><div class="bg-white/80 rounded-lg px-3 py-1.5 shadow-sm"><span class="text-[7px] font-bold text-slate-400 uppercase">DOCX</span></div><div class="bg-white/80 rounded-lg px-3 py-1.5 shadow-sm"><span class="text-[7px] font-bold text-slate-400 uppercase">PPT</span></div></div>
+                                </div>
+                            </div>
+                            <div class="p-6 border-t border-slate-100"><h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Upload Resource</h4><p class="text-slate-500 text-xs font-medium mt-1">Share study materials with your community.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-3 mt-8">
+                    <button onclick="document.querySelector('.carousel-track').scrollBy({left:-420,behavior:'smooth'})" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all shadow-sm"><span class="material-symbols-rounded">chevron_left</span></button>
+                    <button onclick="document.querySelector('.carousel-track').scrollBy({left:420,behavior:'smooth'})" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all shadow-sm"><span class="material-symbols-rounded">chevron_right</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SECTION 7: WHY CHOOSE CAMPUSDRIVE ── -->
+    <section class="py-20 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 space-y-4">
+                <span class="text-brand-orange font-bold uppercase text-[10px] tracking-wider font-openSans">Comparison</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-brand-blue tracking-tight font-poppins">Why Students Prefer CampusDrive</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="comparison-table w-full text-sm border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50">
+                            <th class="p-4 text-left font-bold text-brand-blue text-[10px] uppercase tracking-wider border border-slate-200 w-1/5">Features</th>
+                            <th class="p-4 text-center font-bold text-slate-400 text-[10px] uppercase tracking-wider border border-slate-200">WhatsApp</th>
+                            <th class="p-4 text-center font-bold text-slate-400 text-[10px] uppercase tracking-wider border border-slate-200">Telegram</th>
+                            <th class="p-4 text-center font-bold text-slate-400 text-[10px] uppercase tracking-wider border border-slate-200">Google Drive</th>
+                            <th class="p-4 text-center font-bold text-white text-[10px] uppercase tracking-wider bg-brand-blue border border-brand-blue/20">CampusDrive</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">Organized Resources</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-400">check</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">Academic Communities</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-400">check</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">Verified Content</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">Study Collaboration</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-400">check</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-400">check</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">Secure Communication</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-400">check</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-400">check</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">Academic Focus</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">AI Assistant (Aradhaya)</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">Structured Search & Filters</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-400">check</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                        <tr class="hover:bg-slate-50 transition-colors"><td class="p-4 font-medium text-brand-blue border border-slate-200">Circles++ Broadcast</td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center border border-slate-200"><span class="material-symbols-rounded text-slate-300">close</span></td><td class="p-4 text-center"><span class="material-symbols-rounded text-green-400">check</span></td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -377,73 +623,61 @@ insights. Access a community-driven database built for academic excellence.{% en
                     </div>
                 </div>
                 <div class="flex animate-scroll-reverse shrink-0">
-                    <!-- Student Review 1 -->
+                    <!-- Student Review 3 -->
                     <div
                         class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] w-[85vw] md:w-[400px] shrink-0 shadow-2xl mx-4">
                         <div class="flex items-center gap-5 mb-6">
                             <img src="/static/img/student.png" alt="Student Reviewer Avatar" loading="lazy"
                                 class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
                             <div>
-                                <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Sarah Johnson
+                                <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Priya Sharma
                                 </h4>
-                                <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Engineering
-                                    Student</p>
+                                <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">MCA Student
+                                </p>
                             </div>
                         </div>
-                        <p class="text-slate-600 font-medium italic text-base leading-relaxed">"CampusDrive saved my
-                            finals last semester. The library is incredibly well-organized!"</p>
+                        <p class="text-slate-600 font-medium italic text-base leading-relaxed">"The study circles feature is brilliant. My group shares notes and previous year papers effortlessly."</p>
                     </div>
-                    <!-- Teacher Review 1 -->
+                    <!-- Teacher Review 3 -->
                     <div
                         class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] w-[85vw] md:w-[400px] shrink-0 shadow-2xl mx-4">
                         <div class="flex items-center gap-5 mb-6">
                             <img src="/static/img/teacher.png" alt="Educator Reviewer Avatar" loading="lazy"
                                 class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
                             <div>
-                                <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Dr. Robert Miller
+                                <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Prof. Vikram Desai
                                 </h4>
-                                <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Physics
-                                    Professor</p>
+                                <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Data Science Faculty</p>
                             </div>
                         </div>
-                        <p class="text-slate-600 font-medium italic text-base leading-relaxed">"I recommend this to all
-                            my
-                            students. It fosters a healthy collaborative culture that is essential for academia."</p>
+                        <p class="text-slate-600 font-medium italic text-base leading-relaxed">"I use CampusDrive to distribute lab manuals and assignments across all my sections at once. Extremely efficient."</p>
                     </div>
-                    <!-- Student Review 2 -->
+                    <!-- Student Review 4 -->
                     <div
                         class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] w-[85vw] md:w-[400px] shrink-0 shadow-2xl mx-4">
                         <div class="flex items-center gap-5 mb-6">
                             <img src="/static/img/student.png" alt="Student Reviewer Avatar" loading="lazy"
                                 class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
                             <div>
-                                <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">James Wilson</h4>
-                                <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">BCA Student
-                                </p>
+                                <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Ananya Reddy</h4>
+                                <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">BTech CSE</p>
                             </div>
                         </div>
-                        <p class="text-slate-600 font-medium italic text-base leading-relaxed">"The card-based UI is so
-                            much
-                            easier to navigate than traditional library portals. Love it!"</p>
+                        <p class="text-slate-600 font-medium italic text-base leading-relaxed">"Finally, a platform that understands student needs. The Aradhaya AI assistant explains complex topics perfectly."</p>
                     </div>
-                    <!-- Teacher Review 2 -->
+                    <!-- Teacher Review 4 -->
                     <div
                         class="inline-block bg-white/95 backdrop-blur-sm p-10 rounded-[2.5rem] w-[85vw] md:w-[400px] shrink-0 shadow-2xl mx-4">
                         <div class="flex items-center gap-5 mb-6">
                             <img src="/static/img/teacher.png" alt="Educator Reviewer Avatar" loading="lazy"
                                 class="w-14 h-14 rounded-full object-cover border-2 border-brand-orange/20 p-1">
                             <div>
-                                <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Prof. Alicia
-                                    Green
+                                <h4 class="font-bold text-brand-blue text-sm uppercase tracking-wider">Dr. Meera Nair
                                 </h4>
-                                <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">HOD, Comp
-                                    Sci
-                                </p>
+                                <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Associate Prof, Physics</p>
                             </div>
                         </div>
-                        <p class="text-slate-600 font-medium italic text-base leading-relaxed">"A game-changer for
-                            student
-                            organization. The verification system is brilliant."</p>
+                        <p class="text-slate-600 font-medium italic text-base leading-relaxed">"The Circles++ broadcast feature saves me hours every week. One upload reaches all my classes instantly."</p>
                     </div>
                 </div>
             </div>
@@ -690,7 +924,7 @@ insights. Access a community-driven database built for academic excellence.{% en
                                 style="animation-delay: 1s"></div>
                         </div>
 
-                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="CampusDrive Official Identity"
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="CampusDrive Official Identity" loading="lazy"
                             class="w-40 h-40 md:w-64 md:h-64 object-contain filter drop-shadow-[0_20px_50px_rgba(0,27,183,0.15)] transform group-hover:scale-110 transition-transform duration-700">
                     </div>
 

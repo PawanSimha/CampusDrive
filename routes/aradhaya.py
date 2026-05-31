@@ -5,7 +5,8 @@ Handles the chat interface and Google Gemini integration.
 
 from flask import Blueprint, render_template, request, jsonify
 from flask_login import login_required, current_user
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from bson.objectid import ObjectId
 from datetime import datetime
 from config import Config
@@ -79,7 +80,7 @@ def chat_api():
         return jsonify({"error": "Gemini API key not configured. Please contact the administrator."}), 500
 
     try:
-        genai.configure(api_key=Config.GEMINI_API_KEY)
+        client = genai.Client(api_key=Config.GEMINI_API_KEY)
         
         # Build context
         formatted_system_prompt = SYSTEM_PROMPT.format(
@@ -87,24 +88,23 @@ def chat_api():
             name=current_user.name
         )
         
-        # Initialize the model with the system instruction
-        model = genai.GenerativeModel(
-            model_name='gemini-2.5-flash',
-            system_instruction=formatted_system_prompt
-        )
-        
         # Gemini history format requires 'user' or 'model' roles. 
         # Convert previous 'assistant' to 'model'.
         gemini_history = []
         for msg in history:
             role = "user" if msg.get("role") == "user" else "model"
-            gemini_history.append({
-                "role": role,
-                "parts": [msg.get("content", "")]
-            })
+            gemini_history.append(
+                types.Content(role=role, parts=[types.Part(text=msg.get("content", ""))])
+            )
             
         # Start a chat session with history
-        chat = model.start_chat(history=gemini_history)
+        chat = client.chats.create(
+            model='gemini-2.5-flash',
+            history=gemini_history,
+            config=types.GenerateContentConfig(
+                system_instruction=formatted_system_prompt
+            )
+        )
         
         # Call Gemini
         response = chat.send_message(user_message)
