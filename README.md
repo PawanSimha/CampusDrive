@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <img src="Campus Drive Hero.webp" alt="CampusDrive Hero" width="800" style="border-radius: 12px;" />
+  <img src="campus-drive-hero.webp" alt="CampusDrive Hero" width="800" style="border-radius: 12px;" />
 </p>
 
 ---
