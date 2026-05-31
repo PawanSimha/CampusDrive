@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block title %}Privacy Policy{% endblock %}
+{% block meta_title %}Privacy Policy{% endblock %}
+{% block meta_description %}CampusDrive Privacy Policy — how we collect, use, and protect your data in compliance with GDPR and Indian IT laws.{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-6 py-16">
+  <div class="space-y-2 mb-12">
+    <h1 class="text-4xl font-bold text-brand-blue tracking-tight font-poppins">Privacy Policy</h1>
+    <p class="text-slate-500 text-sm font-medium">Last updated: May 31, 2026</p>
+  </div>
+
+  <div class="space-y-10 text-slate-700 text-[15px] leading-relaxed">
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">1. Data Controller</h2>
+      <p>CampusDrive (operated by Pawan Simha R)<br>
+      Sapthagiri NPS University, Bengaluru, Karnataka, India<br>
+      Email: <a href="mailto:support@campusdrive.edu" class="text-brand-bright underline underline-offset-2 hover:text-brand-orange transition-colors">support@campusdrive.edu</a></p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">2. Data We Collect</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-slate-100">
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Category</th>
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Data</th>
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="p-3 border border-slate-200 font-medium">Account</td><td class="p-3 border border-slate-200">Name, email, role, password hash</td><td class="p-3 border border-slate-200">Authentication, RBAC</td></tr>
+            <tr><td class="p-3 border border-slate-200 font-medium">Profile</td><td class="p-3 border border-slate-200">Branch, semester, bio, avatar</td><td class="p-3 border border-slate-200">Personalization</td></tr>
+            <tr><td class="p-3 border border-slate-200 font-medium">Content</td><td class="p-3 border border-slate-200">Uploaded files, reviews, ratings, messages</td><td class="p-3 border border-slate-200">Core platform functionality</td></tr>
+            <tr><td class="p-3 border border-slate-200 font-medium">Contact</td><td class="p-3 border border-slate-200">Name, email, message body</td><td class="p-3 border border-slate-200">Support inquiries</td></tr>
+            <tr><td class="p-3 border border-slate-200 font-medium">Analytics</td><td class="p-3 border border-slate-200">Page views, referrer, device type</td><td class="p-3 border border-slate-200">Performance monitoring</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">3. Legal Basis (GDPR Art. 6)</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Consent</strong> — Analytics cookies, optional profile fields</li>
+        <li><strong>Contractual necessity</strong> — Account creation, resource sharing</li>
+        <li><strong>Legitimate interest</strong> — Security, fraud prevention, platform improvement</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">4. How We Use Data</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Authenticate users and enforce role-based access</li>
+        <li>Enable resource upload, sharing, and review</li>
+        <li>Deliver AI assistance via Google Gemini API (no data stored by Gemini)</li>
+        <li>Aggregate anonymous usage statistics</li>
+        <li>Respond to contact form submissions</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">5. Data Retention</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Account data:</strong> Retained until account deletion request</li>
+        <li><strong>Uploaded resources:</strong> Retained until user or admin deletion</li>
+        <li><strong>Contact messages:</strong> Retained for 12 months</li>
+        <li><strong>Analytics:</strong> Aggregated, retained for 24 months (Vercel)</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">6. Data Sharing</h2>
+      <p>We do <strong>not</strong> sell personal data. Limited sharing occurs with:</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-slate-100">
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Third Party</th>
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Purpose</th>
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Data Shared</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="p-3 border border-slate-200 font-medium">MongoDB Atlas</td><td class="p-3 border border-slate-200">Database hosting</td><td class="p-3 border border-slate-200">Encrypted user and resource data</td></tr>
+            <tr><td class="p-3 border border-slate-200 font-medium">Vercel Inc.</td><td class="p-3 border border-slate-200">Hosting, CDN, Web Analytics</td><td class="p-3 border border-slate-200">IP address, request metadata</td></tr>
+            <tr><td class="p-3 border border-slate-200 font-medium">Google Cloud (Gemini)</td><td class="p-3 border border-slate-200">AI assistant (Aradhaya)</td><td class="p-3 border border-slate-200">User query text (not stored)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">7. Your Rights</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Access:</strong> Request a copy of your data via email</li>
+        <li><strong>Rectification:</strong> Edit profile data in your Dashboard</li>
+        <li><strong>Deletion:</strong> Request account deletion (processed within 30 days)</li>
+        <li><strong>Objection:</strong> Opt out of analytics via the cookie banner</li>
+        <li><strong>Portability:</strong> Export your resources and reviews on request</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">8. Cookies</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-slate-100">
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Cookie</th>
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Type</th>
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Duration</th>
+              <th class="text-left p-3 font-bold text-brand-blue border border-slate-200">Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="p-3 border border-slate-200"><code>session</code></td><td class="p-3 border border-slate-200">Essential</td><td class="p-3 border border-slate-200">Session</td><td class="p-3 border border-slate-200">Authentication, CSRF</td></tr>
+            <tr><td class="p-3 border border-slate-200"><code>campusdrive_cookie_consent</code></td><td class="p-3 border border-slate-200">Essential</td><td class="p-3 border border-slate-200">365 days</td><td class="p-3 border border-slate-200">Consent preference</td></tr>
+            <tr><td class="p-3 border border-slate-200"><code>_vercel_analytics</code></td><td class="p-3 border border-slate-200">Analytics</td><td class="p-3 border border-slate-200">24 hours</td><td class="p-3 border border-slate-200">Vercel Web Analytics</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">9. Security</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Passwords hashed via bcrypt (PBKDF2)</li>
+        <li>All traffic over HTTPS (TLS 1.3)</li>
+        <li>CSRF protection on all POST endpoints</li>
+        <li>HTTP-only, secure, SameSite cookies</li>
+        <li>MongoDB Atlas encryption at rest and in transit</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">10. Contact</h2>
+      <p>For privacy inquiries:<br>
+      Email: <a href="mailto:support@campusdrive.edu" class="text-brand-bright underline underline-offset-2 hover:text-brand-orange transition-colors">support@campusdrive.edu</a><br>
+      Response time: Within 72 hours</p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-brand-blue font-poppins">11. Changes to This Policy</h2>
+      <p>Material changes will be announced via the platform dashboard and email notification 14 days in advance.</p>
+    </section>
+
+  </div>
+</div>
+{% endblock %}

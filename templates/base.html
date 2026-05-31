@@ -7,7 +7,7 @@
     <title>CampusDrive: {% block title %}Empowering Academic Collaboration{% endblock %}</title>
 
     <!-- Primary Meta Tags -->
-    <link rel="canonical" href="{% block canonical_url %}{{ request.url }}{% endblock %}">
+    <link rel="canonical" href="{% block canonical_url %}{{ request.base_url }}{% endblock %}">
     <meta name="title" content="CampusDrive: {% block meta_title %}Empowering Academic Collaboration{% endblock %}">
     <meta name="description"
         content="{% block meta_description %}CampusDrive — The ultimate academic collaboration platform for university students. Securely share notes, question papers, and solutions. Built with precision for academic excellence.{% endblock %}">
@@ -204,6 +204,11 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Vercel Web Analytics -->
+    <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
     {% block head %}{% endblock %}
 
 </head>
@@ -550,7 +555,7 @@
                         <li><a href="#"
                                 class="text-white/70 hover:text-brand-orange hover:translate-x-1 inline-block transition-all text-sm no-underline">Upload
                                 Guide</a></li>
-                        <li><a href="#"
+                        <li><a href="/privacy"
                                 class="text-white/70 hover:text-brand-orange hover:translate-x-1 inline-block transition-all text-sm no-underline">Privacy
                                 Policy</a></li>
                         <li><a href="#"
@@ -649,6 +654,74 @@
             });
         });
     </script>
+
+    <!-- Cookie Consent Banner (Neo-Regal) -->
+    <div id="cookieBanner" role="dialog" aria-label="Cookie consent"
+         class="fixed bottom-0 left-0 right-0 z-[200] bg-brand-blue/95 backdrop-blur-xl border-t border-white/10 shadow-2xl translate-y-full opacity-0 transition-all duration-500 ease-out"
+         style="transform: translateY(100%); opacity: 0;">
+      <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8">
+        <div class="flex items-start gap-4 flex-1 min-w-0">
+          <span class="material-symbols-rounded text-2xl text-brand-orange shrink-0 mt-0.5">cookie</span>
+          <div class="space-y-1">
+            <p class="text-white text-sm font-semibold font-poppins tracking-wide">Your Privacy Matters</p>
+            <p class="text-white/60 text-xs leading-relaxed max-w-3xl">
+              CampusDrive uses essential cookies to secure your session and optional analytics to improve your experience.
+              By clicking "Accept", you consent to our use of cookies. Read our
+              <a href="/privacy" class="text-brand-orange hover:text-white underline underline-offset-2 transition-colors">Privacy Policy</a>.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0 w-full sm:w-auto">
+          <button id="cookieDecline"
+                  class="flex-1 sm:flex-none px-5 py-2.5 rounded-xl border border-white/20 text-white/70 hover:text-white hover:border-white/40 text-[11px] font-bold uppercase tracking-widest transition-all no-underline">
+            Decline
+          </button>
+          <button id="cookieAccept"
+                  class="flex-1 sm:flex-none px-6 py-2.5 rounded-xl bg-brand-orange text-white text-[11px] font-bold uppercase tracking-widest shadow-lg shadow-orange-900/20 hover:bg-orange-600 hover:scale-105 transition-all no-underline">
+            Accept
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('cookieBanner');
+      const acceptBtn = document.getElementById('cookieAccept');
+      const declineBtn = document.getElementById('cookieDecline');
+
+      function showBanner() {
+        requestAnimationFrame(() => {
+          banner.style.transform = 'translateY(0)';
+          banner.style.opacity = '1';
+        });
+      }
+
+      function hideBanner() {
+        banner.style.transform = 'translateY(100%)';
+        banner.style.opacity = '0';
+        setTimeout(() => { banner.style.display = 'none'; }, 500);
+      }
+
+      const consent = localStorage.getItem('campusdrive_cookie_consent');
+      if (consent === 'accepted' || consent === 'declined') {
+        banner.style.display = 'none';
+      } else {
+        setTimeout(showBanner, 800);
+      }
+
+      acceptBtn.addEventListener('click', () => {
+        localStorage.setItem('campusdrive_cookie_consent', 'accepted');
+        hideBanner();
+      });
+
+      declineBtn.addEventListener('click', () => {
+        localStorage.setItem('campusdrive_cookie_consent', 'declined');
+        hideBanner();
+      });
+    });
+    </script>
+
 </body>
 
 </html>

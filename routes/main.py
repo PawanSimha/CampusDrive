@@ -49,6 +49,11 @@ def profile():
     return render_template("profile.html", user=user_data, resources=my_resources, reviews_count=my_reviews_count, favorite_resources=favorite_resources)
 
 
+@main_bp.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
+
 @main_bp.route("/contact", methods=["GET", "POST"])
 def contact():
     from app import db
@@ -75,12 +80,26 @@ def contact():
     return render_template("contact.html")
 
 
-@main_bp.route("/robots.txt")
 @main_bp.route("/sitemap.xml")
+def sitemap():
+    from flask import make_response
+    resp = make_response(render_template("sitemap.xml"))
+    resp.headers["Content-Type"] = "application/xml; charset=utf-8"
+    return resp
+
+
+@main_bp.route("/robots.txt")
+def robots():
+    from flask import make_response
+    resp = make_response(render_template("robots.txt"))
+    resp.headers["Content-Type"] = "text/plain; charset=utf-8"
+    return resp
+
+
 @main_bp.route("/ai.txt")
 @main_bp.route("/llms.txt")
 @main_bp.route("/humans.txt")
 def static_from_root():
-    """Serve static SEO/GEO files: robots.txt, sitemap.xml, ai.txt, llms.txt, humans.txt"""
+    """Serve static SEO/GEO files: ai.txt, llms.txt, humans.txt"""
     from flask import current_app
     return send_from_directory(current_app.static_folder, request.path[1:])

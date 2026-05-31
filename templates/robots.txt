@@ -1,5 +1,5 @@
 # ─── CampusDrive — Crawler Directives ──────────────────────────────
-# Production: https://campusdrive.vercel.app
+# Production: {{ request.url_root }}
 # Last updated: 2026-05-31
 
 # ── Allow AI / LLM Crawlers (GEO compliance) ───────────────────────
@@ -9,72 +9,48 @@ Allow: /
 Allow: /static/
 Disallow: /admin/
 Disallow: /edit_resource/
-Disallow: /delete_my_resource/
-Disallow: /toggle_favorite/
-Disallow: /toggle_privacy/
 
 User-agent: ChatGPT-User
 Allow: /
 Allow: /static/
 Disallow: /admin/
 Disallow: /edit_resource/
-Disallow: /delete_my_resource/
-Disallow: /toggle_favorite/
-Disallow: /toggle_privacy/
 
 User-agent: Google-Extended
 Allow: /
 Allow: /static/
 Disallow: /admin/
 Disallow: /edit_resource/
-Disallow: /delete_my_resource/
-Disallow: /toggle_favorite/
-Disallow: /toggle_privacy/
 
 User-agent: PerplexityBot
 Allow: /
 Allow: /static/
 Disallow: /admin/
 Disallow: /edit_resource/
-Disallow: /delete_my_resource/
-Disallow: /toggle_favorite/
-Disallow: /toggle_privacy/
 
 User-agent: anthropic-ai
 Allow: /
 Allow: /static/
 Disallow: /admin/
 Disallow: /edit_resource/
-Disallow: /delete_my_resource/
-Disallow: /toggle_favorite/
-Disallow: /toggle_privacy/
 
 User-agent: Claude-Web
 Allow: /
 Allow: /static/
 Disallow: /admin/
 Disallow: /edit_resource/
-Disallow: /delete_my_resource/
-Disallow: /toggle_favorite/
-Disallow: /toggle_privacy/
 
 User-agent: Applebot-Extended
 Allow: /
 Allow: /static/
 Disallow: /admin/
 Disallow: /edit_resource/
-Disallow: /delete_my_resource/
-Disallow: /toggle_favorite/
-Disallow: /toggle_privacy/
 
 User-agent: cohere-ai
 Allow: /
 Allow: /static/
 Disallow: /admin/
 Disallow: /edit_resource/
-Disallow: /delete_my_resource/
-Disallow: /toggle_favorite/
-Disallow: /toggle_privacy/
 
 # ── Default rule (all other crawlers) ──────────────────────────────
 
