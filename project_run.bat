@@ -11,7 +11,7 @@ echo ======================================================================
 echo.
 echo Launching Local Development Hub on port 5001...
 echo.
-echo [INFO] Security: CSRF Protected & Role-Based Access Enabled.
+echo [INFO] Security: CSRF Protected ^& Role-Based Access Enabled.
 echo [INFO] Infrastructure: Optimized MongoDB Atlas Integration.
 echo [INFO] Documentation: Full details available in README.md
 echo.
@@ -22,6 +22,12 @@ if errorlevel 1 (
     echo Please install Python 3.x to continue.
     pause
     exit /b
+)
+
+:: Activate virtual environment if it exists
+if exist "venv\Scripts\activate.bat" (
+    echo [SYSTEM] Activating virtual environment...
+    call venv\Scripts\activate.bat
 )
 
 :: Open the default browser to the local hub
