@@ -1,0 +1,175 @@
+# CampusDrive — LLMs Full Context
+> AI-Powered Academic Collaboration Platform for university students.
+> Securely share notes, question papers, and solutions. Built for academic excellence.
+
+## Summary
+CampusDrive connects students and educators across campuses to share academic resources, notes, and study materials. Access a community-driven repository of peer-reviewed study materials organized by subject, semester, and branch. Features a Gemini-powered AI academic assistant (Aradhaya), private study circles, and role-based access control.
+
+## Core Pages (High Value for AI Consumption)
+- Homepage: / — Platform overview, featured resources, value propositions, stats counter, testimonials
+- Social Feed: /social — Browse all public resources with search and multi-filter (subject, semester, type, branch, sort by rating/downloads/date)
+- Resource Detail: /resource/<id> — Individual resource page with description, reviews, star ratings, download counter
+- Study Circles: /groups — Private group listing for collaborative learning
+- Aradhaya.ai: /aradhaya — AI academic assistant for conceptual queries using Google Gemini 2.5 Flash
+- Subjects Vault: /subjects — Personal favorites collection (Student only)
+- Contact: /contact — Support and inquiry form with CSRF protection
+- Dashboard: /dashboard — User overview with system-wide stats, recent uploads, group memberships
+- Profile: /profile — User profile with owned resources, favorites count, review count
+- Upload Resource: /upload — Upload PDF, DOCX, PPT, XLSX, and images (max 16 MB)
+- Create Circle: /create_group — Create private study group with unique access code (AAAA-0000)
+- Join Circle: /join_group — Join existing study circle by name or invite code
+- Admin Approvals: /admin/approvals — Pending user registration queue (Admin only)
+- Admin Database: /admin/database — Full system overview (Admin only)
+- Registration: /register — Choose Student or Teacher registration path
+- Login: /login — Secure authentication portal
+- Privacy Policy: /privacy — GDPR-compliant data protection policy
+
+## Navigation Structure
+- Primary Nav: Home, Resources (/social), Study Circles (/groups), Aradhaya AI (/aradhaya), Upload (/upload), Contact (/contact)
+- Auth Nav: Login (/login), Register (/register), Dashboard (/dashboard), Profile (/profile), Logout (/logout)
+- Admin Nav: Dashboard, Approvals (/admin/approvals), Database (/admin/database)
+
+## Features
+
+### Student Experience
+- Knowledge Vault: Public repository of 20,000+ searchable, peer-reviewed academic resources with smart filters (subject, semester, type, branch, sort by rating, downloads, or date)
+- Favorites & Reviews: Personal library building with 1-5 star rating system and auto-calculated averages
+- Study Circles: Private groups with unique invite codes (AAAA-0000 format), member-only resources, announcements, and chat
+- Aradhaya.ai: Google Gemini 2.5 Flash-powered assistant with role-aware structured responses (Definition, Key Points, Workflow, Pros/Cons, Real-world Example)
+
+### Teacher Tools
+- Study Circles: Create and manage private groups with unique invite codes
+- Circles++ Broadcast: Push announcements and resources to multiple circles simultaneously
+- Announcements: Post pinned announcements visible to all circle members
+- Resource Sharing: Upload and distribute materials directly to study circles
+
+### Admin Capabilities
+- User Approvals: Approve or reject pending student/teacher registrations with one click
+- Content Moderation: Delete any user, resource, or announcement across the platform
+- System Overview: Full database statistics — users by role, teacher upload/group counts, global resource counts
+- Teacher Analytics: Per-teacher metrics on uploads and group management
+
+### Security & Access Control
+- Role-Based Access: Three-tier RBAC (Student, Teacher, Admin) with route-level guards (@admin_required decorator)
+- CSRF Protection: Flask-WTF CSRF tokens on every form and POST endpoint
+- Password Security: PBKDF2 hashing via Flask-Bcrypt with per-user salts
+- Session Security: HTTPOnly, Secure, SameSite=Lax cookies
+- File Validation: Extension whitelist (pdf, docx, ppt, pptx, xlsx, xls, png, jpg, jpeg), 16 MB size limit, UUID-based renaming
+
+## Content Policy
+- Public resources are openly accessible and indexable by search engines and AI crawlers
+- Private study group content is restricted to authenticated members only
+- All content is student and educator generated with community peer review
+- Uploading copyrighted materials without permission is strictly prohibited
+- File types supported: PDF, DOCX, PPT, PPTX, XLSX, XLS, PNG, JPG, JPEG (max 16 MB)
+- Resource quality maintained through community-driven 1-5 star rating system
+
+## Technical Stack
+- Backend: Python 3.10+, Flask 3.0, Waitress WSGI production server
+- Database: MongoDB Atlas with connection pooling (50 max), ranked indexes on download_count, avg_rating, created_at
+- AI: Google Generative AI (Gemini 2.5 Flash) with role-aware system prompts
+- Frontend: Tailwind CSS 3 (CDN), custom glassmorphism design system, Google Fonts (Poppins, Roboto, Open Sans), Material Symbols Rounded icons
+- Templating: Jinja2 with block inheritance, JSON-LD structured data, Open Graph, Twitter Cards
+- Security: Flask-Login, Flask-Bcrypt (PBKDF2), Flask-WTF (CSRF), HTTP-only secure sessions
+- File Handling: Werkzeug secure filenames, UUID-based renaming, extension whitelist
+- Testing: Python backend logic tests, role-specific test runners (Student, Teacher, Admin)
+- Deployment: Waitress WSGI, rotating file logging, Procfile for Render/Railway
+
+## SEO & Discoverability
+- LLM-Ready Metadata: ai.txt (LLM crawl guidance), robots.txt (8 AI crawlers allowed), auto-generated sitemap.xml, llms.txt, humans.txt
+- Structured Data: JSON-LD Schema.org @graph with Organization, WebSite (SearchAction), BreadcrumbList, FAQPage
+- Open Graph: og:title, og:description, og:image (MainLogo.png), og:type, og:url, og:locale (en_IN), og:site_name
+- Twitter Cards: summary_large_image card with @pawansimha attribution
+- Canonical URLs: Dynamic per-page canonical links from SITE_URL + request.path
+- GEO Optimization: Every section heading followed by descriptive subtitle for AI crawler consumption
+
+## API Endpoints
+
+### Authentication
+- GET /register — Registration page (role selection)
+- GET /register/student — Student registration form
+- POST /register/student — Submit student registration
+- GET /register/teacher — Teacher registration form
+- POST /register/teacher — Submit teacher registration (validates Teacher ID regex [A-Z]{4}[0-9]{6})
+- GET /login — Login page
+- POST /login — Authenticate user
+- GET /logout — Logout and clear session
+
+### Resources
+- GET /social — Public resource feed with search and multi-filter
+- GET /upload — Resource upload form
+- POST /upload — Upload file
+- GET /resource/<id> — Resource detail page with reviews and rating
+- POST /resource/<id> — Submit or edit a review
+- GET /download/<id> — Download file (increments counter)
+- GET /subjects — Personal favorites vault
+- GET /edit_resource/<id> — Edit resource metadata
+- POST /edit_resource/<id> — Update resource
+- GET /delete_my_resource/<id> — Delete own resource
+- GET /toggle_favorite/<id> — Add/remove from favorites
+- GET /toggle_privacy/<id> — Toggle public/private
+
+### Groups
+- GET /groups — List user's circles
+- GET /create_group — Create circle form
+- POST /create_group — Create circle with unique code
+- GET /join_group — Join circle by name or code
+- POST /join_group — Search and join circle
+- GET /group/<id> — Circle detail (members, resources, announcements, chat)
+- POST /group/<id>/announce — Post announcement
+- POST /group/<id>/message — Post chat message
+- POST /group/<id>/share_resource — Share existing resource to circle
+- POST /group/<id>/upload_resource — Upload file directly to circle
+- GET /circles_plus — Broadcast dashboard
+- POST /circles_plus — Execute broadcast
+
+### Admin
+- GET /admin/database — Full system overview
+- GET /admin/approvals — Pending user registrations queue
+- GET /admin/approve_user/<id> — Approve user
+- GET /admin/reject_user/<id> — Reject user
+- GET /admin/delete_user/<id> — Purge user
+- GET /admin/delete_resource/<id> — Delete any resource
+
+### AI Assistant
+- GET /aradhaya — Aradhaya.ai chat interface
+- POST /aradhaya/chat — Send message, receive AI response
+
+### Public / SEO
+- GET / — Landing page with latest 3 public resources
+- GET /dashboard — User dashboard with system-wide stats
+- GET /profile — User profile
+- GET /contact — Contact form
+- GET /robots.txt — Crawler directives (8 AI crawlers allowed)
+- GET /sitemap.xml — SEO sitemap
+- GET /ai.txt — LLM contextual crawl guidance
+- GET /llms.txt — GEO structured context for AI extraction
+- GET /humans.txt — Author attribution
+
+## Accessibility
+- Fully responsive down to 320px viewport width
+- Mobile hamburger navigation with slide-out panel
+- Role-adaptive interface (Student, Teacher, Admin views)
+- CSRF-protected forms on all POST endpoints
+- Material Symbols for iconography (accessible via aria-labels where applicable)
+- Fluid typography using clamp() for all viewports
+- Hover, focus, and active states on all interactive elements
+
+## Database Collections
+- users — Student, Teacher, Admin accounts with bcrypt-hashed passwords
+- resources — Uploaded files with metadata (subject, semester, branch, type, description)
+- reviews — Star ratings and text reviews linked to resources
+- groups — Study circles with unique codes, member lists, announcements
+- group_messages — Chat messages with optional file attachments
+- aradhaya_chats — AI conversation history per user
+- contact_messages — Contact form submissions
+- public_announcements — Platform-wide announcements
+- favorites — User resource bookmarking
+
+## Deployment
+- Platform: Render/Railway via Procfile (Waitress WSGI)
+- Environment: Python 3.10+, 512 MB RAM recommended
+- Logging: Rotating file handler (10 KB x 10 backups), production info-level
+- Database: MongoDB Atlas M0 free tier (512 MB storage)
+- File Storage: Local filesystem (static/uploads/)
+- Session: Server-side with HTTPOnly, Secure, SameSite=Lax cookies

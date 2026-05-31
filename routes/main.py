@@ -96,8 +96,9 @@ def robots():
 
 @main_bp.route("/ai.txt")
 @main_bp.route("/llms.txt")
+@main_bp.route("/llms-full.txt")
 @main_bp.route("/humans.txt")
 def static_from_root():
-    """Serve static SEO/GEO files: ai.txt, llms.txt, humans.txt"""
+    """Serve static SEO/GEO files: ai.txt, llms.txt, llms-full.txt, humans.txt"""
     from flask import current_app
     return send_from_directory(current_app.static_folder, request.path[1:])
