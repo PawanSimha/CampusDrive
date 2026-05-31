@@ -4,7 +4,7 @@
 
 <h1 align="center">CampusDrive</h1>
 <p align="center">
-  <em>AI-Powered Academic Collaboration Platform — Bridge the gap between curriculum and collective intelligence.</em>
+  <em>AI-Powered Academic Collaboration Platform  -  Bridge the gap between curriculum and collective intelligence.</em>
 </p>
 
 <p align="center">
@@ -28,19 +28,19 @@
 
 ### Problem
 
-University students face a fragmented academic ecosystem — notes scattered across WhatsApp groups, Google Drives, and email threads with no unified discovery, no quality validation, and no AI-assisted learning. Teachers lack tooling to distribute materials to multiple cohorts efficiently. Existing platforms are either too generic (Google Classroom) or too narrow (WhatsApp groups) to serve as a true academic hub.
+University students face a fragmented academic ecosystem  -  notes scattered across WhatsApp groups, Google Drives, and email threads with no unified discovery, no quality validation, and no AI-assisted learning. Teachers lack tooling to distribute materials to multiple cohorts efficiently. Existing platforms are either too generic (Google Classroom) or too narrow (WhatsApp groups) to serve as a true academic hub.
 
 ### Solution
 
-CampusDrive provides a single, secure, AI-augmented platform where students discover peer-reviewed resources and teachers broadcast curricula to study circles — all backed by a Gemini-powered academic assistant, **Aradhaya**. Every feature is designed around three pillars: **discovery**, **verification**, and **collaboration**.
+CampusDrive provides a single, secure, AI-augmented platform where students discover peer-reviewed resources and teachers broadcast curricula to study circles  -  all backed by a Gemini-powered academic assistant, **Aradhaya**. Every feature is designed around three pillars: **discovery**, **verification**, and **collaboration**.
 
-### Design Philosophy — Glassmorphism Academic
+### Design Philosophy  -  Glassmorphism Academic
 
-A Google Classroom-inspired glassmorphism aesthetic with a custom brand palette (`#001BB7` primary blue, `#FF8040` accent orange, `#F5F1DC` beige background). Fluid `clamp()`-based typography via Poppins, Roboto, and Open Sans. Zero external animation libraries — all micro-interactions use native CSS transitions. Every viewport is accounted for, scaling perfectly down to 320px without horizontal overflow.
+A Google Classroom-inspired glassmorphism aesthetic with a custom brand palette (`#001BB7` primary blue, `#FF8040` accent orange, `#F5F1DC` beige background). Fluid `clamp()`-based typography via Poppins, Roboto, and Open Sans. Zero external animation libraries  -  all micro-interactions use native CSS transitions. Every viewport is accounted for, scaling perfectly down to 320px without horizontal overflow.
 
 ### GEO-First Architecture
 
-Every section heading is followed by a concise, descriptive subtitle — optimized for both human readers and AI crawlers. A dedicated `ai.txt` contextual crawl guidance file, AI-friendly `robots.txt` (allowing GPTBot, ChatGPT-User, Google-Extended, PerplexityBot, Claude-Web, CCBot, OAI-SearchBot, Applebot-Extended), per-page canonical URLs, auto-generated `sitemap.xml`, and JSON-LD `WebSite` schema complete the Generative Engine Optimization layer.
+Every section heading is followed by a concise, descriptive subtitle  -  optimized for both human readers and AI crawlers. A dedicated `ai.txt` contextual crawl guidance file, AI-friendly `robots.txt` (allowing GPTBot, ChatGPT-User, Google-Extended, PerplexityBot, Claude-Web, CCBot, OAI-SearchBot, Applebot-Extended), per-page canonical URLs, auto-generated `sitemap.xml`, and JSON-LD `WebSite` schema complete the Generative Engine Optimization layer.
 
 ---
 
@@ -61,7 +61,7 @@ Every section heading is followed by a concise, descriptive subtitle — optimiz
 |---|---|
 | **Circles++ Broadcast** | Simultaneously push announcements and resources to multiple study circles |
 | **Circle Management** | Create groups with unique codes, post announcements, chat, share/upload resources directly |
-| **Admin Dashboard** | Full system overview — users by role, teacher stats (uploads, groups), global resource/groups counts |
+| **Admin Dashboard** | Full system overview  -  users by role, teacher stats (uploads, groups), global resource/groups counts |
 | **Approvals Queue** | Approve or reject pending student/teacher registrations with one click |
 | **Content Moderation** | Delete any user, resource, or announcement across the platform |
 
@@ -91,7 +91,7 @@ Every section heading is followed by a concise, descriptive subtitle — optimiz
 | **Glassmorphism Theme** | Custom brand palette (`#001BB7`, `#FF8040`, `#F5F1DC`), backdrop blur panels, premium SVG arch footer |
 | **100% Responsive** | Fluid down to 320px viewports with mobile hamburger menu, custom breakpoint logic |
 | **Typography** | Google Fonts (Poppins headings, Roboto body, Open Sans UI) with `clamp()` fluid scaling |
-| **Icons** | Material Symbols Rounded — consistent, weight-variable icon system |
+| **Icons** | Material Symbols Rounded  -  consistent, weight-variable icon system |
 | **Micro-interactions** | Hover-lift cards, underline-anchored nav links, animated stat counters, pulse status indicators |
 
 ---
@@ -120,7 +120,7 @@ Every section heading is followed by a concise, descriptive subtitle — optimiz
 
 | Action | Student | Teacher | Admin |
 |---|---|---|---|
-| Register as pending user | ✅ | ✅ | — |
+| Register as pending user | ✅ | ✅ |  -  |
 | Approve/reject users | ❌ | ❌ | ✅ |
 | Browse public resources | ✅ | ✅ | ✅ |
 | Upload resources | ✅ | ✅ | ✅ |
@@ -157,7 +157,7 @@ Every section heading is followed by a concise, descriptive subtitle — optimiz
 | **Font Loading** | Google Fonts via `<link>` preconnect with `display=swap` (no FOUT) |
 | **Database** | MongoDB connection pooling (50 max, 2500ms timeout), prebuilt ranking indexes |
 | **Logging** | Rotating file handler (10 KB × 10 backups), production info-level logging |
-| **Bundle** | Zero runtime animation libraries — all effects are CSS-native transition and keyframe |
+| **Bundle** | Zero runtime animation libraries  -  all effects are CSS-native transition and keyframe |
 
 ---
 
@@ -165,7 +165,7 @@ Every section heading is followed by a concise, descriptive subtitle — optimiz
 
 ```
 CampusDrive/
-├── app.py                      # App factory — MongoDB init, extensions, Blueprint registration
+├── app.py                      # App factory  -  MongoDB init, extensions, Blueprint registration
 ├── wsgi.py                     # Waitress production entry point
 ├── config.py                   # Environment-based configuration (MONGO_URI, SECRET_KEY, GEMINI_API_KEY)
 ├── Procfile                    # Heroku/render deployment definition
@@ -278,7 +278,7 @@ python wsgi.py
 
 ### Windows One-Click Launch
 
-Double-click `project_run.bat` — it verifies Python, opens `http://localhost:5001` in your browser, and starts the Flask server.
+Double-click `project_run.bat`  -  it verifies Python, opens `http://localhost:5001` in your browser, and starts the Flask server.
 
 ### Seeding Test Data
 
@@ -330,7 +330,7 @@ python scripts/seed_resources.py  # Populates the vault with sample study materi
 | `POST` | `/create_group` | Create circle (validates `AAAA-0000` code format, enforces uniqueness) |
 | `GET` | `/join_group` | Join circle by name or code |
 | `POST` | `/join_group` | Search & join circle |
-| `GET` | `/group/<id>` | Circle detail — members, resources, announcements, chat |
+| `GET` | `/group/<id>` | Circle detail  -  members, resources, announcements, chat |
 | `POST` | `/group/<id>/announce` | Post announcement (Teacher/Admin only) |
 | `POST` | `/group/<id>/message` | Post chat message (with optional file attachment) |
 | `POST` | `/group/<id>/share_resource` | Share existing resource to circle |
@@ -343,7 +343,7 @@ python scripts/seed_resources.py  # Populates the vault with sample study materi
 
 | Method | Route | Description |
 |---|---|---|
-| `GET` | `/admin/database` | Full system overview — users by role, teacher stats, all circles |
+| `GET` | `/admin/database` | Full system overview  -  users by role, teacher stats, all circles |
 | `GET` | `/admin/approvals` | Pending user registrations queue |
 | `GET` | `/admin/approve_user/<id>` | Approve user |
 | `GET` | `/admin/reject_user/<id>` | Reject user |
@@ -375,11 +375,11 @@ python scripts/seed_resources.py  # Populates the vault with sample study materi
 
 ## Product Roadmap
 
-- [x] **v1.0 — Core Platform** — Auth, resource upload, social feed, RBAC
-- [x] **v2.0 — Collaboration** — Study Circles, Circles++ broadcast, chat, Aradhaya AI
-- [ ] **v3.0 — Real-Time** — WebSocket-based live chat, real-time notifications, presence indicators
-- [ ] **v3.5 — Analytics** — Per-resource download analytics, teacher engagement dashboards, trending content
-- [ ] **v4.0 — Mobile Native** — React Native / Flutter mobile app with push notifications
+- [x] **v1.0  -  Core Platform**  -  Auth, resource upload, social feed, RBAC
+- [x] **v2.0  -  Collaboration**  -  Study Circles, Circles++ broadcast, chat, Aradhaya AI
+- [ ] **v3.0  -  Real-Time**  -  WebSocket-based live chat, real-time notifications, presence indicators
+- [ ] **v3.5  -  Analytics**  -  Per-resource download analytics, teacher engagement dashboards, trending content
+- [ ] **v4.0  -  Mobile Native**  -  React Native / Flutter mobile app with push notifications
 
 ---
 
@@ -419,7 +419,7 @@ python tests/run_admin_tests.py          # Admin role workflow tests
 Distributed under the **GNU General Public License v3.0**. See [`LICENSE`](LICENSE) for more information.
 
 ```
-CampusDrive — Copyright (C) 2026 Pawan Simha
+CampusDrive  -  Copyright (C) 2026 Pawan Simha
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it under certain conditions.
 ```
@@ -429,11 +429,13 @@ This is free software, and you are welcome to redistribute it under certain cond
 ## Links
 
 | Platform | URL |
-|---|---|
-| **GitHub** | [github.com/PawanSimha/CampusDrive](https://github.com/PawanSimha/CampusDrive) |
+|----------|-----|
+| **GitHub** | [github.com/PawanSimha](https://github.com/PawanSimha) |
 | **LinkedIn** | [linkedin.com/in/pawansimha](https://www.linkedin.com/in/pawansimha) |
 | **X / Twitter** | [x.com/pawansimha](https://x.com/pawansimha) |
 | **Google Developer** | [g.dev/pawansimha](https://g.dev/pawansimha) |
+| **Google Skills Profile** | [skills.google.com/public_profiles/...](https://www.skills.google.com/public_profiles/9108dded-855b-466a-b261-0a7519d472cf) |
+| **Credly Badges** | [credly.com/users/pawansimha/badges](https://www.credly.com/users/pawansimha/badges) |
 
 ---
 
