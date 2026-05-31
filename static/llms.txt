@@ -1,0 +1,42 @@
+# CampusDrive — LLMs.txt
+> AI-Powered Academic Collaboration Platform for university students.
+> Securely share notes, question papers, and solutions. Built for academic excellence.
+
+## Summary
+CampusDrive connects students and educators across campuses to share academic resources, notes, and study materials. Access a community-driven repository of peer-reviewed study materials organized by subject, semester, and branch. Features a Gemini-powered AI academic assistant (Aradhaya), private study circles, and role-based access control.
+
+## Core Pages (High Value for AI Consumption)
+- Homepage: / — Platform overview, featured resources, value propositions
+- Social Feed: /social — Browse all public resources with search and multi-filter (subject, semester, type, branch, sort)
+- Resource Detail: /resource/<id> — Individual resource page with description, reviews, ratings, download
+- Study Circles: /groups — Private group listing for collaborative learning
+- Aradhaya.ai: /aradhaya — AI academic assistant for conceptual queries
+- Subjects Vault: /subjects — Personal favorites collection (Student only)
+- Contact: /contact — Support and inquiry form
+
+## Features
+- Knowledge Vault: Public repository with searchable, peer-reviewed academic resources
+- Favorites & Reviews: Personal library building with 1-5 star rating system and calculated averages
+- Study Circles: Private groups with unique invite codes (AAAA-0000 format), member-only resources, announcements, and chat
+- Circles++ Broadcast: Teachers push announcements and resources to multiple circles simultaneously
+- Aradhaya.ai: Google Gemini 2.5 Flash-powered assistant with role-aware structured responses
+- Admin Dashboard: User approval queue, teacher analytics, content moderation
+
+## Content Policy
+- Public resources are openly accessible and indexable by search engines and AI crawlers
+- Private study group content is restricted to authenticated members only
+- All content is student and educator generated with community peer review
+- File types supported: PDF, DOCX, PPT, PPTX, XLSX, XLS, PNG, JPG, JPEG (max 16 MB)
+
+## Technical Stack
+- Backend: Python 3.10+, Flask 3.0, Waitress WSGI
+- Database: MongoDB Atlas with connection pooling and ranked indexes
+- AI: Google Generative AI (Gemini 2.5 Flash)
+- Frontend: Tailwind CSS, custom glassmorphism design system, Google Fonts (Poppins, Roboto, Open Sans), Material Symbols
+- Security: Flask-Login, Flask-Bcrypt (PBKDF2), Flask-WTF (CSRF), HTTP-only secure sessions
+
+## Accessibility
+- Fully responsive down to 320px viewport width
+- Mobile hamburger navigation
+- Role-adaptive interface (Student, Teacher, Admin views)
+- CSRF-protected forms on all POST endpoints

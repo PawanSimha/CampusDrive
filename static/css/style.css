@@ -1643,3 +1643,33 @@ select.auth-input {
     color: var(--primary-blue);
 }
 
+/* Focus-visible: keyboard focus indicators */
+:focus-visible {
+    outline: 3px solid #0046FF;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+details:focus-visible {
+    outline: 3px solid #0046FF;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid #FF8040;
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+.material-symbols-rounded:focus-visible {
+    outline: 2px solid #0046FF;
+    outline-offset: 2px;
+    border-radius: 50%;
+}
+

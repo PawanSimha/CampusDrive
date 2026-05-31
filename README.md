@@ -147,7 +147,7 @@ Every section heading is followed by a concise, descriptive subtitle  -  optimiz
 | **File Handling** | Werkzeug secure filenames, UUID-based renaming, extension whitelist (`pdf`, `docx`, `pptx`, `xlsx`, `png`, `jpg`, `jpeg`) |
 | **Testing** | Python backend logic tests, role-specific test runners (Student, Teacher, Admin) |
 | **Deployment** | Gunicorn/Waitress, Procfile, rotating file logging |
-| **SEO / AI** | `robots.txt`, `sitemap.xml`, `ai.txt`, `humans.txt`, Open Graph, Twitter Cards |
+| **SEO / AI** | `robots.txt`, `sitemap.xml`, `ai.txt`, `llms.txt`, `humans.txt`, Open Graph, Twitter Cards, JSON-LD `@graph` |
 
 ### Performance
 
@@ -207,9 +207,10 @@ CampusDrive/
 │   │   └── resource_detail.js  # Review rating interactions
 │   ├── img/                    # Brand assets (MainLogo.png, hero_v4.png, favicon, etc.)
 │   ├── uploads/                # User-uploaded file storage
-│   ├── robots.txt              # Crawler directives
+│   ├── robots.txt              # Crawler directives (traditional + AI crawlers)
 │   ├── sitemap.xml             # XML sitemap for SEO
 │   ├── ai.txt                  # LLM contextual crawl guidance
+│   ├── llms.txt                # GEO: structured LLM extraction context
 │   └── humans.txt              # Author attribution
 │
 ├── scripts/                    # Database seed & maintenance
@@ -366,9 +367,10 @@ python scripts/seed_resources.py  # Populates the vault with sample study materi
 | `GET` | `/dashboard` | User dashboard with system-wide stats |
 | `GET` | `/profile` | User profile with owned resources, favorites, review count |
 | `GET` / `POST` | `/contact` | Contact form (persists to `contact_messages` collection) |
-| `GET` | `/robots.txt` | Crawler directives |
+| `GET` | `/robots.txt` | Crawler directives (traditional + AI crawlers) |
 | `GET` | `/sitemap.xml` | SEO sitemap |
-| `GET` | `/ai.txt` | LLM crawl guidance |
+| `GET` | `/ai.txt` | LLM contextual crawl guidance |
+| `GET` | `/llms.txt` | GEO structured context for AI extraction |
 | `GET` | `/humans.txt` | Author attribution |
 
 ---
