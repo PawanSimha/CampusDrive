@@ -11,9 +11,9 @@
   IDE: VS Code / Agentic Copilot
 
 /* TECHNOLOGIES */
-  Backend: Python 3, Flask, Waitress
-  Database: MongoDB Atlas
-  Frontend: Tailwind CSS, HTML5, Vanilla JS
-  Generative AI: Google Gemini 1.5 Pro
-  Authentication: Flask-Login, Bcrypt
-  Security: Flask-WTF (CSRF Protection)
+  Backend: Python 3, Flask 3.0, Waitress WSGI
+  Database: MongoDB Atlas (with connection pooling + ranked indexes)
+  Frontend: Tailwind CSS 3, custom glassmorphism, Google Fonts, Material Symbols
+  Generative AI: Google Gemini 2.5 Flash (Aradhaya.ai)
+  Authentication: Flask-Login, Flask-Bcrypt (PBKDF2)
+  Security: Flask-WTF (CSRF), HTTP-only secure sessions, RBAC

@@ -1,5 +1,5 @@
 """
-Utility helper functions for CampusConnect App
+Utility helper functions for CampusDrive App
 """
 
 import random

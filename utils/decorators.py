@@ -1,5 +1,5 @@
 """
-Custom decorators for CampusConnect App
+Custom decorators for CampusDrive App
 """
 
 from functools import wraps
